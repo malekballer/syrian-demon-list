@@ -1,12 +1,12 @@
 import { round, score } from './score.js';
 
 /**
- * Path to directory containing `_list.json` and all levels
+ * Path to directory containing `list.json` and all levels
  */
 const dir = './data';
 
 export async function fetchList() {
-    const listResult = await fetch(`${dir}/_list.json`);
+    const listResult = await fetch(`${dir}/list.json`);
     try {
         const list = await listResult.json();
         return await Promise.all(
@@ -38,7 +38,7 @@ export async function fetchList() {
 
 export async function fetchEditors() {
     try {
-        const editorsResults = await fetch(`${dir}/_editors.json`);
+        const editorsResults = await fetch(`${dir}/editors.json`);
         const editors = await editorsResults.json();
         return editors;
     } catch {
