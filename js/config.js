@@ -1,2 +1,2 @@
-// Example in config.js
-const path = "/syrian-demon-list/"; // Use your exact repository name here
+// Change it to match your repo name exactly with surrounding slashes:
+export const path = "/syrian-demon-list/";
