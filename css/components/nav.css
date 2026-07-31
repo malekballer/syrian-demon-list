@@ -93,3 +93,9 @@ header {
 .nav__actions .nav__cta:hover:not(:active) {
     transform: translateY(-2px);
 }
+/* Automatically invert List Editor icons to white in Dark Mode */
+.dark .editors img,
+body.dark .editors img,
+header.dark ~ .page-list .editors img {
+    filter: brightness(0) invert(1);
+}
