@@ -4,6 +4,7 @@ import { round, score } from './score.js';
  * Path to directory containing `_list.json` and all levels
  * Resolves to your repository subfolder path safely on GitHub Pages
  */
+const dir = './data';
 const dir = '/syrian-demon-list/data';
 
 export async function fetchList() {
