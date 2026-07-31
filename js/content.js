@@ -2,8 +2,9 @@ import { round, score } from './score.js';
 
 /**
  * Path to directory containing `_list.json` and all levels
+ * Resolves to your repository subfolder path safely on GitHub Pages
  */
-const dir = './data';
+const dir = '/syrian-demon-list/data';
 
 export async function fetchList() {
     const listResult = await fetch(`${dir}/_list.json`);
@@ -48,6 +49,7 @@ export async function fetchEditors() {
 
 export async function fetchLeaderboard() {
     const list = await fetchList();
+    if (!list) return [[], []]; // Prevents "Cannot read properties of null (reading 'forEach')" crash!
 
     const scoreMap = {};
     const errs = [];
