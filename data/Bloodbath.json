@@ -1,18 +1,17 @@
 {
-    "id": 57436521,
-    "name": "Bloodbath",
-    "author": "Riot",
-    "creators": [],
-    "verifier": "balls",
-    "verification": "https://www.youtube.com/watch?v=ISTl28wKSXc",
-    "percentToQualify": "100",
-    "password": "Free To Copy",
-    "records": [
-        {
-          "user": "balls",
-          "link": "https://www.youtube.com/watch?v=...",
-          "percent": 100,
-          "hz": 30,
-        }
-    ]
+  "id": 1050,
+  "name": "Bloodbath",
+  "author": "Riot",
+  "creators": ["Riot", "Giron", "Vermillion", "Michigun", "Evasium", "Crack", "Asymmetry", "Havok", "Etzer", "GBoy"],
+  "verifier": "Riot",
+  "verification": "https://www.youtube.com/watch?v=PrU00j-vN7E",
+  "percentToQualify": 100,
+  "records": [
+    {
+      "user": "SyrianPlayer1",
+      "link": "https://www.youtube.com/watch?v=...",
+      "percent": 100,
+      "hz": 360
+    }
+  ]
 }
