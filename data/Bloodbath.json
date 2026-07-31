@@ -1,16 +1,16 @@
 {
-    "id": 57436521,
-    "name": "SampleLevel1",
-    "author": "LevelUploader",
-    "creators": ["Creator1", "Creator2", "Creator3"],
-    "verifier": "Verifier",
-    "verification": "https://www.youtube.com/watch?v=ISTl28wKSXc",
-    "percentToQualify": 56,
+    "id": 10565740,
+    "name": "Bloodbath",
+    "author": "Riot",
+    "creators": ["Riot", "Giron", "Vermillion", "Michigun", "Evasium", "Crack", "Asymmetry", "Havok", "Etzer", "GBoy"],
+    "verifier": "Riot",
+    "verification": "https://www.youtube.com/watch?v=PVdWwdHeb2Q",
+    "percentToQualify": 100,
     "password": "Not Copyable",
     "records": [
         {
-            "user": "Sample_Victor_1",
-            "link": "https://www.youtube.com/watch?v=MgJeijBGKHU",
+            "user": "zeinbgr",
+            "link": "https://www.youtube.com/watch?v=PVdWwdHeb2Q",
             "percent": 100,
             "hz": 360
         }
