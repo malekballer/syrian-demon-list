@@ -117,9 +117,6 @@ export default {
                     <p>
                         Do not use easy modes, only a record of the unmodified level qualifies
                     </p>
-                    <p>
-                        Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off, then afterwards we never accept records for said level
-                    </p>
                 </div>
             </div>
         </main>
