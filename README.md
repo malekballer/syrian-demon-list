@@ -1,48 +1,39 @@
-# Welcome to the Geometry Dash Shitty List template!
+# 🇸🇾 Syrian Demon List
 
-# FAQ
+Welcome to the official **Syrian Demon List**! This platform ranks and showcases the hardest Geometry Dash demon levels completed by Syrian players, complete with leaderboards, player statistics, and verified progress tracking.
 
----
-
-### Website FAQ
-
-Can I use the Shitty List template?
-
-- Sure. Credits to the shitty list are embedded onto this template so keep that in.
-
-The website isn't loading! What can I do?
-
-- Since no webhost is perfect, downtime is expected. You can either wait till the
-  website is back online or you can do some behind the scene stuff and run it
-  locally.
+🚀 **Live Site:** [malekballer.github.io/syrian-demon-list/](https://malekballer.github.io/syrian-demon-list/)
 
 ---
 
-### Usage FAQ
+## 🌟 Features
 
-How do I add levels to the list?
-
-- Use one of the provided template json files and modify the details to fill in the details
-  accordingly. If there are any errors, the site will not load, or you will get a pop up
-  saying which level isn't loading.
-
-How do I add records to the list?
-
-- Again, use one of the given templates, and modify the details accordingly. For mobile
-  records, you can add the code `mobile: true` within the braces. Make sure there are no
-  excess or missing commas, or the website might not load properly.
-
-What are some common reasons for the website not loading?
-
-- The most common cause is missing commas and inverted commas, or extra commas at the end of
-  the last lines within list entries. A good way to find the error-causing lines can be found
-  by using `Inspect Element` and going to the `Console` tab.
+* 🏆 **Demon List:** Interactive ranking of top demon levels featuring video proof, point values, level IDs, and level creators.
+* 📊 **Player Leaderboard:** Live competitive ranking system based on player completions, verifications, and progress records.
+* 🎲 **Demon Roulette:** A built-in game mode to test your skill across randomly selected list levels.
+* 🌙 **Dark Mode:** Seamless theme toggle for low-light browsing.
 
 ---
 
-## More Coming Soon!
+## 📋 Record Submission Rules
 
-## Repo Maintainers:
+To ensure fair competition on the leaderboard, all submitted completions must adhere to the following rules:
 
-- Prometheus
-- Emonadeo
+1. **Legitimate Gameplay:** No cheat software or illegal hacks allowed (FPS bypass is permitted up to 360 FPS).
+2. **Audio Proof:** Videos must include audible clicks/taps or raw game audio. Edited audio alone is invalid.
+3. **Full Attempts:** Videos must show the preceding attempt and death animation before the completion attempt.
+4. **Endwall Verification:** The recording must show the player contacting the level's endwall.
+5. **Unmodified Levels:** Records must be achieved on the official level ID listed on the site without using secret routes or easy-way bugs.
+
+---
+
+## 💬 Community & Links
+
+* 📱 **Discord Server:** [Join the Syrian GD Community](https://discord.gg/pPT7QK2cyv)
+* 📥 **Submit a Record:** [Official Record Submission Form](https://forms.gle/vFNdUoCBnFSg3rLu7)
+
+---
+
+## ⚙️ Credits
+
+* **Website Template & Design:** Based on the layout by [TheShittyList](https://tsl.pages.dev/).
