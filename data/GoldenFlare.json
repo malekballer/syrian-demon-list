@@ -1,0 +1,17 @@
+{
+    "id": 10565740,
+    "name": "Golden Flare",
+    "author": "krakow",
+    "creators": ["krakow"],
+    "verifier": "krakow",
+    "verification": "https://youtu.be/cMOrN176MBk",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "orqng3",
+            "link": "https://youtu.be/cMOrN176MBk",
+            "percent": 100
+        }
+    ]
+}
