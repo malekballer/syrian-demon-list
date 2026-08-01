@@ -1,0 +1,17 @@
+{
+    "id": 63862905,
+    "name": "Ballistic Funk",
+    "author": "IronIngot",
+    "creators": ["IronIngot"],
+    "verifier": "Laniakea",
+    "verification": "https://youtu.be/Z3ujyfJ-I_E",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "Magma",
+            "link": "https://youtu.be/Z3ujyfJ-I_E",
+            "percent": 100
+        }
+    ]
+}
