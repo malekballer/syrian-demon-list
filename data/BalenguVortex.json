@@ -1,0 +1,17 @@
+{
+    "id": 55385816,
+    "name": "Balengu Vortex",
+    "author": "Temp",
+    "creators": ["Temp", "itsHybrid", "HJfod"],
+    "verifier": "Temp",
+    "verification": "https://youtu.be/rhlmlyheq3k",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "orqng3",
+            "link": "https://youtu.be/rhlmlyheq3k",
+            "percent": 100
+        }
+    ]
+}
