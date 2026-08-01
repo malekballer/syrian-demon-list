@@ -1,0 +1,17 @@
+{
+    "id": 54953085,
+    "name": "Thinking Space",
+    "author": "Atomic",
+    "creators": ["HidekiX"],
+    "verifier": "Atomic",
+    "verification": "https://youtu.be/1R73herZtOk",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "timmyidkr",
+            "link": "https://youtu.be/1R73herZtOk",
+            "percent": 100
+        }
+    ]
+}
