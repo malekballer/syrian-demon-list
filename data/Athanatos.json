@@ -1,0 +1,17 @@
+{
+    "id": 58825144,
+    "name": "Athanatos",
+    "author": "Exenity",
+    "creators": ["Exenity", "Herzilo", "Gaelo"],
+    "verifier": "Aurorus",
+    "verification": "https://youtu.be/1OlWKpF8-tw",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "orqng3",
+            "link": "https://youtu.be/1OlWKpF8-tw",
+            "percent": 100
+        }
+    ]
+}
