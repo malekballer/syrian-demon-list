@@ -1,0 +1,17 @@
+{
+    "id": 136135870,
+    "name": "Trickshot",
+    "author": "vonic",
+    "creators": ["vonic"],
+    "verifier": "vonic",
+    "verification": "https://www.youtube.com/watch?v=D7Xv7aF74A4",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "zeinbgr",
+            "link": "https://www.youtube.com/watch?v=D7Xv7aF74A4",
+            "percent": 100
+        }
+    ]
+}
