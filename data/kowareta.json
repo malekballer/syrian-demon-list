@@ -1,0 +1,17 @@
+{
+    "id": 46763581,
+    "name": "kowareta",
+    "author": "Gablor",
+    "creators": ["Endlevel", "Minaxa", "Gablor"],
+    "verifier": "Gablor",
+    "verification": "https://youtu.be/DMIr7t9s9sA",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "timmyidkr",
+            "link": "https://youtu.be/DMIr7t9s9sA",
+            "percent": 100
+        }
+    ]
+}
