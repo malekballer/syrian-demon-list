@@ -1,0 +1,17 @@
+{
+    "id": 65588448,
+    "name": "Fragile",
+    "author": "Endlevel",
+    "creators": ["XLSpiral", "Endlevel", "Deadlox", "MadisonYuko", "iIiViRuZiIi", "Minaxa", "Zentraa", "Artu", "Gablor"],
+    "verifier": "vaen",
+    "verification": "https://youtu.be/NUjghb1uS2E",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "timmyidkr",
+            "link": "https://youtu.be/NUjghb1uS2E",
+            "percent": 100
+        }
+    ]
+}
