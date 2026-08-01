@@ -1,0 +1,17 @@
+{
+    "id": 80966089,
+    "name": "CITRA",
+    "author": "VARSE",
+    "creators": ["VARSE"],
+    "verifier": "VARSE",
+    "verification": "https://youtu.be/E4sLrwEy-WY",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "timmyidkr",
+            "link": "https://youtu.be/E4sLrwEy-WY",
+            "percent": 100
+        }
+    ]
+}
