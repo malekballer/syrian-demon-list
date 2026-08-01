@@ -1,0 +1,22 @@
+{
+    "id": 69491632,
+    "name": "Crowd Control",
+    "author": "zDeadlox",
+    "creators": ["zDeadlox"],
+    "verifier": "zDeadlox",
+    "verification": "https://youtu.be/Cf2i8l3sFy0",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "orqng3",
+            "link": "https://youtu.be/Cf2i8l3sFy0",
+            "percent": 100
+        },
+        {
+            "user": "zeinbgr",
+            "link": "https://www.youtube.com/watch?v=eeVGMELvMBU",
+            "percent": 100
+        }
+    ]
+}
