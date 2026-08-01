@@ -1,0 +1,22 @@
+{
+    "id": 21280210,
+    "name": "The Flawless",
+    "author": "fin",
+    "creators": ["crispy creepz", "raptorz", "codly", "megaspeed", "atheoz", "reverier", "xevenfurious", "fin"],
+    "verifier": "TrusTa",
+    "verification": "https://www.youtube.com/watch?v=ukuSrm2o5aE",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "zeinbgr",
+            "link": "https://www.youtube.com/watch?v=ukuSrm2o5aE",
+            "percent": 100
+        },
+        {
+            "user": "orqng3",
+            "link": "https://www.youtube.com/watch?v=W4nIK3OqHoc",
+            "percent": 100
+        }
+    ]
+}
