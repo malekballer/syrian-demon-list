@@ -4,10 +4,15 @@
     "author": "guillester",
     "creators": ["guillester", "Dienid", "notlsa"],
     "verifier": "guillester",
-    "verification": "https://www.youtube.com/watch?v=BWVmTYZ8jb4&t=68s",
+    "verification": "https://youtu.be/d_piyr9PJos",
     "percentToQualify": 100,
     "password": "Free Copy",
     "records": [
+        {
+            "user": "timmyidkr",
+            "link": "https://youtu.be/d_piyr9PJos",
+            "percent": 100
+        },
         {
             "user": "Slicer",
             "link": "https://www.youtube.com/watch?v=BWVmTYZ8jb4&t=68s",
