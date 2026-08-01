@@ -1,0 +1,17 @@
+{
+    "id": 58825144,
+    "name": "Retention",
+    "author": "KrmaL",
+    "creators": ["KrmaL"],
+    "verifier": "KrmaL",
+    "verification": "https://youtu.be/fbkW1xBSU_c",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "orqng3",
+            "link": "https://youtu.be/fbkW1xBSU_c",
+            "percent": 100
+        }
+    ]
+}
