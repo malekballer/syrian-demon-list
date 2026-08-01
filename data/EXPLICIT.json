@@ -1,0 +1,22 @@
+{
+    "id": 74028410,
+    "name": "EXPLICIT",
+    "author": "saturn",
+    "creators": ["Renn241"],
+    "verifier": "saturn",
+    "verification": "https://www.youtube.com/watch?v=QQglVmaiADI",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "zeinbgr",
+            "link": "https://www.youtube.com/watch?v=QQglVmaiADI",
+            "percent": 100
+        },
+        {
+            "user": "Spazzy",
+            "link": "https://www.youtube.com/watch?v=AuV_2xnsGVQ",
+            "percent": 100
+        }
+    ]
+}
