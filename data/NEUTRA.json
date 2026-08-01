@@ -1,0 +1,17 @@
+{
+    "id": 88611404,
+    "name": "NEUTRA",
+    "author": "Jenkins",
+    "creators": ["Jenkins", "Marwec", "ILRELL"],
+    "verifier": "aeon",
+    "verification": "https://youtu.be/-VWNS5_8yX8",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "timmyidkr",
+            "link": "https://youtu.be/-VWNS5_8yX8",
+            "percent": 100
+        }
+    ]
+}
