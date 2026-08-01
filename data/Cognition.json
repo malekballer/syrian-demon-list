@@ -1,0 +1,22 @@
+{
+    "id": 57600307,
+    "name": "Cognition",
+    "author": "Endlevel",
+    "creators": ["Endlevel", "benji8080"],
+    "verifier": "nSwish",
+    "verification": "https://www.youtube.com/watch?v=hvx_UBIJE9A",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "timmyidkr",
+            "link": "https://www.youtube.com/watch?v=hvx_UBIJE9A",
+            "percent": 100
+        },
+        {
+            "user": "zeinbgr",
+            "link": "https://youtu.be/3QIcs-kRDDg",
+            "percent": 100
+        }
+    ]
+}
