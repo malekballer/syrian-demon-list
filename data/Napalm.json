@@ -1,0 +1,17 @@
+{
+    "id": 58825144,
+    "name": "Napalm",
+    "author": "KrmaL",
+    "creators": ["KrmaL"],
+    "verifier": "KrmaL",
+    "verification": "https://youtu.be/coBbBH-gx0w",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "orqng3",
+            "link": "https://youtu.be/coBbBH-gx0w",
+            "percent": 100
+        }
+    ]
+}
