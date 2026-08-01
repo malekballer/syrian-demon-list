@@ -1,0 +1,17 @@
+{
+    "id": 59209010,
+    "name": "Spectrum Cyclone",
+    "author": "Temp",
+    "creators": ["Temp"],
+    "verifier": "Temp",
+    "verification": "https://youtu.be/KzwuPIFaMgQ",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "timmyidkr",
+            "link": "https://youtu.be/KzwuPIFaMgQ",
+            "percent": 100
+        }
+    ]
+}
