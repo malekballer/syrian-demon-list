@@ -22,14 +22,22 @@ export default {
         </main>
         <main v-else class="page-list">
             <div class="list-container">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        class="search-bar" 
+                        v-model="query" 
+                        placeholder="Search levels or creators..." 
+                    />
+                </div>
                 <table class="list" v-if="list">
-                    <tr v-for="([level, err], i) in list">
+                    <tr v-for="({ level, err, originalIndex }) in filteredList" :key="originalIndex">
                         <td class="rank">
-                            <p v-if="i + 1 <= 150" class="type-label-lg">#{{ i + 1 }}</p>
+                            <p v-if="originalIndex + 1 <= 150" class="type-label-lg">#{{ originalIndex + 1 }}</p>
                             <p v-else class="type-label-lg">Legacy</p>
                         </td>
-                        <td class="level" :class="{ 'active': selected == i, 'error': !level }">
-                            <button @click="selected = i">
+                        <td class="level" :class="{ 'active': selected == originalIndex, 'error': !level }">
+                            <button @click="selected = originalIndex">
                                 <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
                             </button>
                         </td>
@@ -57,7 +65,7 @@ export default {
                     </ul>
                     <h2>Records</h2>
                     <p v-if="selected + 1 <= 75"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
-                    <p v-else-if="selected +1 <= 150"><strong>100%</strong> or better to qualify</p>
+                    <p v-else-if="selected + 1 <= 150"><strong>100%</strong> or better to qualify</p>
                     <p v-else>This level does not accept new records.</p>
                     <table class="records">
                         <tr v-for="record in level.records" class="record">
@@ -123,13 +131,14 @@ export default {
         editors: [],
         loading: true,
         selected: 0,
+        query: '',
         errors: [],
         roleIconMap,
         store
     }),
     computed: {
         level() {
-            return this.list[this.selected][0];
+            return this.list[this.selected]?.[0] || null;
         },
         video() {
             if (!this.level.showcase) {
@@ -142,6 +151,31 @@ export default {
                     : this.level.verification
             );
         },
+        filteredList() {
+            if (!this.list) return [];
+            
+            // Map original list items to include their index position
+            const mappedList = this.list.map(([level, err], i) => ({
+                level,
+                err,
+                originalIndex: i
+            }));
+
+            if (!this.query.trim()) {
+                return mappedList;
+            }
+
+            const q = this.query.toLowerCase().trim();
+            return mappedList.filter(({ level }) => {
+                if (!level) return false;
+                
+                const nameMatch = level.name?.toLowerCase().includes(q);
+                const authorMatch = level.author?.toLowerCase().includes(q);
+                const creatorMatch = level.creators?.some(c => c.toLowerCase().includes(q));
+
+                return nameMatch || authorMatch || creatorMatch;
+            });
+        }
     },
     async mounted() {
         // Hide loading spinner
