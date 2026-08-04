@@ -127,32 +127,38 @@
     text-decoration: underline;
 }
 
-/* Search Bar styling */
+/* White Search Bar styling */
 .search-container {
     padding: 0 0.5rem 0.75rem 0.5rem;
 }
 
 .search-bar {
     width: 100%;
-    padding: 0.6rem 1rem 0.6rem 2.2rem;
+    padding: 0.6rem 1rem 0.6rem 2.4rem;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background-color: rgba(0, 0, 0, 0.25);
-    color: inherit;
+    border: 1px solid #ccc;
+    background-color: #ffffff;      /* Solid white background */
+    color: #111111;                 /* Dark readable text */
     font-family: inherit;
     font-size: 0.95rem;
+    font-weight: 500;
     outline: none;
     box-sizing: border-box;
-    transition: border-color 150ms ease, background-color 150ms ease;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
     
-    /* Search Icon */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(255,255,255,0.4)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'%3E%3C/path%3E%3C/svg%3E");
+    /* Dark Search Icon for contrast on white */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23555555'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'%3E%3C/path%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: 0.6rem center;
+    background-position: 0.7rem center;
     background-size: 1.1rem;
 }
 
+/* Optional placeholder text color */
+.search-bar::placeholder {
+    color: #777777;
+}
+
 .search-bar:focus {
-    border-color: var(--color-on-primary, #ff7700);
-    background-color: rgba(0, 0, 0, 0.4);
+    border-color: var(--color-on-primary, #00bb66);
+    box-shadow: 0 0 0 2px rgba(0, 187, 102, 0.2);
 }
