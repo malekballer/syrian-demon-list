@@ -1,0 +1,17 @@
+{
+    "id": 51791710,
+    "name": "Auditory Breaker",
+    "author": "LazerBlitz",
+    "creators": ["LazerBlitz", "Cyclic", "Manix648"],
+    "verifier": "Gabs",
+    "verification": "https://youtu.be/06lSA7Z4waI?si=0j3hzSFoS-zKIL-B",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "Slicer",
+            "link": "https://youtu.be/06lSA7Z4waI?si=0j3hzSFoS-zKIL-B",
+            "percent": 100
+        }
+    ]
+}
