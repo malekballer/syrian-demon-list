@@ -56,7 +56,13 @@ export default {
                         </li>
                         <li>
                             <div class="type-title-sm">ID</div>
-                            <p>{{ level.id }}</p>
+                            <p
+                                @click="copyId(level.id)"
+                                style="cursor: pointer; user-select: none;"
+                                title="Click to copy ID"
+                            >
+                                {{ copied ? 'Copied!' : level.id }}
+                            </p>
                         </li>
                     </ul>
                     <h2>Records</h2>
@@ -128,6 +134,7 @@ export default {
         loading: true,
         selected: 0,
         query: '',
+        copied: false,
         errors: [],
         roleIconMap,
         store
@@ -201,5 +208,12 @@ export default {
     methods: {
         embed,
         score,
+        copyId(id) {
+            navigator.clipboard.writeText(id.toString());
+            this.copied = true;
+            setTimeout(() => {
+                this.copied = false;
+            }, 1500);
+        },
     },
 };
