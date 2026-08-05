@@ -181,22 +181,30 @@ export default {
         }
     },
     async mounted() {
-        // Hide loading spinner
         this.list = await fetchList();
         this.editors = await fetchEditors();
 
         const param = this.$route.params.level;
-    
+
         if (param && this.list) {
-            // Find by Level ID or Level Name
             const foundIndex = this.list.findIndex(([lvl]) => 
                 lvl && (lvl.id.toString() === param || lvl.name.toLowerCase() === param.toLowerCase())
             );
-        
-            // If found, select it; otherwise default to #1 rank
-            this.selected = foundIndex !== -1 ? foundIndex : 0;
+            if (foundIndex !== -1) {
+                this.selected = foundIndex;
+            } else {
+                this.selected = 0;
+                // Update URL to the default #1 level without creating extra history history entry
+                if (this.list[0]?.[0]) {
+                    this.$router.replace(`/${this.list[0][0].id}`);
+                }
+            }
         } else {
-            this.selected = 0; // Default fallback to #1 level
+            this.selected = 0;
+            // Update URL to default #1 level when loading base URL /#/
+            if (this.list[0]?.[0]) {
+                this.$router.replace(`/${this.list[0][0].id}`);
+            }
         }
 
         this.loading = false;
