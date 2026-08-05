@@ -102,3 +102,143 @@ html, body, #app {
     margin: 0 !important;
     padding: 0 !important;
 }
+
+/* ============================================================
+   GLOBAL MOBILE RESPONSIVE MASTER FIX (< 900px)
+   ============================================================ */
+@media screen and (max-width: 900px) {
+
+    /* 1. Prevent Horizonal Page Overflow */
+    html, body, #app {
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 2. HEADER & NAVIGATION FIX */
+    header {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0.75rem 0.5rem !important;
+        gap: 0.5rem !important;
+        height: auto !important;
+    }
+
+    header .logo {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+    }
+
+    header .logo h2 {
+        display: block !important; /* Forces logo text visibility */
+        font-size: 1.1rem !important;
+    }
+
+    header .nav {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+    }
+
+    header .nav__actions {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+    }
+
+    /* 3. SPINNER CENTER FIX */
+    main > div.spinner,
+    .spinner {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 4rem auto !important;
+        width: 100% !important;
+    }
+
+    /* 4. LIST PAGE STACK FIX */
+    main.page-list,
+    .page-list {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: none !important;
+        padding: 0.5rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 5. LEADERBOARD PAGE STACK FIX */
+    .page-leaderboard-container,
+    .page-leaderboard,
+    main.page-leaderboard {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: none !important;
+        padding: 0.5rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .board-container,
+    .player-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    /* 6. ROULETTE PAGE STACK FIX */
+    .page-roulette,
+    main.page-roulette {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: none !important;
+        padding: 0.5rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .page-roulette .sidebar,
+    .page-roulette .levels-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    /* 7. ALL CONTAINERS FULL-WIDTH OVERRIDE */
+    .list-container,
+    .level-container,
+    .meta-container,
+    .level {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Make selection sidebars scrollable vertically on phones */
+    .list-container,
+    .board-container {
+        max-height: 250px !important;
+        overflow-y: auto !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 0.5rem;
+    }
+
+    /* Responsive Video Frames */
+    .level .video, 
+    #videoframe,
+    .levels .video {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 16 / 9 !important;
+    }
+}
