@@ -1,0 +1,17 @@
+{
+    "id": 114933189,
+    "name": "ThroughTheDecay",
+    "author": "spark",
+    "creators": ["spark"],
+    "verifier": "spark",
+    "verification": "http://youtube.com/watch?v=0GhjD08v-jo&t=2s",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "Slicer",
+            "link": "http://youtube.com/watch?v=0GhjD08v-jo&t=2s",
+            "percent": 100
+        }
+    ]
+}
