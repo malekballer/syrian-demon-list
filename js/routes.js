@@ -4,6 +4,6 @@ import Roulette from './pages/Roulette.js';
 
 export default [
     { path: '/:level?', component: List },
-    { path: '/leaderboard', component: Leaderboard },
+    { path: '/leaderboard/:user?', component: Leaderboard }, // <-- ADD :user? HERE
     { path: '/roulette', component: Roulette },
 ];
