@@ -34,7 +34,7 @@ export default {
                                 <p class="type-label-lg">{{ localize(ientry.total) }}</p>
                             </td>
                             <td class="user" :class="{ 'active': selected == i }">
-                                <button @click="selected = i">
+                                <button @click="selectUser(i)">
                                     <span class="type-label-lg">{{ ientry.user }}</span>
                                 </button>
                             </td>
@@ -101,10 +101,29 @@ export default {
         const [leaderboard, err] = await fetchLeaderboard();
         this.leaderboard = leaderboard;
         this.err = err;
+
+        // Check for URL parameter (e.g., /#/leaderboard/orqng3)
+        const param = this.$route.params.user;
+        if (param && this.leaderboard) {
+            const foundIndex = this.leaderboard.findIndex(
+                (entry) => entry.user.toLowerCase() === param.toLowerCase()
+            );
+            this.selected = foundIndex !== -1 ? foundIndex : 0;
+        } else {
+            this.selected = 0;
+        }
+
         // Hide loading spinner
         this.loading = false;
     },
     methods: {
         localize,
+        selectUser(index) {
+            this.selected = index;
+            const currentUser = this.leaderboard[index]?.user;
+            if (currentUser) {
+                this.$router.push(`/leaderboard/${encodeURIComponent(currentUser)}`);
+            }
+        },
     },
 };
