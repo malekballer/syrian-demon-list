@@ -102,18 +102,27 @@ export default {
         this.leaderboard = leaderboard;
         this.err = err;
 
-        // Check for URL parameter (e.g., /#/leaderboard/orqng3)
         const param = this.$route.params.user;
+
         if (param && this.leaderboard) {
             const foundIndex = this.leaderboard.findIndex(
                 (entry) => entry.user.toLowerCase() === param.toLowerCase()
             );
-            this.selected = foundIndex !== -1 ? foundIndex : 0;
+            if (foundIndex !== -1) {
+                this.selected = foundIndex;
+            } else {
+                this.selected = 0;
+                if (this.leaderboard[0]?.user) {
+                    this.$router.replace(`/leaderboard/${encodeURIComponent(this.leaderboard[0].user)}`);
+                }
+            }
         } else {
             this.selected = 0;
+            if (this.leaderboard[0]?.user) {
+                this.$router.replace(`/leaderboard/${encodeURIComponent(this.leaderboard[0].user)}`);
+            }
         }
 
-        // Hide loading spinner
         this.loading = false;
     },
     methods: {
