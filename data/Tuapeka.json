@@ -1,0 +1,17 @@
+{
+    "id": 92299438,
+    "name": "Tuapeka",
+    "author": "feijoaoa",
+    "creators": ["feijoaoa"],
+    "verifier": "feijoaoa",
+    "verification": "youtube.com/watch?v=0GhjD08v-jo&t=2s",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "Slicer",
+            "link": "youtube.com/watch?v=0GhjD08v-jo&t=2s",
+            "percent": 100
+        }
+    ]
+}
