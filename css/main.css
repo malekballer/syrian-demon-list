@@ -242,3 +242,23 @@ html, body, #app {
         aspect-ratio: 16 / 9 !important;
     }
 }
+
+/* ==========================================
+   SPINNER CENTER FIX (ALL SCREENS)
+   ========================================== */
+main > .spinner,
+main > div:has(.spinner),
+.spinner {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 4rem auto !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+    left: auto !important;
+    right: auto !important;
+}
