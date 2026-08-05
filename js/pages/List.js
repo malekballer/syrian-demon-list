@@ -211,7 +211,7 @@ export default {
                 // Updates URL to /136135870 (or /1 for rank)
                 this.$router.push(`/${currentLevel.id}`);
             }
-        }
+        },
         copyId(id) {
             navigator.clipboard.writeText(id.toString());
             this.copied = true;
