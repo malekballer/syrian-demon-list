@@ -177,3 +177,68 @@ body.dark .search-bar {
 body.dark .search-bar::placeholder {
     color: #aaa !important;
 }
+
+/* ==========================================
+   MOBILE RESPONSIVE FIX (Under 850px)
+   ========================================== */
+@media screen and (max-width: 850px) {
+    /* 1. Stack the main list container vertically */
+    .page-list {
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 0.5rem !important;
+        gap: 1.5rem !important;
+    }
+
+    /* 2. Make all three sub-containers take 100% width */
+    .list-container,
+    .level-container,
+    .meta-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. Limit the height of the level list sidebar so it doesn't scroll forever */
+    .list-container {
+        max-height: 280px !important;
+        overflow-y: auto !important;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 1rem;
+    }
+
+    /* 4. Fix video frame aspect ratio for phone screens */
+    .level .video, 
+    #videoframe {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 16 / 9 !important;
+    }
+
+    /* 5. Clean up stats layout (Points, ID, Password) */
+    .stats {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 1rem !important;
+        justify-content: space-between !important;
+    }
+
+    .stats li {
+        flex: 1 1 30% !important;
+        min-width: 80px !important;
+    }
+
+    /* 6. Fix header navigation wrap on mobile */
+    header {
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+        justify-content: center !important;
+    }
+
+    nav {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+    }
+}
