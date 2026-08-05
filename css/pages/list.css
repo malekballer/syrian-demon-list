@@ -162,3 +162,18 @@
     border-color: var(--color-on-primary, #00bb66);
     box-shadow: 0 0 0 2px rgba(0, 187, 102, 0.2);
 }
+/* Dark Mode Override for Search Bar */
+.dark .search-bar,
+body.dark .search-bar {
+    background-color: rgba(30, 30, 30, 0.85) !important;
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+
+    /* Invert search icon to light gray for dark background */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23cccccc'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'%3E%3C/path%3E%3C/svg%3E") !important;
+}
+
+.dark .search-bar::placeholder,
+body.dark .search-bar::placeholder {
+    color: #aaa !important;
+}
