@@ -1,0 +1,17 @@
+{
+    "id": 68848817,
+    "name": "Lexycat",
+    "author": "Renn241",
+    "creators": ["icedcave", "Lexycat", "Stormfly"],
+    "verifier": "Johnfree",
+    "verification": "https://www.youtube.com/watch?v=4mCEgx3bQW8",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "zeinbgr",
+            "link": "https://www.youtube.com/watch?v=4mCEgx3bQW8",
+            "percent": 100
+        }
+    ]
+}
