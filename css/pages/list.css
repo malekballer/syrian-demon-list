@@ -179,62 +179,74 @@ body.dark .search-bar::placeholder {
 }
 
 /* ==========================================
-   FULL-WIDTH MOBILE LAYOUT OVERRIDE (< 900px)
+   MOBILE & NAVBAR FIX (< 850px)
    ========================================== */
-@media screen and (max-width: 900px) {
-    /* Force page wrappers to stretch to full screen width */
-    html, body, #app {
+@media screen and (max-width: 850px) {
+    /* 1. Header & Navigation Cleanup */
+    header {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
         width: 100% !important;
         max-width: 100vw !important;
-        overflow-x: hidden !important;
+        padding: 0.75rem 0.5rem !important;
+        box-sizing: border-box !important;
+        gap: 0.75rem !important;
     }
 
-    /* Convert list layout into a single vertical full-width column */
+    header .logo {
+        justify-content: center !important;
+    }
+
+    header .nav {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+    }
+
+    header .nav__actions {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+    }
+
+    /* 2. Main Page Layout (Single Column Stack) */
     main.page-list,
     .page-list {
         display: flex !important;
         flex-direction: column !important;
+        grid-template-columns: none !important;
         width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
+        max-width: 100vw !important;
         padding: 0.5rem !important;
         box-sizing: border-box !important;
-        grid-template-columns: none !important;
     }
 
-    /* Force all child sections (sidebar, level area, meta area) to fill 100% width */
-    .page-list > div,
+    /* Force all inner boxes to fit screen width */
     .list-container,
     .level-container,
     .meta-container,
     .level {
         width: 100% !important;
         max-width: 100% !important;
-        min-width: 100% !important;
+        min-width: 0 !important;
         box-sizing: border-box !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
     }
 
-    /* Fix Level Sidebar height on mobile so it doesn't take over the page */
+    /* 3. Level Sidebar Height Lock */
     .list-container {
-        max-height: 250px !important;
+        max-height: 240px !important;
         overflow-y: auto !important;
     }
 
-    /* Make video frame stretch to fill full mobile width properly */
+    /* 4. Responsive Video Frame */
     .level .video, 
     #videoframe {
         width: 100% !important;
         max-width: 100% !important;
         height: auto !important;
         aspect-ratio: 16 / 9 !important;
-    }
-
-    /* Header Nav wrap fix */
-    header {
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 0.5rem !important;
     }
 }
