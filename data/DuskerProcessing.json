@@ -1,0 +1,17 @@
+{
+    "id": 91509581,
+    "name": "Dusker Processing",
+    "author": "DuskerHu",
+    "creators": ["DuskerHu"],
+    "verifier": "DuskerHu",
+    "verification": "https://www.youtube.com/watch?v=UpYH9DA42X0",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "zeinbgr",
+            "link": "https://www.youtube.com/watch?v=UpYH9DA42X0",
+            "percent": 100
+        }
+    ]
+}
