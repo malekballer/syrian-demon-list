@@ -1,0 +1,17 @@
+{
+    "id": 34057654,
+    "name": "Black Blizzard",
+    "author": "KrmaL",
+    "creators": ["KrmaL"],
+    "verifier": "KrmaL",
+    "verification": "https://youtu.be/DLkpWPxVMq4?si=il7NWT7Gpl01-CVh",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "Slicer",
+            "link": "https://youtu.be/DLkpWPxVMq4?si=il7NWT7Gpl01-CVh",
+            "percent": 100
+        }
+    ]
+}
