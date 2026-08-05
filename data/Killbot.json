@@ -1,0 +1,22 @@
+{
+    "id": 38754426,
+    "name": "Killbot",
+    "author": "Bold",
+    "creators": ["Lithifusion"],
+    "verifier": "Bold",
+    "verification": "https://youtu.be/C4Z8Xr9w1mA?si=v1FPoCUhvYsREA-Z",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "Slicer",
+            "link": "https://youtu.be/C4Z8Xr9w1mA?si=v1FPoCUhvYsREA-Z",
+            "percent": 100
+        },
+        {
+            "user": "zeinbgr",
+            "link": "https://youtu.be/FvFrqp4MyCA",
+            "percent": 100
+        }
+    ]
+}
