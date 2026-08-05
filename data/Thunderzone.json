@@ -1,0 +1,17 @@
+{
+    "id": 63858842,
+    "name": "Thunderzone",
+    "author": "Cersia",
+    "creators": ["henry500, awedy, TheLasaga, Inside, fruitsalad"],
+    "verifier": "Slithium",
+    "verification": "https://youtu.be/O1WYw0b8D_M",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "zeinbgr",
+            "link": "https://youtu.be/O1WYw0b8D_M",
+            "percent": 100
+        }
+    ]
+}
