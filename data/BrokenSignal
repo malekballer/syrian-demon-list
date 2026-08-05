@@ -1,0 +1,17 @@
+{
+    "id": 69108628,
+    "name": "Broken Signal",
+    "author": "Grax",
+    "creators": ["Grax"],
+    "verifier": "Grax",
+    "verification": "https://www.youtube.com/watch?v=NNAhiTyD71Y",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "ducc",
+            "link": "https://www.youtube.com/watch?v=NNAhiTyD71Y",
+            "percent": 100
+        }
+    ]
+}
