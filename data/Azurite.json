@@ -4,10 +4,15 @@
     "author": "Sillow",
     "creators": ["Sillow"],
     "verifier": "Sillow",
-    "verification": "https://www.youtube.com/watch?v=yHltEKL5dno",
+    "verification": "https://www.youtube.com/watch?v=vqdwuZN1nok",
     "percentToQualify": 100,
     "password": "Free Copy",
     "records": [
+        {
+            "user": "ZMI",
+            "link": "https://www.youtube.com/watch?v=vqdwuZN1nok",
+            "percent": 100
+        },
         {
             "user": "zeinbgr",
             "link": "https://www.youtube.com/watch?v=yHltEKL5dno",
