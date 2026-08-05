@@ -37,7 +37,7 @@ export default {
                             <p v-else class="type-label-lg">Legacy</p>
                         </td>
                         <td class="level" :class="{ 'active': selected == originalIndex, 'error': !level }">
-                            <button @click="selected = originalIndex">
+                            <button @click="selectLevel(originalIndex)">
                                 <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
                             </button>
                         </td>
@@ -185,22 +185,18 @@ export default {
         this.list = await fetchList();
         this.editors = await fetchEditors();
 
-        // Error handling
-        if (!this.list) {
-            this.errors = [
-                "Failed to load list. Retry in a few minutes or notify list staff.",
-            ];
-        } else {
-            this.errors.push(
-                ...this.list
-                    .filter(([_, err]) => err)
-                    .map(([_, err]) => {
-                        return `Failed to load level. (${err}.json)`;
-                    })
+        const param = this.$route.params.level;
+    
+        if (param && this.list) {
+            // Find by Level ID or Level Name
+            const foundIndex = this.list.findIndex(([lvl]) => 
+                lvl && (lvl.id.toString() === param || lvl.name.toLowerCase() === param.toLowerCase())
             );
-            if (!this.editors) {
-                this.errors.push("Failed to load list editors.");
-            }
+        
+            // If found, select it; otherwise default to #1 rank
+            this.selected = foundIndex !== -1 ? foundIndex : 0;
+        } else {
+            this.selected = 0; // Default fallback to #1 level
         }
 
         this.loading = false;
@@ -208,6 +204,14 @@ export default {
     methods: {
         embed,
         score,
+        selectLevel(index) {
+            this.selected = index;
+            const currentLevel = this.list[index]?.[0];
+            if (currentLevel) {
+                // Updates URL to /136135870 (or /1 for rank)
+                this.$router.push(`/${currentLevel.id}`);
+            }
+        }
         copyId(id) {
             navigator.clipboard.writeText(id.toString());
             this.copied = true;
