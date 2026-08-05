@@ -179,39 +179,34 @@ body.dark .search-bar::placeholder {
 }
 
 /* ==========================================
-   MOBILE GRID OVERRIDE (< 900px)
+   CLEAN MOBILE LAYOUT (< 900px)
    ========================================== */
 @media screen and (max-width: 900px) {
-    /* Force grid to stack into 1 single full-width column */
     main.page-list,
     .page-list {
         display: flex !important;
         flex-direction: column !important;
-        grid-template-columns: 1fr !important; /* Overrides CSS Grid */
-        padding: 0.5rem !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
+        grid-template-columns: none !important;
+        padding: 0.75rem !important;
+        gap: 1.5rem !important;
     }
 
-    /* Make all inner columns take 100% device width */
-    .page-list > div,
     .list-container,
     .level-container,
     .meta-container {
         width: 100% !important;
         max-width: 100% !important;
         min-width: 100% !important;
-        grid-column: span 1 !important;
         box-sizing: border-box !important;
     }
 
-    /* Prevent sidebar list from stretching endlessly on mobile */
+    /* Keep level selection menu easy to scroll on phones */
     .list-container {
-        max-height: 250px !important;
+        max-height: 260px !important;
         overflow-y: auto !important;
     }
 
-    /* Video scaling */
+    /* Video scaling fix */
     .level .video, 
     #videoframe {
         width: 100% !important;
