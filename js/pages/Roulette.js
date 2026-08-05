@@ -16,14 +16,6 @@ export default {
                     Shameless copy of the Extreme Demon Roulette by <a href="https://matcool.github.io/extreme-demon-roulette/" target="_blank">matcool</a>.
                 </p>
                 <form class="options">
-                    <div class="check">
-                        <input type="checkbox" id="main" value="Main List" v-model="useMainList">
-                        <label for="main">Main List</label>
-                    </div>
-                    <div class="check">
-                        <input type="checkbox" id="extended" value="Extended List" v-model="useExtendedList">
-                        <label for="extended">Extended List</label>
-                    </div>
                     <Btn @click.native.prevent="onStart">{{ levels.length === 0 ? 'Start' : 'Restart'}}</Btn>
                 </form>
                 <p class="type-label-md" style="color: #aaa">
@@ -106,8 +98,6 @@ export default {
         percentage: undefined,
         givenUp: false,
         showRemaining: false,
-        useMainList: true,
-        useExtendedList: true,
         toasts: [],
         fileInput: undefined,
     }),
@@ -163,10 +153,6 @@ export default {
                 return;
             }
 
-            if (!this.useMainList && !this.useExtendedList) {
-                return;
-            }
-
             this.loading = true;
 
             const fullList = await fetchList();
@@ -179,19 +165,15 @@ export default {
                 return;
             }
 
-            const fullListMapped = fullList.map(([lvl, _], i) => ({
+            // Map all valid levels in the list
+            const list = fullList.map(([lvl, _], i) => ({
                 rank: i + 1,
                 id: lvl.id,
                 name: lvl.name,
                 video: lvl.verification,
             }));
-            const list = [];
-            if (this.useMainList) list.push(...fullListMapped.slice(0, 75));
-            if (this.useExtendedList) {
-                list.push(...fullListMapped.slice(75, 150));
-            }
 
-            // random 100 levels
+            // Shuffle all list levels
             this.levels = shuffle(list).slice(0, 100);
             this.showRemaining = false;
             this.givenUp = false;
