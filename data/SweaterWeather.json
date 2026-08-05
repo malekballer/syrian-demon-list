@@ -1,0 +1,22 @@
+{
+    "id": 81148582,
+    "name": "Sweater Weather",
+    "author": "VelYT",
+    "creators": ["VelYT"],
+    "verifier": "xfire",
+    "verification": "https://www.youtube.com/watch?v=LuzVPmj4pZw",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "zeinbgr",
+            "link": "https://www.youtube.com/watch?v=LuzVPmj4pZw",
+            "percent": 100
+        },
+        {
+            "user": "Slicer",
+            "link": "https://www.youtube.com/watch?v=atpQs_6NuHY",
+            "percent": 100
+        }
+    ]
+}
