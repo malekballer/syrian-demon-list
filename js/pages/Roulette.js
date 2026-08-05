@@ -7,7 +7,7 @@ import Btn from '../components/Btn.js';
 export default {
     components: { Spinner, Btn },
     template: `
-        <main v-if="loading">
+        <main v-if="loading" class="loading-container">
             <Spinner></Spinner>
         </main>
         <main v-else class="page-roulette">
