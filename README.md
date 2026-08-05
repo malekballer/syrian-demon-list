@@ -19,7 +19,7 @@ Welcome to the official **Syrian Demon List**! This platform ranks and showcases
 
 To ensure fair competition on the leaderboard, all submitted completions must adhere to the following rules:
 
-1. **Legitimate Gameplay:** No cheat software or illegal hacks allowed (FPS bypass is permitted up to 360 FPS).
+1. **Legitimate Gameplay:** No cheat software or illegal hacks allowed.
 2. **Audio Proof:** Videos must include audible clicks/taps or raw game audio. Edited audio alone is invalid.
 3. **Full Attempts:** Videos must show the preceding attempt and death animation before the completion attempt.
 4. **Endwall Verification:** The recording must show the player contacting the level's endwall.
