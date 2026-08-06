@@ -1,0 +1,17 @@
+{
+    "id": 71728635,
+    "name": "Helios",
+    "author": "Canonlaw",
+    "creators": ["GTrap", "Haidenn", "s3batr0nic", "CarlosArt16", "Canonlaw"],
+    "verifier": "Easterbuny",
+    "verification": "https://www.youtube.com/watch?v=dleg1MKBFe0",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "Gross cat",
+            "link": "https://www.youtube.com/watch?v=dleg1MKBFe0",
+            "percent": 100
+        }
+    ]
+}
