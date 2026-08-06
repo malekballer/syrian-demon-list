@@ -1,4 +1,4 @@
-# 🇸🇾 Syrian Demon List
+# Syrian Demon List
 
 Welcome to the official **Syrian Demon List**! This platform ranks and showcases the hardest Geometry Dash demon levels completed by Syrian players, complete with leaderboards, player statistics, and verified progress tracking.
 
