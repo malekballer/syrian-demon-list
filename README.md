@@ -31,7 +31,7 @@ To ensure fair competition on the leaderboard, all submitted completions must ad
 
 * 📱 **Discord Server:** [Join the Syrian GD Community](https://discord.gg/pPT7QK2cyv)
 * 📥 **Submit a Record:** [Official Record Submission Form](https://forms.gle/vFNdUoCBnFSg3rLu7)
-
+ 
 ---
 
 ## ⚙️ Credits
