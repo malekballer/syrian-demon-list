@@ -27,6 +27,12 @@
             "user": "Slicer",
             "link": "https://www.youtube.com/watch?v=LndSb5UCE50",
             "percent": 100
+        },
+        {
+            "user": "Lelouch vi brittania",
+            "link": "https://www.youtube.com/watch?v=Ws3oCanpOBA",
+            "mobile": true,
+            "percent": 100
         }
     ]
 }
