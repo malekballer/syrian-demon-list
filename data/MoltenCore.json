@@ -1,0 +1,17 @@
+{
+    "id": 68414488,
+    "name": "Molten Core",
+    "author": "Janucha",
+    "creators": ["Janucha"],
+    "verifier": "Lucidium",
+    "verification": "https://www.youtube.com/watch?v=IFiEg-eO_dY",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "orqng3",
+            "link": "https://www.youtube.com/watch?v=IFiEg-eO_dY",
+            "percent": 100
+        }
+    ]
+}
