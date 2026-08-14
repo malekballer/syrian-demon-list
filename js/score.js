@@ -11,24 +11,36 @@ const scale = 3;
  * @returns {Number}
  */
 export function score(rank, percent, minPercent) {
+    // Reverted back to original rank 150 limit
     if (rank > 150) {
         return 0;
     }
+    
+    // Progress records remain for Top 75 levels
     if (rank > 75 && percent < 100) {
         return 0;
     }
 
-    // Old formula
-    /*
-    let score = (100 / Math.sqrt((rank - 1) / 50 + 0.444444) - 50) *
-        ((percent - (minPercent - 1)) / (100 - (minPercent - 1)));
-    */
-    // New formula
-    let score = (-24.9975*Math.pow(rank-1, 0.4) + 200) *
-        ((percent - (minPercent - 1)) / (100 - (minPercent - 1)));
+    // Determine 100% completion points based on your benchmarks:
+    // #1 (Trickshot) = 650, #17 (Sonic Wave) = 50, #48 (Bloodbath) = 7, #99 (Acu) = 1.5
+    let maxPoints;
+    if (rank <= 17) {
+        // Curve from #1 (650) to #17 (50)
+        maxPoints = 650 * Math.pow(0.85108, rank - 1);
+    } else if (rank <= 48) {
+        // Curve from #17 (50) to #48 (7)
+        maxPoints = 50 * Math.pow(0.93856, rank - 17);
+    } else {
+        // Curve from #48 (7) down through the rest of the list
+        maxPoints = 7 * Math.pow(0.96963, rank - 48);
+    }
+
+    // Scale points by percentage completion
+    let score = maxPoints * ((percent - (minPercent - 1)) / (100 - (minPercent - 1)));
 
     score = Math.max(0, score);
 
+    // Apply standard progress penalty (1/3 point reduction) for non-100% runs
     if (percent != 100) {
         return round(score - score / 3);
     }
