@@ -1,0 +1,17 @@
+{
+    "id": 123912413,
+    "name": "squeak",
+    "author": "chloechu",
+    "creators": ["chloechu, Pncsr"],
+    "verifier": "Zeronium",
+    "verification": "https://youtu.be/Q-TjSOV8T24",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "zeinbgr",
+            "link": "https://youtu.be/Q-TjSOV8T24",
+            "percent": 100
+        }
+    ]
+}
