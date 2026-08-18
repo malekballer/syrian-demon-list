@@ -1,0 +1,23 @@
+{
+    "id": 62556400,
+    "name": "Codependence (2P)",
+    "author": "TCTeam",
+    "creators": ["eridani", "Cultrix", "Artos", "Keyblade", "Jhreen", "Hko", "Licen", "Yoonsrdynamix", "Konsi", "Xaren", "para", "Pingui", "Xyl", "Astion", "Brittank88", "GaidenHertuny", 
+      "Isane", "Arceus", "Cotchy", "Peroxide", "Delta", "Woom", "Tom", "ViralDL", "CesDroid", "Carloz", "AutumnLotus", "Zent", "StarkytheSalad", "Yuki"],
+    "verifier": "Kapinapi",
+    "verification": "https://www.youtube.com/watch?v=w0WYFKGp1Hk",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "Slicer",
+            "link": "https://www.youtube.com/watch?v=w0WYFKGp1Hk",
+            "percent": 100
+        },
+        {
+            "user": "ducc",
+            "link": "https://www.youtube.com/watch?v=w0WYFKGp1Hk",
+            "percent": 100
+        }
+    ]
+}
