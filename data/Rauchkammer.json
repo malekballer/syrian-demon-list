@@ -1,1 +1,17 @@
-
+{
+    "id": 146399247,
+    "name": "rauchkammer",
+    "author": "Devilmine",
+    "creators": ["Devilmine"],
+    "verifier": "Devilmine",
+    "verification": "https://youtu.be/P7vVZSv8U68",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "zeinbgr",
+            "link": "https://youtu.be/P7vVZSv8U68",
+            "percent": 100
+        }
+    ]
+}
