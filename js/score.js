@@ -22,12 +22,12 @@ export function score(rank, percent, minPercent) {
     }
 
     // Determine 100% completion points based on your benchmarks:
-    // #1 (Trickshot) = 650, #17 (Sonic Wave) = 50, #48 (Bloodbath) = 7, #99 (Acu) = 1.5
+    // #1 (Trickshot) = 500, #17 (Sonic Wave) = 50, #48 (Bloodbath) = 7, #99 (Acu) = 1.5
     let maxPoints;
-    if (rank <= 17) {
+    if (rank <= 20) {
         // Curve from #1 (500) to #17 (50)
         maxPoints = 500 * Math.pow(0.852, rank - 1);
-    } else if (rank <= 48) {
+    } else if (rank <= 50) {
         // Curve from #17 (50) to #48 (7)
         maxPoints = 50 * Math.pow(0.9385, rank - 17);
     } else {
