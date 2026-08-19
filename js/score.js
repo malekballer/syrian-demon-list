@@ -26,13 +26,13 @@ export function score(rank, percent, minPercent) {
     let maxPoints;
     if (rank <= 17) {
         // Curve from #1 (650) to #17 (50)
-        maxPoints = 650 * Math.pow(0.85108, rank - 1);
+        maxPoints = 500 * Math.pow(0.852, rank - 1);
     } else if (rank <= 48) {
         // Curve from #17 (50) to #48 (7)
-        maxPoints = 50 * Math.pow(0.93856, rank - 17);
+        maxPoints = 50 * Math.pow(0.9385, rank - 17);
     } else {
         // Curve from #48 (7) down through the rest of the list
-        maxPoints = 7 * Math.pow(0.96963, rank - 48);
+        maxPoints = 7 * Math.pow(0.9696, rank - 48);
     }
 
     // Scale points by percentage completion
