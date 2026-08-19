@@ -25,7 +25,7 @@ export function score(rank, percent, minPercent) {
     // #1 (Trickshot) = 650, #17 (Sonic Wave) = 50, #48 (Bloodbath) = 7, #99 (Acu) = 1.5
     let maxPoints;
     if (rank <= 17) {
-        // Curve from #1 (650) to #17 (50)
+        // Curve from #1 (500) to #17 (50)
         maxPoints = 500 * Math.pow(0.852, rank - 1);
     } else if (rank <= 48) {
         // Curve from #17 (50) to #48 (7)
