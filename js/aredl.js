@@ -1,7 +1,7 @@
 let aredlCache = null;
 
 /**
- * Fetches the current AREDL list via CORS proxy and maps GD Level IDs to positions.
+ * Fetches AREDL rankings via AllOrigins proxy to bypass CORS and 403 blocks.
  * @returns {Promise<Object>} Map of { [levelId]: position }
  */
 export async function fetchAredlRankings() {
@@ -10,17 +10,18 @@ export async function fetchAredlRankings() {
     }
 
     try {
-        // Use corsproxy.io to bypass the browser CORS restriction
-        const response = await fetch('https://corsproxy.io/?https://api.aredl.net/api/arelist');
-        if (!response.ok) throw new Error(`AREDL API error: ${response.status}`);
+        // Use AllOrigins raw endpoint to strip CORS restrictions reliably
+        const targetUrl = encodeURIComponent('https://api.aredl.net/api/arelist');
+        const response = await fetch(`https://api.allorigins.win/raw?url=${targetUrl}`);
+        
+        if (!response.ok) throw new Error(`AREDL API HTTP ${response.status}`);
         
         const data = await response.json();
         aredlCache = {};
 
-        // Build lookup map: level_id -> position
+        // Map level_id to rank position
         data.forEach((entry) => {
-            // AREDL matches on level_id or id
-            const levelId = entry.level_id || entry.id;
+            const levelId = entry.level_id || entry.id || entry.levelID;
             if (levelId) {
                 aredlCache[levelId] = entry.position;
             }
