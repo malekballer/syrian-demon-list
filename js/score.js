@@ -8,10 +8,10 @@ const scale = 3;
  * @param {Number} rank Position on the list
  * @param {Number} percent Percentage of completion
  * @param {Number} minPercent Minimum percentage required
+ * @param {Number} [totalLevels=100] Current total number of levels on the list
  * @returns {Number}
  */
-export function score(rank, percent, minPercent) {
-    // Reverted back to original rank 150 limit
+export function score(rank, percent, minPercent, totalLevels = 100) {
     if (rank > 150) {
         return 0;
     }
@@ -21,18 +21,19 @@ export function score(rank, percent, minPercent) {
         return 0;
     }
 
-    // Determine 100% completion points based on your benchmarks:
-    // #1 (Trickshot) = 500, #17 (Sonic Wave) = 50, #48 (Bloodbath) = 7, #99 (Acu) = 1.5
     let maxPoints;
     if (rank <= 20) {
-        // Curve from #1 (500) to #17 (50)
+        // Curve from #1 (350) down to ~55 at #20
         maxPoints = 350 * Math.pow(0.9052, rank - 1);
     } else if (rank <= 50) {
-        // Curve from #17 (50) to #48 (7)
+        // Curve from #20 (55) down to ~10 at #50
         maxPoints = 55 * Math.pow(0.9385, rank - 20);
     } else {
-        // Curve from #48 (7) down through the rest of the list
-        maxPoints = 10 * Math.pow(0.9696, rank - 48);
+        // Dynamically decay from #50 (10 pts) down to 1.0 pt at the current lowest rank
+        const remainingRanks = Math.max(1, totalLevels - 50);
+        const dynamicDecay = Math.pow(1 / 10, 1 / remainingRanks);
+        
+        maxPoints = 10 * Math.pow(dynamicDecay, rank - 50);
     }
 
     // Scale points by percentage completion
