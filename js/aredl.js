@@ -1,7 +1,7 @@
 let aredlCache = null;
 
 /**
- * Fetches AREDL rankings using direct fallback endpoints.
+ * Fetches the current AREDL V2 level list and maps GD Level IDs to positions.
  * @returns {Promise<Object>} Map of { [levelId]: position }
  */
 export async function fetchAredlRankings() {
@@ -9,40 +9,26 @@ export async function fetchAredlRankings() {
         return aredlCache;
     }
 
-    // List of endpoints to try sequentially
-    const endpoints = [
-        'https://api.aredl.net/api/arelist',
-        'https://aredl.pages.dev/api/arelist',
-        'https://api.codetabs.com/v1/proxy?quest=https://api.aredl.net/api/arelist'
-    ];
+    try {
+        // Updated V2 API endpoint
+        const response = await fetch('https://api.aredl.net/v2/api/levels');
+        if (!response.ok) throw new Error(`AREDL V2 API Error: ${response.status}`);
+        
+        const data = await response.json();
+        aredlCache = {};
 
-    for (const url of endpoints) {
-        try {
-            const response = await fetch(url);
-            if (!response.ok) continue;
+        // V2 JSON structure mapping
+        data.forEach((entry) => {
+            // Check for level_id or id in V2 response
+            const levelId = entry.level_id || entry.id;
+            if (levelId) {
+                aredlCache[levelId] = entry.position;
+            }
+        });
 
-            const text = await response.text();
-            
-            // Validate that response is actual JSON, not an HTML error page
-            if (!text.trim().startsWith('[')) continue;
-
-            const data = JSON.parse(text);
-            aredlCache = {};
-
-            data.forEach((entry) => {
-                const levelId = entry.level_id || entry.id || entry.levelID;
-                if (levelId) {
-                    aredlCache[levelId] = entry.position;
-                }
-            });
-
-            return aredlCache;
-        } catch (e) {
-            // Try next endpoint if this one fails
-            continue;
-        }
+        return aredlCache;
+    } catch (err) {
+        console.warn("Could not load AREDL V2 rankings:", err);
+        return {};
     }
-
-    console.warn("Could not load AREDL rankings from any endpoint.");
-    return {};
 }
