@@ -1,7 +1,7 @@
 let aredlCache = null;
 
 /**
- * Fetches AREDL list via jsDelivr open CDN to bypass CORS restrictions completely.
+ * Fetches AREDL V2 rankings using AllOrigins proxy to bypass CORS restrictions completely.
  * @returns {Promise<Object>} Map of { [levelId]: position }
  */
 export async function fetchAredlRankings() {
@@ -10,19 +10,26 @@ export async function fetchAredlRankings() {
     }
 
     try {
-        // Fetch public list data via open CDN (always allows CORS)
-        const response = await fetch('https://cdn.jsdelivr.net/gh/All-Rated-Extreme-Demon-List/guidelines@main/list.json');
+        // Route through AllOrigins proxy to bypass browser CORS headers
+        const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.aredl.net/v2/levels');
+        const response = await fetch(proxyUrl);
         
         if (!response.ok) {
-            throw new Error(`CDN Response Error: ${response.status}`);
+            throw new Error(`Proxy error: ${response.status}`);
         }
 
-        const data = await response.json();
+        const outerData = await response.json();
+        // AllOrigins returns the raw text in outerData.contents
+        const levels = JSON.parse(outerData.contents);
+        
         aredlCache = {};
 
-        data.forEach((entry, index) => {
-            const levelId = entry.level_id || entry.id || entry.gd_id;
-            const position = entry.position || (index + 1);
+        // Parse list of levels and build ID -> Position map
+        const levelArray = Array.isArray(levels) ? levels : (levels.data || []);
+        
+        levelArray.forEach((entry, index) => {
+            const levelId = entry.level_id || entry.gd_id || entry.id;
+            const position = entry.position || entry.rank || (index + 1);
 
             if (levelId) {
                 aredlCache[levelId] = position;
@@ -31,7 +38,7 @@ export async function fetchAredlRankings() {
 
         return aredlCache;
     } catch (err) {
-        console.warn("CDN fetch failed, switching to static fallback...", err);
+        console.warn("Could not load AREDL rankings via proxy:", err);
         return {};
     }
 }
