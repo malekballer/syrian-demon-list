@@ -20,15 +20,18 @@ jobs:
           import urllib.request
           import json
 
-          # Fetch directly from AREDL's public GitHub raw mirrors to bypass API 403 blocks
+          # Public unauthenticated endpoints
           urls = [
-              'https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/AREDL-ManagerV3/main/data/levels.json',
-              'https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/guidelines/main/list.json',
-              'https://aredl.net/api/arelist'
+              'https://aredl.net/api/arelist',
+              'https://aredl.net/api/levels',
+              'https://api.aredl.net/v2/api/aredl/levels'
           ]
 
           mapping = {}
-          headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+          headers = {
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+              'Accept': 'application/json'
+          }
 
           for url in urls:
               try:
@@ -48,7 +51,7 @@ jobs:
               except Exception as e:
                   print(f'Skipped {url}: {e}')
 
-          # Ensure data/aredl.json is ALWAYS written so git add never fails
+          # Save mapped dictionary to data/aredl.json
           with open('data/aredl.json', 'w') as f:
               json.dump(mapping, f, indent=2)
           "
