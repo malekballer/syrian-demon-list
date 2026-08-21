@@ -1,0 +1,48 @@
+name: Auto-Sync AREDL Rankings
+
+on:
+  schedule:
+    # Runs every 6 hours automatically
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Fetch Latest AREDL Data
+        run: |
+          mkdir -p data
+          # Server-side fetch bypasses browser CORS entirely
+          curl -s "https://api.aredl.net/v2/api/levels" -o data/aredl_raw.json || curl -s "https://api.aredl.net/v2/levels" -o data/aredl_raw.json
+          
+          # Convert array into clean key-value map: { "gd_id": position }
+          python3 -c "
+          import json
+          try:
+              with open('data/aredl_raw.json', 'r') as f:
+                  raw = json.load(f)
+              levels = raw if isinstance(raw, list) else raw.get('data', [])
+              mapping = {}
+              for idx, lvl in enumerate(levels):
+                  gid = str(lvl.get('level_id') or lvl.get('gd_id') or lvl.get('id') or '')
+                  pos = lvl.get('position') or lvl.get('rank') or (idx + 1)
+                  if gid:
+                      mapping[gid] = pos
+              with open('data/aredl.json', 'w') as f:
+                  json.dump(mapping, f, indent=2)
+              print('Successfully parsed', len(mapping), 'levels')
+          except Exception as e:
+              print('Error processing json:', e)
+          "
+          rm -f data/aredl_raw.json
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/aredl.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update AREDL rankings [skip ci]" && git push)
