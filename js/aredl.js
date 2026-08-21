@@ -1,7 +1,7 @@
 let aredlCache = null;
 
 /**
- * Fetches AREDL rankings via AllOrigins proxy to bypass CORS and 403 blocks.
+ * Fetches AREDL rankings using direct fallback endpoints.
  * @returns {Promise<Object>} Map of { [levelId]: position }
  */
 export async function fetchAredlRankings() {
@@ -9,27 +9,40 @@ export async function fetchAredlRankings() {
         return aredlCache;
     }
 
-    try {
-        // Use AllOrigins raw endpoint to strip CORS restrictions reliably
-        const targetUrl = encodeURIComponent('https://api.aredl.net/api/arelist');
-        const response = await fetch(`https://api.allorigins.win/raw?url=${targetUrl}`);
-        
-        if (!response.ok) throw new Error(`AREDL API HTTP ${response.status}`);
-        
-        const data = await response.json();
-        aredlCache = {};
+    // List of endpoints to try sequentially
+    const endpoints = [
+        'https://api.aredl.net/api/arelist',
+        'https://aredl.pages.dev/api/arelist',
+        'https://api.codetabs.com/v1/proxy?quest=https://api.aredl.net/api/arelist'
+    ];
 
-        // Map level_id to rank position
-        data.forEach((entry) => {
-            const levelId = entry.level_id || entry.id || entry.levelID;
-            if (levelId) {
-                aredlCache[levelId] = entry.position;
-            }
-        });
+    for (const url of endpoints) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) continue;
 
-        return aredlCache;
-    } catch (err) {
-        console.warn("Could not load AREDL rankings:", err);
-        return {};
+            const text = await response.text();
+            
+            // Validate that response is actual JSON, not an HTML error page
+            if (!text.trim().startsWith('[')) continue;
+
+            const data = JSON.parse(text);
+            aredlCache = {};
+
+            data.forEach((entry) => {
+                const levelId = entry.level_id || entry.id || entry.levelID;
+                if (levelId) {
+                    aredlCache[levelId] = entry.position;
+                }
+            });
+
+            return aredlCache;
+        } catch (e) {
+            // Try next endpoint if this one fails
+            continue;
+        }
     }
+
+    console.warn("Could not load AREDL rankings from any endpoint.");
+    return {};
 }
