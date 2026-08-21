@@ -2,6 +2,7 @@ import { store } from "../main.js";
 import { embed } from "../util.js";
 import { score } from "../score.js";
 import { fetchEditors, fetchList } from "../content.js";
+import { fetchAredlRankings } from "../aredl.js";
 
 import Spinner from "../components/Spinner.js";
 import LevelAuthors from "../components/List/LevelAuthors.js";
@@ -52,7 +53,7 @@ export default {
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
-                            <p>{{ score(selected + 1, 100, level.percentToQualify) }}</p>
+                            <p>{{ score(selected + 1, 100, level.percentToQualify, list.length) }}</p>
                         </li>
                         <li>
                             <div class="type-title-sm">ID</div>
@@ -63,6 +64,11 @@ export default {
                             >
                                 {{ copied ? 'Copied!' : level.id }}
                             </p>
+                        </li>
+                        <li>
+                            <div class="type-title-sm">AREDL Rank</div>
+                            <p v-if="aredlRanks[level.id]">#{{ aredlRanks[level.id] }}</p>
+                            <p v-else style="opacity: 0.6;">N/A</p>
                         </li>
                     </ul>
                     <h2>Records</h2>
@@ -131,6 +137,7 @@ export default {
     data: () => ({
         list: [],
         editors: [],
+        aredlRanks: {},
         loading: true,
         selected: 0,
         query: '',
@@ -157,7 +164,6 @@ export default {
         filteredList() {
             if (!this.list) return [];
             
-            // Map original list items to include their index position
             const mappedList = this.list.map(([level, err], i) => ({
                 level,
                 err,
@@ -181,8 +187,16 @@ export default {
         }
     },
     async mounted() {
-        this.list = await fetchList();
-        this.editors = await fetchEditors();
+        // Fetch main list, editors, and AREDL API rankings in parallel
+        const [listData, editorsData, aredlData] = await Promise.all([
+            fetchList(),
+            fetchEditors(),
+            fetchAredlRankings()
+        ]);
+
+        this.list = listData;
+        this.editors = editorsData;
+        this.aredlRanks = aredlData;
 
         const param = this.$route.params.level;
 
@@ -194,14 +208,12 @@ export default {
                 this.selected = foundIndex;
             } else {
                 this.selected = 0;
-                // Update URL to the default #1 level without creating extra history history entry
                 if (this.list[0]?.[0]) {
                     this.$router.replace(`/${this.list[0][0].id}`);
                 }
             }
         } else {
             this.selected = 0;
-            // Update URL to default #1 level when loading base URL /#/
             if (this.list[0]?.[0]) {
                 this.$router.replace(`/${this.list[0][0].id}`);
             }
@@ -216,7 +228,6 @@ export default {
             this.selected = index;
             const currentLevel = this.list[index]?.[0];
             if (currentLevel) {
-                // Updates URL to /136135870 (or /1 for rank)
                 this.$router.push(`/${currentLevel.id}`);
             }
         },
