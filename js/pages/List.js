@@ -15,7 +15,16 @@ const roleIconMap = {
     trial: "user-lock",
 };
 
-const FILTER_TAGS = ["2.2", "Long", "NONG", "Fast-Paced", "Timings", "Chokepoints", "Ship", "Wave", "Flow"];
+const CATEGORIZED_TAGS = {
+    "Versions": ["2.2", "2.1", "2.0", "1.9PS", "1.9", "1.8", "1.7", "1.6PS", "1.6", "1.5"],
+    "Length": ["Medium", "Long", "XL", "XXL", "XXL+"],
+    "Gamemodes": ["Cube", "Ship", "Ball", "UFO", "Wave", "Robot", "Spider", "Old Swing", "New Swing", "Duals", "2P"],
+    "Gameplay & Style": [
+        "NONG", "Circles", "Clicksync", "Fast-Paced", "Timings", "Chokepoints", 
+        "Learny", "Memory", "High CPS", "Gimmicky", "Flow", "Slow-Paced", 
+        "Bossfight", "Mirror", "Nerve Control", "Overall"
+    ]
+};
 
 export default {
     components: { Spinner, LevelAuthors },
@@ -28,42 +37,45 @@ export default {
                 <div class="search-container" style="display: flex; gap: 0.5rem; align-items: center;">
                     <input 
                         type="text" 
-                        class="search-bar" 
+                        class="search-bar type-label-lg" 
                         v-model="query" 
                         placeholder="Search levels or creators..." 
                         style="flex: 1;"
                     />
                     <button 
                         @click="showFilterMenu = !showFilterMenu"
-                        style="padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--color-background, #111); color: inherit; cursor: pointer; font-size: 0.85rem;"
+                        class="type-label-lg"
+                        style="padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--color-background, #111); color: inherit; cursor: pointer;"
                     >
-                        ⚙️ Filters {{ selectedTags.length ? \`(\${selectedTags.length})\` : '' }}
+                         Filters {{ selectedTags.length ? \`(\${selectedTags.length})\` : '' }}
                     </button>
                 </div>
 
-                <!-- Tag Filter Dropdown Menu -->
-                <div v-if="showFilterMenu" style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(0,0,0,0.2); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08);">
-                    <div style="font-size: 0.75rem; opacity: 0.7; font-weight: bold; margin-bottom: 0.4rem;">FILTER BY TAGS:</div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
-                        <button 
-                            v-for="tag in availableTags" 
-                            :key="tag"
-                            @click="toggleTag(tag)"
-                            :style="{
-                                padding: '0.2rem 0.45rem',
-                                borderRadius: '4px',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                background: selectedTags.includes(tag) ? '#007A3D' : 'transparent',
-                                color: '#fff',
-                                cursor: 'pointer',
-                                fontSize: '0.75rem'
-                            }"
-                        >
-                            {{ tag }}
-                        </button>
+                <!-- Categorized Tag Filter Menu -->
+                <div v-if="showFilterMenu" style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); max-height: 320px; overflow-y: auto;">
+                    <div v-for="(tags, category) in tagCategories" :key="category" style="margin-bottom: 0.6rem;">
+                        <div class="type-label-sm" style="opacity: 0.6; font-weight: bold; margin-bottom: 0.25rem; text-transform: uppercase;">{{ category }}</div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
+                            <button 
+                                v-for="tag in tags" 
+                                :key="tag"
+                                @click="toggleTag(tag)"
+                                class="type-label-sm"
+                                :style="{
+                                    padding: '0.2rem 0.45rem',
+                                    borderRadius: '4px',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    background: selectedTags.includes(tag) ? '#007A3D' : 'transparent',
+                                    color: '#fff',
+                                    cursor: 'pointer'
+                                }"
+                            >
+                                {{ tag }}
+                            </button>
+                        </div>
                     </div>
-                    <div v-if="selectedTags.length > 0" style="margin-top: 0.4rem; text-align: right;">
-                        <button @click="selectedTags = []" style="background: none; border: none; color: #ce1126; cursor: pointer; font-size: 0.75rem; text-decoration: underline;">
+                    <div v-if="selectedTags.length > 0" style="margin-top: 0.5rem; text-align: right;">
+                        <button @click="selectedTags = []" class="type-label-sm" style="background: none; border: none; color: #ce1126; cursor: pointer; text-decoration: underline;">
                             Reset Tags
                         </button>
                     </div>
@@ -91,7 +103,7 @@ export default {
                     
                     <!-- Display Level Tags from AREDL -->
                     <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin: 0.5rem 0;">
-                        <span v-for="tag in currentAredlTags" :key="tag" style="background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
+                        <span v-for="tag in currentAredlTags" :key="tag" class="type-label-sm" style="background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 600;">
                             {{ tag }}
                         </span>
                     </div>
@@ -192,7 +204,7 @@ export default {
         query: '',
         showFilterMenu: false,
         selectedTags: [],
-        availableTags: FILTER_TAGS,
+        tagCategories: CATEGORIZED_TAGS,
         copied: false,
         errors: [],
         roleIconMap,
@@ -231,7 +243,6 @@ export default {
 
             let result = mappedList;
 
-            // Filter levels by selected AREDL tags
             if (this.selectedTags.length > 0) {
                 result = result.filter(({ level }) => {
                     if (!level?.id) return false;
@@ -240,7 +251,6 @@ export default {
                 });
             }
 
-            // Filter levels by search query
             if (this.query.trim()) {
                 const q = this.query.toLowerCase().trim();
                 result = result.filter(({ level }) => {
@@ -258,7 +268,6 @@ export default {
         }
     },
     watch: {
-        // Fetch AREDL level details as soon as selected level changes
         async selectedLevelId(newId) {
             if (newId && !this.aredlDetailsMap[newId]) {
                 const details = await fetchAredlLevelDetails(newId);
@@ -300,9 +309,7 @@ export default {
             }
         }
 
-        // Pre-fetch AREDL level details for all levels in background
         this.fetchAllAredlDetails();
-
         this.loading = false;
     },
     methods: {
