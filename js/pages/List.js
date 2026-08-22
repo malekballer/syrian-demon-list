@@ -24,11 +24,8 @@ export default {
             <Spinner></Spinner>
         </main>
         <main v-else class="page-list">
-            <!-- Sidebar Level Selection & Filter Controls -->
             <div class="list-container">
-                
-                <!-- Search & Filter Bar Row -->
-                <div class="search-filter-row" style="display: flex; gap: 0.5rem; align-items: center;">
+                <div class="search-container" style="display: flex; gap: 0.5rem; align-items: center;">
                     <input 
                         type="text" 
                         class="search-bar" 
@@ -38,34 +35,25 @@ export default {
                     />
                     <button 
                         @click="showFilterMenu = !showFilterMenu"
-                        :style="{
-                            padding: '0.6rem 0.8rem',
-                            borderRadius: '8px',
-                            border: '1px solid var(--card-border, #333)',
-                            background: selectedTags.length > 0 ? 'var(--color-primary, #007A3D)' : 'var(--card-sub-bg, #1f222c)',
-                            color: '#fff',
-                            cursor: 'pointer',
-                            fontWeight: '600',
-                            fontSize: '0.85rem'
-                        }"
+                        style="padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--color-background, #111); color: inherit; cursor: pointer; font-size: 0.85rem;"
                     >
                         ⚙️ Filters {{ selectedTags.length ? \`(\${selectedTags.length})\` : '' }}
                     </button>
                 </div>
 
-                <!-- Dropdown Tag Filter Selection Box -->
-                <div v-if="showFilterMenu" style="margin-top: 0.75rem; padding: 0.75rem; background: var(--card-sub-bg, #1a1c23); border: 1px solid var(--card-border, #333); border-radius: 8px;">
-                    <div style="font-size: 0.8rem; font-weight: 700; opacity: 0.8; margin-bottom: 0.5rem;">FILTER BY AREDL TAGS:</div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+                <!-- Tag Filter Dropdown Menu -->
+                <div v-if="showFilterMenu" style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(0,0,0,0.2); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08);">
+                    <div style="font-size: 0.75rem; opacity: 0.7; font-weight: bold; margin-bottom: 0.4rem;">FILTER BY TAGS:</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
                         <button 
                             v-for="tag in availableTags" 
                             :key="tag"
                             @click="toggleTag(tag)"
                             :style="{
-                                padding: '0.2rem 0.5rem',
+                                padding: '0.2rem 0.45rem',
                                 borderRadius: '4px',
-                                border: '1px solid var(--card-border, #333)',
-                                background: selectedTags.includes(tag) ? 'var(--color-primary, #007A3D)' : 'transparent',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                background: selectedTags.includes(tag) ? '#007A3D' : 'transparent',
                                 color: '#fff',
                                 cursor: 'pointer',
                                 fontSize: '0.75rem'
@@ -74,21 +62,20 @@ export default {
                             {{ tag }}
                         </button>
                     </div>
-                    <div v-if="selectedTags.length > 0" style="margin-top: 0.5rem; text-align: right;">
+                    <div v-if="selectedTags.length > 0" style="margin-top: 0.4rem; text-align: right;">
                         <button @click="selectedTags = []" style="background: none; border: none; color: #ce1126; cursor: pointer; font-size: 0.75rem; text-decoration: underline;">
-                            Reset Filters
+                            Reset Tags
                         </button>
                     </div>
                 </div>
 
-                <!-- Level List -->
-                <table class="list" v-if="list" style="margin-top: 0.75rem;">
+                <table class="list" v-if="list">
                     <tr v-for="({ level, err, originalIndex }) in filteredList" :key="originalIndex">
                         <td class="rank">
                             <p v-if="originalIndex + 1 <= 150" class="type-label-lg">#{{ originalIndex + 1 }}</p>
                             <p v-else class="type-label-lg">Legacy</p>
                         </td>
-                        <td class="level" :class="{ 'active': selectedLevelId === level?.id, 'error': !level }">
+                        <td class="level" :class="{ 'active': selected == originalIndex, 'error': !level }">
                             <button @click="selectLevel(originalIndex)">
                                 <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
                             </button>
@@ -97,52 +84,44 @@ export default {
                 </table>
             </div>
 
-            <!-- Middle Level Detail View -->
             <div class="level-container">
                 <div class="level" v-if="level">
-                    <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem;">{{ level.name }}</h1>
+                    <h1>{{ level.name }}</h1>
+                    <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     
-                    <!-- Author Meta & Dynamic AREDL Tags -->
-                    <div class="level-meta-box">
-                        <div class="level-meta-row"><strong>CREATORS:</strong> <span>{{ level.creators ? level.creators.join(', ') : level.author }}</span></div>
-                        <div class="level-meta-row"><strong>VERIFIER:</strong> <span>{{ level.verifier }}</span></div>
-                        <div class="level-meta-row"><strong>PUBLISHER:</strong> <span>{{ level.author }}</span></div>
-                        
-                        <div class="level-meta-row" v-if="currentAredlTags.length > 0" style="margin-top: 0.25rem;">
-                            <strong>TAGS:</strong> 
-                            <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
-                                <span v-for="tag in currentAredlTags" :key="tag" style="background: rgba(0,122,61,0.2); border: 1px solid var(--color-primary, #007A3D); padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
-                                    {{ tag }}
-                                </span>
-                            </div>
-                        </div>
+                    <!-- Display Level Tags from AREDL -->
+                    <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin: 0.5rem 0;">
+                        <span v-for="tag in currentAredlTags" :key="tag" style="background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
+                            {{ tag }}
+                        </span>
                     </div>
 
-                    <iframe class="video" id="videoframe" :src="video" frameborder="0" style="border-radius: 10px; width: 100%; aspect-ratio: 16/9; margin-bottom: 1rem;"></iframe>
-
-                    <!-- Stat Cards -->
-                    <div class="stat-pill-grid">
-                        <div class="stat-pill-item">
-                            <span class="stat-pill-label">Points When Completed</span>
-                            <span class="stat-pill-value">{{ score(selected + 1, 100, level.percentToQualify, list.length) }}</span>
-                        </div>
-                        <div class="stat-pill-item">
-                            <span class="stat-pill-label">ID</span>
-                            <span class="stat-pill-value" @click="copyId(level.id)" style="cursor: pointer;">
+                    <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
+                    <ul class="stats">
+                        <li>
+                            <div class="type-title-sm">Points when completed</div>
+                            <p>{{ score(selected + 1, 100, level.percentToQualify, list.length) }}</p>
+                        </li>
+                        <li>
+                            <div class="type-title-sm">ID</div>
+                            <p
+                                @click="copyId(level.id)"
+                                style="cursor: pointer; user-select: none;"
+                                title="Click to copy ID"
+                            >
                                 {{ copied ? 'Copied!' : level.id }}
-                            </span>
-                        </div>
-                        <div class="stat-pill-item">
-                            <span class="stat-pill-label">AREDL Rank</span>
-                            <span class="stat-pill-value">{{ aredlRanks[level.id] ? '#' + aredlRanks[level.id] : 'N/A' }}</span>
-                        </div>
-                    </div>
-
+                            </p>
+                        </li>
+                        <li>
+                            <div class="type-title-sm">AREDL Rank</div>
+                            <p v-if="aredlRanks[level.id]">#{{ aredlRanks[level.id] }}</p>
+                            <p v-else style="opacity: 0.6;">N/A</p>
+                        </li>
+                    </ul>
                     <h2>Records</h2>
                     <p v-if="selected + 1 <= 75"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
                     <p v-else-if="selected + 1 <= 150"><strong>100%</strong> or better to qualify</p>
                     <p v-else>This level does not accept new records.</p>
-                    
                     <table class="records">
                         <tr v-for="record in level.records" class="record">
                             <td class="percent">
@@ -157,11 +136,16 @@ export default {
                         </tr>
                     </table>
                 </div>
+                <div v-else class="level" style="height: 100%; justify-content: center; align-items: center;">
+                    <p>(ノಠ益ಠ)ノ彡┻━┻</p>
+                </div>
             </div>
 
-            <!-- Right Column Meta -->
             <div class="meta-container">
                 <div class="meta">
+                    <div class="errors" v-show="errors.length > 0">
+                        <p class="error" v-for="error of errors">{{ error }}</p>
+                    </div>
                     <template v-if="editors">
                         <h3>List Editors</h3>
                         <ol class="editors">
@@ -172,6 +156,28 @@ export default {
                             </li>
                         </ol>
                     </template>
+                    <h3>Submission Requirements</h3>
+                    <p>
+                        Achieved the record without using hacks (however, FPS bypass is allowed)
+                    </p>
+                    <p>
+                        Achieved the record on the level that is listed on the site - please check the level ID before you submit a record
+                    </p>
+                    <p>
+                        Have either source audio or clicks/taps in the video. Edited audio only does not count
+                    </p>
+                    <p>
+                        The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this
+                    </p>
+                    <p>
+                        The recording must also show the player hit the endwall, or the completion will be invalidated.
+                    </p>
+                    <p>
+                        Do not use secret routes or bug routes
+                    </p>
+                    <p>
+                        Do not use easy modes, only a record of the unmodified level qualifies
+                    </p>
                 </div>
             </div>
         </main>
@@ -188,6 +194,7 @@ export default {
         selectedTags: [],
         availableTags: FILTER_TAGS,
         copied: false,
+        errors: [],
         roleIconMap,
         store
     }),
@@ -203,20 +210,28 @@ export default {
             return this.aredlDetailsMap[this.selectedLevelId]?.tags || [];
         },
         video() {
-            if (!this.level) return '';
-            const rawUrl = this.level.showcase || this.level.verification || this.level.video;
-            return rawUrl ? embed(rawUrl) : '';
+            if (!this.level.showcase) {
+                return embed(this.level.verification);
+            }
+
+            return embed(
+                this.toggledShowcase
+                    ? this.level.showcase
+                    : this.level.verification
+            );
         },
         filteredList() {
             if (!this.list) return [];
             
-            let result = this.list.map(([level, err], i) => ({
+            const mappedList = this.list.map(([level, err], i) => ({
                 level,
                 err,
                 originalIndex: i
             }));
 
-            // Filter by AREDL Tags
+            let result = mappedList;
+
+            // Filter levels by selected AREDL tags
             if (this.selectedTags.length > 0) {
                 result = result.filter(({ level }) => {
                     if (!level?.id) return false;
@@ -225,22 +240,32 @@ export default {
                 });
             }
 
-            // Text Search Filter
+            // Filter levels by search query
             if (this.query.trim()) {
                 const q = this.query.toLowerCase().trim();
                 result = result.filter(({ level }) => {
                     if (!level) return false;
+                    
                     const nameMatch = level.name?.toLowerCase().includes(q);
                     const authorMatch = level.author?.toLowerCase().includes(q);
-                    const verifierMatch = level.verifier?.toLowerCase().includes(q);
-                    const idMatch = level.id?.toString().includes(q);
                     const creatorMatch = level.creators?.some(c => c.toLowerCase().includes(q));
 
-                    return nameMatch || authorMatch || verifierMatch || idMatch || creatorMatch;
+                    return nameMatch || authorMatch || creatorMatch;
                 });
             }
 
             return result;
+        }
+    },
+    watch: {
+        // Fetch AREDL level details as soon as selected level changes
+        async selectedLevelId(newId) {
+            if (newId && !this.aredlDetailsMap[newId]) {
+                const details = await fetchAredlLevelDetails(newId);
+                if (details) {
+                    this.aredlDetailsMap[newId] = details;
+                }
+            }
         }
     },
     async mounted() {
@@ -255,17 +280,30 @@ export default {
         this.aredlRanks = aredlData;
 
         const param = this.$route.params.level;
+
         if (param && this.list) {
             const foundIndex = this.list.findIndex(([lvl]) => 
                 lvl && (lvl.id.toString() === param || lvl.name.toLowerCase() === param.toLowerCase())
             );
-            this.selected = foundIndex !== -1 ? foundIndex : 0;
+            if (foundIndex !== -1) {
+                this.selected = foundIndex;
+            } else {
+                this.selected = 0;
+                if (this.list[0]?.[0]) {
+                    this.$router.replace(`/${this.list[0][0].id}`);
+                }
+            }
+        } else {
+            this.selected = 0;
+            if (this.list[0]?.[0]) {
+                this.$router.replace(`/${this.list[0][0].id}`);
+            }
         }
 
-        this.loading = false;
-
-        // Fetch AREDL level details in the background for tag filtering
+        // Pre-fetch AREDL level details for all levels in background
         this.fetchAllAredlDetails();
+
+        this.loading = false;
     },
     methods: {
         embed,
@@ -298,7 +336,9 @@ export default {
         copyId(id) {
             navigator.clipboard.writeText(id.toString());
             this.copied = true;
-            setTimeout(() => { this.copied = false; }, 1500);
-        }
-    }
+            setTimeout(() => {
+                this.copied = false;
+            }, 1500);
+        },
+    },
 };
