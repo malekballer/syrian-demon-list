@@ -9,10 +9,11 @@ export async function fetchAredlData() {
 
         Object.entries(data).forEach(([levelId, info]) => {
             if (typeof info === 'number') {
-                // Legacy fallback if old format
+                // Legacy format fallback
                 ranks[levelId] = info;
                 tagsMap[levelId] = [];
-            } else {
+            } else if (info && typeof info === 'object') {
+                // New format: { rank: X, tags: [...] }
                 ranks[levelId] = info.rank;
                 tagsMap[levelId] = info.tags || [];
             }
