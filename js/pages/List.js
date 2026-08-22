@@ -1,7 +1,7 @@
 import { store } from "../main.js";
 import { embed } from "../util.js";
 import { score } from "../score.js";
-import { fetchAredlRankings, fetchAredlLevelDetails } from "../aredl.js";
+import { fetchAredlData } from "../aredl.js";
 import { fetchEditors, fetchList } from "../content.js";
 
 import Spinner from "../components/Spinner.js";
@@ -101,7 +101,7 @@ export default {
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     
-                    <!-- Display Level Tags from AREDL -->
+                    <!-- Display Level Tags from Local AREDL Data -->
                     <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin: 0.5rem 0;">
                         <span v-for="tag in currentAredlTags" :key="tag" class="type-label-sm" style="background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 600;">
                             {{ tag }}
@@ -198,7 +198,7 @@ export default {
         list: [],
         editors: [],
         aredlRanks: {},
-        aredlDetailsMap: {},
+        aredlTagsMap: {},
         loading: true,
         selected: 0,
         query: '',
@@ -219,7 +219,7 @@ export default {
         },
         currentAredlTags() {
             if (!this.selectedLevelId) return [];
-            return this.aredlDetailsMap[this.selectedLevelId]?.tags || [];
+            return this.aredlTagsMap[this.selectedLevelId] || [];
         },
         video() {
             if (!this.level.showcase) {
@@ -243,10 +243,11 @@ export default {
 
             let result = mappedList;
 
+            // Filter levels instantly using local tag map
             if (this.selectedTags.length > 0) {
                 result = result.filter(({ level }) => {
                     if (!level?.id) return false;
-                    const levelTags = this.aredlDetailsMap[level.id]?.tags || [];
+                    const levelTags = this.aredlTagsMap[level.id] || [];
                     return this.selectedTags.every(t => levelTags.includes(t));
                 });
             }
@@ -267,26 +268,17 @@ export default {
             return result;
         }
     },
-    watch: {
-        async selectedLevelId(newId) {
-            if (newId && !this.aredlDetailsMap[newId]) {
-                const details = await fetchAredlLevelDetails(newId);
-                if (details) {
-                    this.aredlDetailsMap[newId] = details;
-                }
-            }
-        }
-    },
     async mounted() {
         const [listData, editorsData, aredlData] = await Promise.all([
             fetchList(),
             fetchEditors(),
-            fetchAredlRankings()
+            fetchAredlData()
         ]);
 
         this.list = listData;
         this.editors = editorsData;
-        this.aredlRanks = aredlData;
+        this.aredlRanks = aredlData.ranks;
+        this.aredlTagsMap = aredlData.tagsMap;
 
         const param = this.$route.params.level;
 
@@ -306,14 +298,6 @@ export default {
             this.selected = 0;
             if (this.list[0]?.[0]) {
                 this.$router.replace(`/${this.list[0][0].id}`);
-            }
-        }
-
-        // Fetch details ONLY for the active level
-        if (this.selectedLevelId) {
-            const details = await fetchAredlLevelDetails(this.selectedLevelId);
-            if (details) {
-                this.aredlDetailsMap[this.selectedLevelId] = details;
             }
         }
 
