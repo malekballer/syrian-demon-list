@@ -16,13 +16,29 @@ export async function fetchAredlRankings() {
     }
 }
 
-// Fetch detailed level info (including tags) for a specific GD ID
+// Fetch detailed level info with localStorage caching
 export async function fetchAredlLevelDetails(levelId) {
     if (!levelId) return null;
+
+    // Check localStorage cache first
+    const cacheKey = `aredl_tags_${levelId}`;
+    const cachedData = localStorage.getItem(cacheKey);
+    if (cachedData) {
+        try {
+            return JSON.parse(cachedData);
+        } catch (e) {
+            localStorage.removeItem(cacheKey);
+        }
+    }
+
     try {
         const res = await fetch(`https://api.aredl.net/v2/api/aredl/levels/${levelId}`);
         if (!res.ok) return null;
-        return await res.json();
+        const data = await res.json();
+        
+        // Cache response in localStorage
+        localStorage.setItem(cacheKey, JSON.stringify(data));
+        return data;
     } catch (e) {
         console.error(`Failed to fetch AREDL details for ${levelId}:`, e);
         return null;
