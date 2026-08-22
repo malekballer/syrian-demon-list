@@ -1,46 +1,25 @@
-export async function fetchAredlRankings() {
+export async function fetchAredlData() {
     try {
-        const res = await fetch("https://api.aredl.net/v2/api/aredl/list");
-        if (!res.ok) return {};
-        const data = await res.json();
-        const rankings = {};
-        data.forEach(item => {
-            if (item.level_id) {
-                rankings[item.level_id] = item.position;
-            }
-        });
-        return rankings;
-    } catch (e) {
-        console.error("Failed to fetch AREDL rankings:", e);
-        return {};
-    }
-}
-
-// Fetch detailed level info with localStorage caching
-export async function fetchAredlLevelDetails(levelId) {
-    if (!levelId) return null;
-
-    // Check localStorage cache first
-    const cacheKey = `aredl_tags_${levelId}`;
-    const cachedData = localStorage.getItem(cacheKey);
-    if (cachedData) {
-        try {
-            return JSON.parse(cachedData);
-        } catch (e) {
-            localStorage.removeItem(cacheKey);
-        }
-    }
-
-    try {
-        const res = await fetch(`https://api.aredl.net/v2/api/aredl/levels/${levelId}`);
-        if (!res.ok) return null;
+        const res = await fetch("./data/aredl.json");
+        if (!res.ok) return { ranks: {}, tags: {} };
         const data = await res.json();
         
-        // Cache response in localStorage
-        localStorage.setItem(cacheKey, JSON.stringify(data));
-        return data;
+        const ranks = {};
+        const tags = {};
+
+        Object.entries(data).forEach(([levelId, info]) => {
+            if (typeof info === 'number') {
+                // Legacy fallback if info is just a rank number
+                ranks[levelId] = info;
+            } else {
+                ranks[levelId] = info.rank;
+                tags[levelId] = info.tags || [];
+            }
+        });
+
+        return { ranks, tags };
     } catch (e) {
-        console.error(`Failed to fetch AREDL details for ${levelId}:`, e);
-        return null;
+        console.error("Failed to load local AREDL data:", e);
+        return { ranks: {}, tags: {} };
     }
 }
