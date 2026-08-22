@@ -243,7 +243,7 @@ export default {
 
             let result = mappedList;
 
-            // Filter levels instantly using local tag map
+            // Filter levels by selected tags
             if (this.selectedTags.length > 0) {
                 result = result.filter(({ level }) => {
                     if (!level?.id) return false;
