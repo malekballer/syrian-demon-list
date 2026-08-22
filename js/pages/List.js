@@ -47,7 +47,7 @@ export default {
                         class="type-label-lg"
                         style="padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--color-background, #111); color: inherit; cursor: pointer;"
                     >
-                         Filters {{ selectedTags.length ? \`(\${selectedTags.length})\` : '' }}
+                        ⚙️ Filters {{ selectedTags.length ? \`(\${selectedTags.length})\` : '' }}
                     </button>
                 </div>
 
@@ -309,23 +309,19 @@ export default {
             }
         }
 
-        this.fetchAllAredlDetails();
+        // Fetch details ONLY for the active level
+        if (this.selectedLevelId) {
+            const details = await fetchAredlLevelDetails(this.selectedLevelId);
+            if (details) {
+                this.aredlDetailsMap[this.selectedLevelId] = details;
+            }
+        }
+
         this.loading = false;
     },
     methods: {
         embed,
         score,
-        async fetchAllAredlDetails() {
-            for (const item of this.list) {
-                const lvl = item?.[0];
-                if (lvl?.id && !this.aredlDetailsMap[lvl.id]) {
-                    const details = await fetchAredlLevelDetails(lvl.id);
-                    if (details) {
-                        this.aredlDetailsMap[lvl.id] = details;
-                    }
-                }
-            }
-        },
         toggleTag(tag) {
             if (this.selectedTags.includes(tag)) {
                 this.selectedTags = this.selectedTags.filter(t => t !== tag);
