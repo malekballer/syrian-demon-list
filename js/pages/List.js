@@ -35,7 +35,6 @@ export default {
         <main v-else class="page-list">
             <div class="list-container">
                 <div class="search-container" style="display: flex; gap: 0.5rem; align-items: center;">
-                    <!-- Input Wrapper for Relative Positioning of Clear X Button -->
                     <div style="position: relative; flex: 1; display: flex; align-items: center;">
                         <input 
                             type="text" 
@@ -44,7 +43,6 @@ export default {
                             placeholder="Search levels or creators..." 
                             style="width: 100%; padding-right: 2rem;"
                         />
-                        <!-- Dynamic Clear (X) Button -->
                         <button 
                             v-if="query.length > 0"
                             @click="query = ''"
@@ -55,7 +53,6 @@ export default {
                         </button>
                     </div>
 
-                    <!-- Clean SVG Sliders Filter Button -->
                     <button 
                         @click="showFilterMenu = !showFilterMenu"
                         class="type-label-lg"
@@ -77,10 +74,7 @@ export default {
                     </button>
                 </div>
 
-                <!-- Categorized Tag & Sorting Filter Menu -->
                 <div v-if="showFilterMenu" style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); max-height: 380px; overflow-y: auto;">
-                    
-                    <!-- Sorting Controls Row -->
                     <div style="display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
                         <div style="display: flex; align-items: center; gap: 0.4rem;">
                             <span class="type-label-sm" style="opacity: 0.7;">Sort By:</span>
@@ -150,7 +144,6 @@ export default {
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     
-                    <!-- Larger Display Tags -->
                     <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.75rem 0 0.5rem 0;">
                         <span v-for="tag in currentAredlTags" :key="tag" class="type-label-lg" style="background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.25rem 0.6rem; border-radius: 6px; font-weight: 600;">
                             {{ tag }}
@@ -202,7 +195,7 @@ export default {
                 </div>
             </div>
 
-            <!-- Right Column Meta: Enhanced Editor Cards -->
+            <!-- Right Column Meta: Editor Cards with Glow Hover Flare -->
             <div class="meta-container">
                 <div class="meta">
                     <div class="errors" v-show="errors.length > 0">
@@ -215,16 +208,56 @@ export default {
                             <div 
                                 v-for="editor in editors" 
                                 :key="editor.name"
-                                style="display: flex; align-items: center; gap: 0.85rem; padding: 0.8rem 1rem; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; position: relative; overflow: hidden;"
+                                @mouseenter="hoveredEditor = editor.name"
+                                @mouseleave="hoveredEditor = null"
+                                :style="{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.85rem',
+                                    padding: '0.8rem 1rem',
+                                    background: hoveredEditor === editor.name 
+                                        ? 'linear-gradient(135deg, rgba(0, 122, 61, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%)' 
+                                        : 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
+                                    border: hoveredEditor === editor.name ? '1px solid #007A3D' : '1px solid rgba(255,255,255,0.1)',
+                                    borderRadius: '12px',
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                    transform: hoveredEditor === editor.name ? 'translateY(-3px) scale(1.02)' : 'translateY(0) scale(1)',
+                                    boxShadow: hoveredEditor === editor.name ? '0 8px 20px rgba(0, 122, 61, 0.3)' : 'none',
+                                    transition: 'all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                                    cursor: 'default'
+                                }"
                             >
-                                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #007A3D;"></div>
+                                <!-- Interactive Accent Glow Line -->
+                                <div 
+                                    :style="{
+                                        position: 'absolute',
+                                        left: 0,
+                                        top: 0,
+                                        bottom: 0,
+                                        width: hoveredEditor === editor.name ? '5px' : '3px',
+                                        background: hoveredEditor === editor.name ? '#00FF80' : '#007A3D',
+                                        boxShadow: hoveredEditor === editor.name ? '0 0 12px #00FF80' : 'none',
+                                        transition: 'all 0.25s ease'
+                                    }"
+                                ></div>
 
+                                <!-- Avatar -->
                                 <img 
                                     :src="editor.pfp || 'https://assets.aredl.net/avatars/default.png'" 
                                     alt="pfp" 
-                                    style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.15); box-shadow: 0 4px 10px rgba(0,0,0,0.3);"
+                                    :style="{
+                                        width: '44px',
+                                        height: '44px',
+                                        borderRadius: '50%',
+                                        objectFit: 'cover',
+                                        border: hoveredEditor === editor.name ? '2px solid #00FF80' : '2px solid rgba(255,255,255,0.15)',
+                                        boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+                                        transition: 'all 0.25s ease'
+                                    }"
                                 />
                                 
+                                <!-- User & Role Details -->
                                 <div style="display: flex; flex-direction: column; flex: 1;">
                                     <div style="display: flex; align-items: center; gap: 0.45rem;">
                                         <template v-if="editor.roles">
@@ -282,6 +315,7 @@ export default {
         sortBy: 'list',
         sortOrder: 'asc',
         tagCategories: CATEGORIZED_TAGS,
+        hoveredEditor: null,
         copied: false,
         errors: [],
         roleIconMap,
