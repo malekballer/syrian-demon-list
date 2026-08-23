@@ -3,7 +3,6 @@
     <head>
         <base href="/syrian-demon-list/">
         <meta charset="UTF-8" />
-        <!-- CHANGE THIS LINE BELOW -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <title>Syrian Demon List</title>
 
@@ -35,6 +34,17 @@
         <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.js"></script>
         <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
         <script type="module" src="./js/main.js"></script>
+
+        <!-- Active Navigation Highlight Styling -->
+        <style>
+            .nav__tab.router-link-exact-active,
+            .nav__tab.router-link-active:not([href="/"]) {
+                color: #00FF80 !important;
+                border-bottom: 2px solid #007A3D !important;
+                opacity: 1 !important;
+                font-weight: bold;
+            }
+        </style>
     </head>
     <body id="app">
         <header :class="{ dark: store.dark }">
@@ -44,7 +54,7 @@
                 <p>v1.4.0</p>
             </div>
             <nav class="nav">
-                <router-link class="nav__tab" to="/">
+                <router-link class="nav__tab" to="/" exact>
                     <span class="type-label-lg">List</span>
                 </router-link>
                 <router-link class="nav__tab" to="/leaderboard">
