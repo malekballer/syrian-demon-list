@@ -1,0 +1,106 @@
+name: Generate Activity Feed
+
+on:
+  push:
+    paths:
+      - 'data/*.json'
+  workflow_dispatch: # Enables manual triggering on GitHub Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 30
+
+      - name: Generate Smart Activity JSON
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+
+            try {
+              const logOutput = execSync('git log -n 25 --pretty=format:"%H|%an|%s|%cd" --date=iso data/').toString();
+              const commits = logOutput.split('\n');
+              const activities = [];
+
+              for (const line of commits) {
+                if (!line) continue;
+                const [hash, author, message, date] = line.split('|');
+
+                // Skip automated bot actions
+                if (author.includes('github-actions') || message.includes('skip ci')) continue;
+
+                // Find updated files in this commit
+                const diffFiles = execSync(`git show --name-only --oneline ${hash}`).toString().split('\n');
+                const levelFiles = diffFiles.filter(f => f.startsWith('data/') && f.endsWith('.json') && !f.includes('activity.json') && !f.includes('editors.json'));
+
+                for (const file of levelFiles) {
+                  try {
+                    let isNewLevel = false;
+                    try {
+                      execSync(`git show ${hash}~1:${file}`, { stdio: 'pipe' });
+                    } catch (e) {
+                      isNewLevel = true; // File didn't exist in previous commit -> New Level!
+                    }
+
+                    const currentContent = JSON.parse(fs.readFileSync(file, 'utf8'));
+                    const levelName = currentContent.name || file.replace('data/', '').replace('.json', '');
+
+                    let formattedMessage = '';
+
+                    if (isNewLevel) {
+                      const verifier = currentContent.verifier || currentContent.author || 'unknown';
+                      formattedMessage = `${levelName} was placed on the list (Verified by ${verifier})`;
+                    } else {
+                      // Compare records count with previous commit
+                      const prevRaw = execSync(`git show ${hash}~1:${file}`).toString();
+                      const prevContent = JSON.parse(prevRaw);
+
+                      const prevRecords = prevContent.records || [];
+                      const currentRecords = currentContent.records || [];
+
+                      if (currentRecords.length > prevRecords.length) {
+                        // Find newly added record
+                        const newRecord = currentRecords[currentRecords.length - 1];
+                        if (newRecord.percent === 100) {
+                          formattedMessage = `${newRecord.user} completed ${levelName} (100%)`;
+                        } else {
+                          formattedMessage = `${newRecord.user} achieved ${newRecord.percent}% on ${levelName}`;
+                        }
+                      } else {
+                        formattedMessage = `${levelName} details were updated`;
+                      }
+                    }
+
+                    activities.push({
+                      id: hash.substring(0, 7) + '_' + levelName.replace(/\s+/g, '_'),
+                      author: author,
+                      message: formattedMessage,
+                      date: date
+                    });
+                  } catch (e) {
+                    console.error('Diff error on file:', file, e);
+                  }
+                }
+              }
+
+              // Deduplicate by message and take top 10
+              const unique = Array.from(new Map(activities.map(item => [item['message'], item])).values()).slice(0, 10);
+              
+              if (unique.length > 0) {
+                fs.writeFileSync('./data/activity.json', JSON.stringify(unique, null, 2));
+              }
+            } catch (err) {
+              console.error('Workflow error:', err);
+            }
+
+      - name: Commit activity.json
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/activity.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update activity feed [skip ci]" && git push)

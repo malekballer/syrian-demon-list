@@ -1,18 +1,27 @@
-let aredlCache = null;
-
-export async function fetchAredlRankings() {
-    if (aredlCache) {
-        return aredlCache;
-    }
-
+export async function fetchAredlData() {
     try {
-        const response = await fetch('./data/aredl.json');
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const res = await fetch("./data/aredl.json");
+        if (!res.ok) return { ranks: {}, tagsMap: {} };
+        const data = await res.json();
+        
+        const ranks = {};
+        const tagsMap = {};
 
-        aredlCache = await response.json();
-        return aredlCache;
-    } catch (err) {
-        console.warn("Could not load local AREDL rankings:", err);
-        return {};
+        Object.entries(data).forEach(([levelId, info]) => {
+            if (typeof info === 'number') {
+                // Legacy format fallback
+                ranks[levelId] = info;
+                tagsMap[levelId] = [];
+            } else if (info && typeof info === 'object') {
+                // New format: { rank: X, tags: [...] }
+                ranks[levelId] = info.rank;
+                tagsMap[levelId] = info.tags || [];
+            }
+        });
+
+        return { ranks, tagsMap };
+    } catch (e) {
+        console.error("Failed to load local AREDL data:", e);
+        return { ranks: {}, tagsMap: {} };
     }
 }

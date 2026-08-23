@@ -1,4 +1,4 @@
-name: Auto-Sync AREDL Rankings
+name: Auto-Sync AREDL Rankings and Tags
 
 on:
   schedule:
@@ -12,48 +12,56 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Fetch and Process AREDL Data
+      - name: Fetch and Process AREDL Data & Tags
         run: |
           mkdir -p data
           
           python3 -c "
           import urllib.request
+          import ssl
           import json
 
-          # Public unauthenticated endpoints
-          urls = [
-              'https://aredl.net/api/arelist',
-              'https://aredl.net/api/levels',
-              'https://api.aredl.net/v2/api/aredl/levels'
-          ]
+          # Bypass SSL runner restrictions
+          ctx = ssl.create_default_context()
+          ctx.check_hostname = False
+          ctx.verify_mode = ssl.CERT_NONE
 
-          mapping = {}
           headers = {
-              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
               'Accept': 'application/json'
           }
 
-          for url in urls:
-              try:
-                  req = urllib.request.Request(url, headers=headers)
-                  with urllib.request.urlopen(req) as response:
-                      if response.status == 200:
-                          raw = json.loads(response.read().decode())
-                          levels = raw if isinstance(raw, list) else raw.get('data', raw.get('levels', []))
-                          for idx, lvl in enumerate(levels):
-                              gid = str(lvl.get('level_id') or lvl.get('gd_id') or lvl.get('id') or '')
-                              pos = lvl.get('position') or lvl.get('rank') or (idx + 1)
-                              if gid:
-                                  mapping[gid] = pos
-                          if mapping:
-                              print(f'Successfully synced {len(mapping)} levels from {url}')
-                              break
-              except Exception as e:
-                  print(f'Skipped {url}: {e}')
+          url = 'https://api.aredl.net/v2/api/aredl/levels'
+          mapping = {}
 
-          # Save mapped dictionary to data/aredl.json
-          with open('data/aredl.json', 'w') as f:
-              json.dump(mapping, f, indent=2)
+          try:
+              req = urllib.request.Request(url, headers=headers)
+              with urllib.request.urlopen(req, context=ctx, timeout=20) as response:
+                  if response.status == 200:
+                      raw = json.loads(response.read().decode('utf-8'))
+                      levels = raw if isinstance(raw, list) else raw.get('levels', raw.get('data', []))
+                      
+                      for idx, lvl in enumerate(levels):
+                          # Grab GD level ID
+                          gid = str(lvl.get('level_id') or lvl.get('gd_id') or lvl.get('id') or '')
+                          # Position / Rank
+                          pos = lvl.get('position') or lvl.get('rank') or (idx + 1)
+                          # Tags array
+                          tags = lvl.get('tags', [])
+                          
+                          if gid:
+                              mapping[gid] = {'rank': pos, 'tags': tags}
+                              
+                      print(f'Successfully fetched {len(mapping)} levels with tags!')
+          except Exception as e:
+              print(f'Failed to fetch AREDL levels: {e}')
+
+          if mapping:
+              with open('data/aredl.json', 'w') as f:
+                  json.dump(mapping, f, indent=2)
+              print('data/aredl.json updated successfully.')
+          else:
+              print('WARNING: Mapping was empty. Preserving existing data/aredl.json.')
           "
 
       - name: Commit and Push Changes
@@ -61,4 +69,4 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add data/aredl.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update AREDL rankings [skip ci]" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update AREDL rankings and tags [skip ci]" && git push)

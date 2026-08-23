@@ -144,7 +144,6 @@ export default {
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     
-                    <!-- Clickable Interactive Tags -->
                     <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.75rem 0 0.5rem 0;">
                         <button 
                             v-for="tag in currentAredlTags" 
@@ -212,13 +211,14 @@ export default {
                 </div>
             </div>
 
-            <!-- Right Column Meta: Editor Cards -->
+            <!-- Right Column Meta: Editors + Activity Board -->
             <div class="meta-container">
                 <div class="meta">
                     <div class="errors" v-show="errors.length > 0">
                         <p class="error" v-for="error of errors">{{ error }}</p>
                     </div>
                     
+                    <!-- 1. List Editors Section -->
                     <template v-if="editors">
                         <h3 style="margin-bottom: 0.85rem;">List Editors</h3>
                         <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.5rem;">
@@ -312,6 +312,30 @@ export default {
                             </div>
                         </div>
                     </template>
+
+                    <!-- 2. Recent Activity Board Component -->
+                    <h3 style="margin-bottom: 0.85rem; font-size: 1.25rem; font-weight: 800;">
+                        Recent Activity
+                    </h3>
+
+                    <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+                        <div 
+                            v-for="act in activityList" 
+                            :key="act.id"
+                            style="padding: 0.95rem 1.1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; display: flex; flex-direction: column; gap: 0.35rem;"
+                        >
+                            <p class="type-label-lg" style="font-weight: 700; font-size: 0.98rem; line-height: 1.35; margin: 0; color: #ffffff;">
+                                {{ act.message }}
+                            </p>
+                            <span class="type-label-sm" style="font-size: 0.78rem; opacity: 0.6; font-weight: 500;">
+                                {{ formatDate(act.date) }} • by {{ act.author }}
+                            </span>
+                        </div>
+
+                        <div v-if="activityList.length === 0" style="padding: 1.2rem; text-align: center; opacity: 0.5; font-size: 0.9rem;" class="type-label-lg">
+                            No recent updates.
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -319,6 +343,7 @@ export default {
     data: () => ({
         list: [],
         editors: [],
+        activityList: [],
         aredlRanks: {},
         aredlTagsMap: {},
         loading: true,
@@ -411,6 +436,17 @@ export default {
         }
     },
     watch: {
+        level: {
+            immediate: true,
+            handler(newLvl) {
+                if (newLvl && newLvl.name) {
+                    const rank = this.selected + 1;
+                    document.title = `#${rank} - ${newLvl.name}`;
+                } else {
+                    document.title = 'Syrian Demon List';
+                }
+            }
+        },
         query(val) { this.updateQueryParams(); },
         selectedTags: { deep: true, handler() { this.updateQueryParams(); } },
         sortBy(val) { this.updateQueryParams(); },
@@ -433,6 +469,15 @@ export default {
         this.editors = editorsData;
         this.aredlRanks = aredlData.ranks;
         this.aredlTagsMap = aredlData.tagsMap;
+
+        try {
+            const actRes = await fetch('./data/activity.json');
+            if (actRes.ok) {
+                this.activityList = await actRes.json();
+            }
+        } catch (e) {
+            console.warn('Activity feed not found or failed to load.');
+        }
 
         const param = this.$route.params.level;
 
@@ -460,6 +505,11 @@ export default {
     methods: {
         embed,
         score,
+        formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+        },
         updateQueryParams() {
             const query = { ...this.$route.query };
 
@@ -485,7 +535,6 @@ export default {
             }
         },
         selectSingleTag(tag) {
-            // Isolates list to only levels containing this tag
             this.selectedTags = [tag];
         },
         selectLevel(index) {
