@@ -65,8 +65,6 @@ export default {
 
                 <!-- Categorized Tag & Sorting Filter Menu -->
                 <div v-if="showFilterMenu" style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); max-height: 380px; overflow-y: auto;">
-                    
-                    <!-- Sorting Controls Row -->
                     <div style="display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
                         <div style="display: flex; align-items: center; gap: 0.4rem;">
                             <span class="type-label-sm" style="opacity: 0.7;">Sort By:</span>
@@ -136,7 +134,6 @@ export default {
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     
-                    <!-- Bigger Display Tags -->
                     <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.75rem 0 0.5rem 0;">
                         <span v-for="tag in currentAredlTags" :key="tag" class="type-label-lg" style="background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.25rem 0.6rem; border-radius: 6px; font-weight: 600;">
                             {{ tag }}
@@ -188,43 +185,50 @@ export default {
                 </div>
             </div>
 
+            <!-- Right Column Meta: Enhanced Credits Cards -->
             <div class="meta-container">
                 <div class="meta">
                     <div class="errors" v-show="errors.length > 0">
                         <p class="error" v-for="error of errors">{{ error }}</p>
                     </div>
+                    
                     <template v-if="editors">
-                        <h3>List Editors</h3>
-                        <ol class="editors">
-                            <li v-for="editor in editors">
-                                <img :src="'/syrian-demon-list/assets/' + roleIconMap[editor.role] + '.svg'" :alt="editor.role">
-                                <a v-if="editor.link" class="type-label-lg link" target="_blank" :href="editor.link">{{ editor.name }}</a>
-                                <p v-else>{{ editor.name }}</p>
-                            </li>
-                        </ol>
+                        <h3 style="margin-bottom: 0.75rem;">List Editors</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;">
+                            <div 
+                                v-for="editor in editors" 
+                                :key="editor.name"
+                                style="display: flex; align-items: center; gap: 0.65rem; padding: 0.5rem 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;"
+                            >
+                                <img 
+                                    :src="editor.pfp || 'https://assets.aredl.net/avatars/default.png'" 
+                                    alt="pfp" 
+                                    style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.15);"
+                                />
+                                <div style="display: flex; flex-direction: column; flex: 1;">
+                                    <div style="display: flex; align-items: center; gap: 0.35rem;">
+                                        <img :src="'/syrian-demon-list/assets/' + roleIconMap[editor.role] + '.svg'" :alt="editor.role" style="width: 14px; height: 14px;">
+                                        <a v-if="editor.link" :href="editor.link" target="_blank" class="type-label-lg link" style="font-weight: 700; text-decoration: none;">
+                                            {{ editor.name }}
+                                        </a>
+                                        <span v-else class="type-label-lg" style="font-weight: 700;">{{ editor.name }}</span>
+                                    </div>
+                                    <span class="type-label-sm" style="font-size: 0.7rem; opacity: 0.65;">
+                                        {{ editor.tag || editor.role }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </template>
+
                     <h3>Submission Requirements</h3>
-                    <p>
-                        Achieved the record without using hacks (however, FPS bypass is allowed)
-                    </p>
-                    <p>
-                        Achieved the record on the level that is listed on the site - please check the level ID before you submit a record
-                    </p>
-                    <p>
-                        Have either source audio or clicks/taps in the video. Edited audio only does not count
-                    </p>
-                    <p>
-                        The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this
-                    </p>
-                    <p>
-                        The recording must also show the player hit the endwall, or the completion will be invalidated.
-                    </p>
-                    <p>
-                        Do not use secret routes or bug routes
-                    </p>
-                    <p>
-                        Do not use easy modes, only a record of the unmodified level qualifies
-                    </p>
+                    <p>Achieved the record without using hacks (however, FPS bypass is allowed)</p>
+                    <p>Achieved the record on the level that is listed on the site - please check the level ID before you submit a record</p>
+                    <p>Have either source audio or clicks/taps in the video. Edited audio only does not count</p>
+                    <p>The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this</p>
+                    <p>The recording must also show the player hit the endwall, or the completion will be invalidated.</p>
+                    <p>Do not use secret routes or bug routes</p>
+                    <p>Do not use easy modes, only a record of the unmodified level qualifies</p>
                 </div>
             </div>
         </main>
@@ -239,8 +243,8 @@ export default {
         query: '',
         showFilterMenu: false,
         selectedTags: [],
-        sortBy: 'list', // 'list' or 'aredl'
-        sortOrder: 'asc', // 'asc' or 'desc'
+        sortBy: 'list',
+        sortOrder: 'asc',
         tagCategories: CATEGORIZED_TAGS,
         copied: false,
         errors: [],
@@ -278,7 +282,6 @@ export default {
                 originalIndex: i
             }));
 
-            // 1. Tag Filter
             if (this.selectedTags.length > 0) {
                 mappedList = mappedList.filter(({ level }) => {
                     if (!level?.id) return false;
@@ -287,7 +290,6 @@ export default {
                 });
             }
 
-            // 2. Search Query Filter
             if (this.query.trim()) {
                 const q = this.query.toLowerCase().trim();
                 mappedList = mappedList.filter(({ level }) => {
@@ -301,7 +303,6 @@ export default {
                 });
             }
 
-            // 3. Sorting (List vs AREDL Rank)
             mappedList.sort((a, b) => {
                 let rankA = a.originalIndex + 1;
                 let rankB = b.originalIndex + 1;
@@ -314,13 +315,12 @@ export default {
                 return this.sortOrder === 'asc' ? rankA - rankB : rankB - rankA;
             });
 
-            // 4. Attach display rank label
             return mappedList.map(item => {
                 let displayRank = item.originalIndex + 1;
                 if (this.sortBy === 'aredl') {
                     displayRank = this.aredlRanks[item.level?.id] || null;
                 } else if (displayRank > 150) {
-                    displayRank = null; // Legacy cutoff
+                    displayRank = null;
                 }
                 return { ...item, displayRank };
             });
