@@ -211,13 +211,14 @@ export default {
                 </div>
             </div>
 
-            <!-- Right Column Meta: Editor Cards -->
+            <!-- Right Column Meta: Editors + Activity Board -->
             <div class="meta-container">
                 <div class="meta">
                     <div class="errors" v-show="errors.length > 0">
                         <p class="error" v-for="error of errors">{{ error }}</p>
                     </div>
                     
+                    <!-- 1. List Editors Section -->
                     <template v-if="editors">
                         <h3 style="margin-bottom: 0.85rem;">List Editors</h3>
                         <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.5rem;">
@@ -311,6 +312,31 @@ export default {
                             </div>
                         </div>
                     </template>
+
+                    <!-- 2. Recent Activity Board Component -->
+                    <h3 style="margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.4rem;">
+                        <span>⚡</span>
+                        <span>Recent Activity</span>
+                    </h3>
+
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <div 
+                            v-for="act in activityList" 
+                            :key="act.id"
+                            style="padding: 0.75rem 0.9rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; display: flex; flex-direction: column; gap: 0.2rem;"
+                        >
+                            <p class="type-label-sm" style="font-weight: 600; line-height: 1.35; margin: 0;">
+                                {{ act.message }}
+                            </p>
+                            <span class="type-label-sm" style="font-size: 0.68rem; opacity: 0.5;">
+                                {{ formatDate(act.date) }} • by {{ act.author }}
+                            </span>
+                        </div>
+
+                        <div v-if="activityList.length === 0" style="padding: 1rem; text-align: center; opacity: 0.5;" class="type-label-sm">
+                            No recent updates.
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -318,6 +344,7 @@ export default {
     data: () => ({
         list: [],
         editors: [],
+        activityList: [],
         aredlRanks: {},
         aredlTagsMap: {},
         loading: true,
@@ -444,6 +471,16 @@ export default {
         this.aredlRanks = aredlData.ranks;
         this.aredlTagsMap = aredlData.tagsMap;
 
+        // Fetch activity feed safely
+        try {
+            const actRes = await fetch('./data/activity.json');
+            if (actRes.ok) {
+                this.activityList = await actRes.json();
+            }
+        } catch (e) {
+            console.warn('Activity feed not found or failed to load.');
+        }
+
         const param = this.$route.params.level;
 
         if (param && this.list) {
@@ -470,6 +507,11 @@ export default {
     methods: {
         embed,
         score,
+        formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+        },
         updateQueryParams() {
             const query = { ...this.$route.query };
 
