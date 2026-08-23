@@ -425,7 +425,7 @@ export default {
         selectedTags: { deep: true, handler() { this.updateQueryParams(); } },
         sortBy(val) { this.updateQueryParams(); },
         sortOrder(val) { this.updateQueryParams(); }
-    }
+    },
     async mounted() {
         const q = this.$route.query;
         if (q.q) this.query = q.q;
