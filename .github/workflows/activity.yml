@@ -53,8 +53,15 @@ jobs:
                     let formattedMessage = '';
 
                     if (isNewLevel) {
-                      const verifier = currentContent.verifier || currentContent.author || 'unknown';
-                      formattedMessage = `${levelName} was placed on the list (Verified by ${verifier})`;
+                      // Grab the first victor (first 100% completion record) instead of verifier
+                      const firstVictorRecord = (currentContent.records || []).find(r => r.percent === 100);
+                      const firstVictor = firstVictorRecord ? firstVictorRecord.user : (currentContent.author || null);
+
+                      if (firstVictor) {
+                        formattedMessage = `${levelName} was placed on the list (First Victor: ${firstVictor})`;
+                      } else {
+                        formattedMessage = `${levelName} was placed on the list`;
+                      }
                     } else {
                       // Compare records count with previous commit
                       const prevRaw = execSync(`git show ${hash}~1:${file}`).toString();
