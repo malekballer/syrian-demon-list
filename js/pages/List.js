@@ -314,26 +314,25 @@ export default {
                     </template>
 
                     <!-- 2. Recent Activity Board Component -->
-                    <h3 style="margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.4rem;">
-                        <span>⚡</span>
-                        <span>Recent Activity</span>
+                    <h3 style="margin-bottom: 0.85rem; font-size: 1.25rem; font-weight: 800;">
+                        Recent Activity
                     </h3>
 
-                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <div style="display: flex; flex-direction: column; gap: 0.65rem;">
                         <div 
                             v-for="act in activityList" 
                             :key="act.id"
-                            style="padding: 0.75rem 0.9rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; display: flex; flex-direction: column; gap: 0.2rem;"
+                            style="padding: 0.95rem 1.1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; display: flex; flex-direction: column; gap: 0.35rem;"
                         >
-                            <p class="type-label-sm" style="font-weight: 600; line-height: 1.35; margin: 0;">
+                            <p class="type-label-lg" style="font-weight: 700; font-size: 0.98rem; line-height: 1.35; margin: 0; color: #ffffff;">
                                 {{ act.message }}
                             </p>
-                            <span class="type-label-sm" style="font-size: 0.68rem; opacity: 0.5;">
+                            <span class="type-label-sm" style="font-size: 0.78rem; opacity: 0.6; font-weight: 500;">
                                 {{ formatDate(act.date) }} • by {{ act.author }}
                             </span>
                         </div>
 
-                        <div v-if="activityList.length === 0" style="padding: 1rem; text-align: center; opacity: 0.5;" class="type-label-sm">
+                        <div v-if="activityList.length === 0" style="padding: 1.2rem; text-align: center; opacity: 0.5; font-size: 0.9rem;" class="type-label-lg">
                             No recent updates.
                         </div>
                     </div>
@@ -471,7 +470,6 @@ export default {
         this.aredlRanks = aredlData.ranks;
         this.aredlTagsMap = aredlData.tagsMap;
 
-        // Fetch activity feed safely
         try {
             const actRes = await fetch('./data/activity.json');
             if (actRes.ok) {
