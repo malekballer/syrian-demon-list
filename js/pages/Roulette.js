@@ -102,6 +102,7 @@ export default {
         fileInput: undefined,
     }),
     mounted() {
+        document.title = 'Roulette';
         // Create File Input
         this.fileInput = document.createElement('input');
         this.fileInput.type = 'file';
