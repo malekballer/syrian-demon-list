@@ -144,7 +144,6 @@ export default {
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     
-                    <!-- Clickable Interactive Tags -->
                     <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.75rem 0 0.5rem 0;">
                         <button 
                             v-for="tag in currentAredlTags" 
@@ -411,6 +410,17 @@ export default {
         }
     },
     watch: {
+        level: {
+            immediate: true,
+            handler(newLvl) {
+                if (newLvl && newLvl.name) {
+                    const rank = this.selected + 1;
+                    document.title = `#${rank} - ${newLvl.name}`;
+                } else {
+                    document.title = 'Syrian Demon List';
+                }
+            }
+        },
         query(val) { this.updateQueryParams(); },
         selectedTags: { deep: true, handler() { this.updateQueryParams(); } },
         sortBy(val) { this.updateQueryParams(); },
@@ -485,7 +495,6 @@ export default {
             }
         },
         selectSingleTag(tag) {
-            // Isolates list to only levels containing this tag
             this.selectedTags = [tag];
         },
         selectLevel(index) {
