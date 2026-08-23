@@ -12,7 +12,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 15
+          fetch-depth: 30
 
       - name: Generate Smart Activity JSON
         uses: actions/github-script@v6
@@ -22,8 +22,7 @@ jobs:
             const { execSync } = require('child_process');
 
             try {
-              // Get recent commits modifying level JSON files
-              const logOutput = execSync('git log -n 15 --pretty=format:"%H|%an|%s|%cd" --date=iso data/').toString();
+              const logOutput = execSync('git log -n 25 --pretty=format:"%H|%an|%s|%cd" --date=iso data/').toString();
               const commits = logOutput.split('\n');
               const activities = [];
 
@@ -34,49 +33,62 @@ jobs:
                 // Skip automated bot actions
                 if (author.includes('github-actions') || message.includes('skip ci')) continue;
 
-                // Find updated level files in this commit
+                // Find updated files in this commit
                 const diffFiles = execSync(`git show --name-only --oneline ${hash}`).toString().split('\n');
                 const levelFiles = diffFiles.filter(f => f.startsWith('data/') && f.endsWith('.json') && !f.includes('activity.json') && !f.includes('editors.json'));
 
                 for (const file of levelFiles) {
-                  if (!fs.existsSync(file)) continue;
-
                   try {
-                    const content = fs.readFileSync(file, 'utf8');
-                    const levelData = JSON.parse(content);
-                    const levelName = levelData.name || file.replace('data/', '').replace('.json', '');
+                    let isNewLevel = false;
+                    try {
+                      execSync(`git show ${hash}~1:${file}`, { stdio: 'pipe' });
+                    } catch (e) {
+                      isNewLevel = true; // File didn't exist in previous commit -> New Level!
+                    }
+
+                    const currentContent = JSON.parse(fs.readFileSync(file, 'utf8'));
+                    const levelName = currentContent.name || file.replace('data/', '').replace('.json', '');
 
                     let formattedMessage = '';
 
-                    // Check if a record exists
-                    if (levelData.records && levelData.records.length > 0) {
-                      // Grab the most recently added record entry
-                      const latestRecord = levelData.records[levelData.records.length - 1];
-                      if (latestRecord.percent === 100) {
-                        formattedMessage = `${latestRecord.user} completed ${levelName} (100%)`;
-                      } else {
-                        formattedMessage = `${latestRecord.user} achieved ${latestRecord.percent}% on ${levelName}`;
-                      }
-                    } else if (levelData.verifier) {
-                      formattedMessage = `${levelName} was added (Verified by ${levelData.verifier})`;
+                    if (isNewLevel) {
+                      const verifier = currentContent.verifier || currentContent.author || 'unknown';
+                      formattedMessage = `${levelName} was placed on the list (Verified by ${verifier})`;
                     } else {
-                      formattedMessage = `${levelName} was updated on the list`;
+                      // Compare records count with previous commit
+                      const prevRaw = execSync(`git show ${hash}~1:${file}`).toString();
+                      const prevContent = JSON.parse(prevRaw);
+
+                      const prevRecords = prevContent.records || [];
+                      const currentRecords = currentContent.records || [];
+
+                      if (currentRecords.length > prevRecords.length) {
+                        // Find newly added record
+                        const newRecord = currentRecords[currentRecords.length - 1];
+                        if (newRecord.percent === 100) {
+                          formattedMessage = `${newRecord.user} completed ${levelName} (100%)`;
+                        } else {
+                          formattedMessage = `${newRecord.user} achieved ${newRecord.percent}% on ${levelName}`;
+                        }
+                      } else {
+                        formattedMessage = `${levelName} details were updated`;
+                      }
                     }
 
                     activities.push({
-                      id: hash.substring(0, 7) + '_' + Math.random().toString(36).substring(2, 5),
+                      id: hash.substring(0, 7) + '_' + levelName.replace(/\s+/g, '_'),
                       author: author,
                       message: formattedMessage,
                       date: date
                     });
                   } catch (e) {
-                    console.error('Error reading file:', file, e);
+                    console.error('Diff error on file:', file, e);
                   }
                 }
               }
 
-              // Filter duplicates and save top 8 items
-              const unique = Array.from(new Map(activities.map(item => [item['message'], item])).values()).slice(0, 8);
+              // Deduplicate by message and take top 10
+              const unique = Array.from(new Map(activities.map(item => [item['message'], item])).values()).slice(0, 10);
               
               if (unique.length > 0) {
                 fs.writeFileSync('./data/activity.json', JSON.stringify(unique, null, 2));
