@@ -1,17 +1,23 @@
 [
-    {
-        "role": "owner",
-        "name": "List Owner: baller",
-        "link": "https://www.youtube.com/@MalekBall"
-    },
-    {
-        "role": "helper",
-        "name": "List Helper: zeinbgr",
-        "link": "https://www.youtube.com/channel/UChwATwyUwhKIm_DNS4B5fJA"
-    },
-    {
-        "role": "helper",
-        "name": "List Helper: Slicer",
-        "link": "https://www.youtube.com/@mr.yellowegg"
-    }
+  {
+    "name": "baller",
+    "role": "owner",
+    "tag": "List Owner",
+    "pfp": "https://github.com/malekballer.png",
+    "link": "https://github.com/malekballer"
+  },
+  {
+    "name": "zeinbgr",
+    "role": "helper",
+    "tag": "List Helper",
+    "pfp": "https://assets.aredl.net/avatars/default.png",
+    "link": ""
+  },
+  {
+    "name": "Slicer",
+    "role": "helper",
+    "tag": "List Helper",
+    "pfp": "https://assets.aredl.net/avatars/default.png",
+    "link": ""
+  }
 ]
