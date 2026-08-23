@@ -5,7 +5,6 @@ export default {
         <main class="page-rules" style="display: flex; justify-content: center; padding: 2.5rem 1rem; width: 100%;">
             <div style="width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 1.5rem;">
                 
-                <!-- Page Title Header -->
                 <div style="margin-bottom: 0.5rem;">
                     <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.4rem;">Submission Rules</h1>
                     <p class="type-label-lg" style="opacity: 0.75; font-size: 1.05rem;">
@@ -13,7 +12,6 @@ export default {
                     </p>
                 </div>
 
-                <!-- Rules List Container -->
                 <div style="display: flex; flex-direction: column; gap: 0.85rem;">
                     
                     <div style="display: flex; gap: 1rem; align-items: center; padding: 1.1rem 1.25rem; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px;">
@@ -55,5 +53,8 @@ export default {
             </div>
         </main>
     `,
-    data: () => ({ store })
+    data: () => ({ store }),
+    mounted() {
+        document.title = 'Submission Rules';
+    }
 };
