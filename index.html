@@ -37,8 +37,7 @@
 
         <!-- Active Navigation Highlight Styling -->
         <style>
-            .nav__tab.router-link-exact-active,
-            .nav__tab.router-link-active:not([href="/"]) {
+            .nav__tab.active {
                 color: #00FF80 !important;
                 border-bottom: 2px solid #007A3D !important;
                 opacity: 1 !important;
@@ -54,16 +53,32 @@
                 <p>v1.4.0</p>
             </div>
             <nav class="nav">
-                <router-link class="nav__tab" to="/" exact>
+                <router-link 
+                    class="nav__tab" 
+                    to="/" 
+                    :class="{ active: !['/leaderboard', '/roulette', '/rules'].includes(store.currentPath) }"
+                >
                     <span class="type-label-lg">List</span>
                 </router-link>
-                <router-link class="nav__tab" to="/leaderboard">
+                <router-link 
+                    class="nav__tab" 
+                    to="/leaderboard" 
+                    :class="{ active: store.currentPath.startsWith('/leaderboard') }"
+                >
                     <span class="type-label-lg">Leaderboard</span>
                 </router-link>
-                <router-link class="nav__tab" to="/roulette">
+                <router-link 
+                    class="nav__tab" 
+                    to="/roulette" 
+                    :class="{ active: store.currentPath.startsWith('/roulette') }"
+                >
                     <span class="type-label-lg">Roulette</span>
                 </router-link>
-                <router-link class="nav__tab" to="/rules">
+                <router-link 
+                    class="nav__tab" 
+                    to="/rules" 
+                    :class="{ active: store.currentPath.startsWith('/rules') }"
+                >
                     <span class="type-label-lg">Submission Rules</span>
                 </router-link>
             </nav>
