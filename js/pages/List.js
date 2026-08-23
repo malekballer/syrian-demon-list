@@ -42,6 +42,7 @@ export default {
                         placeholder="Search levels or creators..." 
                         style="flex: 1;"
                     />
+                    <!-- Clean SVG Sliders Filter Button -->
                     <button 
                         @click="showFilterMenu = !showFilterMenu"
                         class="type-label-lg"
@@ -63,7 +64,10 @@ export default {
                     </button>
                 </div>
 
+                <!-- Categorized Tag & Sorting Filter Menu -->
                 <div v-if="showFilterMenu" style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); max-height: 380px; overflow-y: auto;">
+                    
+                    <!-- Sorting Controls Row -->
                     <div style="display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
                         <div style="display: flex; align-items: center; gap: 0.4rem;">
                             <span class="type-label-sm" style="opacity: 0.7;">Sort By:</span>
@@ -133,6 +137,7 @@ export default {
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     
+                    <!-- Larger Display Tags -->
                     <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.75rem 0 0.5rem 0;">
                         <span v-for="tag in currentAredlTags" :key="tag" class="type-label-lg" style="background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.25rem 0.6rem; border-radius: 6px; font-weight: 600;">
                             {{ tag }}
@@ -184,7 +189,7 @@ export default {
                 </div>
             </div>
 
-            <!-- Right Column Meta: Enhanced & Flare Editor Cards -->
+            <!-- Right Column Meta: Enhanced Editor Cards with Inverted Role Badges -->
             <div class="meta-container">
                 <div class="meta">
                     <div class="errors" v-show="errors.length > 0">
@@ -197,7 +202,7 @@ export default {
                             <div 
                                 v-for="editor in editors" 
                                 :key="editor.name"
-                                style="display: flex; align-items: center; gap: 0.85rem; padding: 0.8rem 1rem; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; transition: transform 0.2s, border-color 0.2s; position: relative; overflow: hidden;"
+                                style="display: flex; align-items: center; gap: 0.85rem; padding: 0.8rem 1rem; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; position: relative; overflow: hidden;"
                             >
                                 <!-- Accent glow line -->
                                 <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #007A3D;"></div>
@@ -212,16 +217,32 @@ export default {
                                 <!-- User & Role Details -->
                                 <div style="display: flex; flex-direction: column; flex: 1;">
                                     <div style="display: flex; align-items: center; gap: 0.45rem;">
-                                        <!-- Dynamically Inverted SVG Icon -->
-                                        <img 
-                                            :src="'/syrian-demon-list/assets/' + roleIconMap[editor.role] + '.svg'" 
-                                            :alt="editor.role" 
-                                            :style="{
-                                                width: '16px', 
-                                                height: '16px', 
-                                                filter: store.dark ? 'invert(1)' : 'none'
-                                            }"
-                                        >
+                                        <!-- Support multiple role icons -->
+                                        <template v-if="editor.roles">
+                                            <img 
+                                                v-for="r in editor.roles" 
+                                                :key="r"
+                                                :src="'/syrian-demon-list/assets/' + roleIconMap[r] + '.svg'" 
+                                                :alt="r" 
+                                                :style="{
+                                                    width: '16px', 
+                                                    height: '16px', 
+                                                    filter: store.dark ? 'invert(1)' : 'none'
+                                                }"
+                                            >
+                                        </template>
+                                        <template v-else>
+                                            <img 
+                                                :src="'/syrian-demon-list/assets/' + roleIconMap[editor.role] + '.svg'" 
+                                                :alt="editor.role" 
+                                                :style="{
+                                                    width: '16px', 
+                                                    height: '16px', 
+                                                    filter: store.dark ? 'invert(1)' : 'none'
+                                                }"
+                                            >
+                                        </template>
+
                                         <a v-if="editor.link" :href="editor.link" target="_blank" class="type-label-lg link" style="font-weight: 800; font-size: 1rem; text-decoration: none;">
                                             {{ editor.name }}
                                         </a>
