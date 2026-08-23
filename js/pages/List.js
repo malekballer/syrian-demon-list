@@ -79,7 +79,6 @@ export default {
                     <div style="display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
                         <div style="display: flex; align-items: center; gap: 0.4rem;">
                             <span class="type-label-sm" style="opacity: 0.7;">Sort By:</span>
-                            <!-- Custom styling on select and options to fix dark mode text visibility -->
                             <select v-model="sortBy" class="type-label-sm" style="background: var(--color-background, #111); color: inherit; border: 1px solid rgba(255,255,255,0.12); padding: 0.25rem 0.4rem; border-radius: 4px; cursor: pointer;">
                                 <option value="list" style="background: #1a1a1a; color: #ffffff;">List Rank</option>
                                 <option value="aredl" style="background: #1a1a1a; color: #ffffff;">AREDL Rank</option>
@@ -395,7 +394,22 @@ export default {
             });
         }
     },
+    watch: {
+        // Sync state to URL Query Parameters on change
+        query(val) { this.updateQueryParams(); },
+        selectedTags: { deep: true, handler() { this.updateQueryParams(); } },
+        sortBy(val) { this.updateQueryParams(); },
+        sortOrder(val) { this.updateQueryParams(); }
+    },
     async mounted() {
+        // 1. Restore filter state from URL Query Parameters
+        const q = this.$route.query;
+        if (q.q) this.query = q.q;
+        if (q.tags) this.selectedTags = q.tags.split(',').filter(Boolean);
+        if (q.sort) this.sortBy = q.sort;
+        if (q.order) this.sortOrder = q.order;
+
+        // 2. Fetch Data
         const [listData, editorsData, aredlData] = await Promise.all([
             fetchList(),
             fetchEditors(),
@@ -418,13 +432,13 @@ export default {
             } else {
                 this.selected = 0;
                 if (this.list[0]?.[0]) {
-                    this.$router.replace(`/${this.list[0][0].id}`);
+                    this.$router.replace({ path: `/${this.list[0][0].id}`, query: this.$route.query });
                 }
             }
         } else {
             this.selected = 0;
             if (this.list[0]?.[0]) {
-                this.$router.replace(`/${this.list[0][0].id}`);
+                this.$router.replace({ path: `/${this.list[0][0].id}`, query: this.$route.query });
             }
         }
 
@@ -433,6 +447,23 @@ export default {
     methods: {
         embed,
         score,
+        updateQueryParams() {
+            const query = { ...this.$route.query };
+
+            if (this.query.trim()) query.q = this.query.trim();
+            else delete query.q;
+
+            if (this.selectedTags.length > 0) query.tags = this.selectedTags.join(',');
+            else delete query.tags;
+
+            if (this.sortBy !== 'list') query.sort = this.sortBy;
+            else delete query.sort;
+
+            if (this.sortOrder !== 'asc') query.order = this.sortOrder;
+            else delete query.order;
+
+            this.$router.replace({ query }).catch(() => {});
+        },
         toggleTag(tag) {
             if (this.selectedTags.includes(tag)) {
                 this.selectedTags = this.selectedTags.filter(t => t !== tag);
@@ -444,7 +475,7 @@ export default {
             this.selected = index;
             const currentLevel = this.list[index]?.[0];
             if (currentLevel) {
-                this.$router.push(`/${currentLevel.id}`);
+                this.$router.push({ path: `/${currentLevel.id}`, query: this.$route.query });
             }
         },
         copyId(id) {
