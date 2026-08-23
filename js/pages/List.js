@@ -35,13 +35,26 @@ export default {
         <main v-else class="page-list">
             <div class="list-container">
                 <div class="search-container" style="display: flex; gap: 0.5rem; align-items: center;">
-                    <input 
-                        type="text" 
-                        class="search-bar type-label-lg" 
-                        v-model="query" 
-                        placeholder="Search levels or creators..." 
-                        style="flex: 1;"
-                    />
+                    <!-- Input Wrapper for Relative Positioning of Clear X Button -->
+                    <div style="position: relative; flex: 1; display: flex; align-items: center;">
+                        <input 
+                            type="text" 
+                            class="search-bar type-label-lg" 
+                            v-model="query" 
+                            placeholder="Search levels or creators..." 
+                            style="width: 100%; padding-right: 2rem;"
+                        />
+                        <!-- Dynamic Clear (X) Button -->
+                        <button 
+                            v-if="query.length > 0"
+                            @click="query = ''"
+                            style="position: absolute; right: 0.6rem; background: none; border: none; color: inherit; opacity: 0.6; cursor: pointer; font-size: 1rem; font-weight: bold; padding: 0.2rem; display: flex; align-items: center; justify-content: center;"
+                            title="Clear search"
+                        >
+                            ✕
+                        </button>
+                    </div>
+
                     <!-- Clean SVG Sliders Filter Button -->
                     <button 
                         @click="showFilterMenu = !showFilterMenu"
@@ -189,7 +202,7 @@ export default {
                 </div>
             </div>
 
-            <!-- Right Column Meta: Enhanced Editor Cards with Inverted Role Badges -->
+            <!-- Right Column Meta: Enhanced Editor Cards -->
             <div class="meta-container">
                 <div class="meta">
                     <div class="errors" v-show="errors.length > 0">
@@ -204,20 +217,16 @@ export default {
                                 :key="editor.name"
                                 style="display: flex; align-items: center; gap: 0.85rem; padding: 0.8rem 1rem; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; position: relative; overflow: hidden;"
                             >
-                                <!-- Accent glow line -->
                                 <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #007A3D;"></div>
 
-                                <!-- Avatar -->
                                 <img 
                                     :src="editor.pfp || 'https://assets.aredl.net/avatars/default.png'" 
                                     alt="pfp" 
                                     style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.15); box-shadow: 0 4px 10px rgba(0,0,0,0.3);"
                                 />
                                 
-                                <!-- User & Role Details -->
                                 <div style="display: flex; flex-direction: column; flex: 1;">
                                     <div style="display: flex; align-items: center; gap: 0.45rem;">
-                                        <!-- Support multiple role icons -->
                                         <template v-if="editor.roles">
                                             <img 
                                                 v-for="r in editor.roles" 
@@ -249,7 +258,6 @@ export default {
                                         <span v-else class="type-label-lg" style="font-weight: 800; font-size: 1rem;">{{ editor.name }}</span>
                                     </div>
                                     
-                                    <!-- Role Tag Badge -->
                                     <span class="type-label-sm" style="font-size: 0.72rem; opacity: 0.8; margin-top: 0.15rem; font-weight: 600;">
                                         {{ editor.tag || editor.role }}
                                     </span>
