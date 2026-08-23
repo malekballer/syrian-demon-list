@@ -53,12 +53,14 @@ export default {
                         </button>
                     </div>
 
+                    <!-- Clean Icon-Only Filter Button -->
                     <button 
                         @click="showFilterMenu = !showFilterMenu"
                         class="type-label-lg"
-                        style="display: flex; align-items: center; gap: 0.4rem; padding: 0.5rem 0.75rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: inherit; cursor: pointer;"
+                        style="display: flex; align-items: center; justify-content: center; padding: 0.6rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: inherit; cursor: pointer; position: relative;"
+                        title="Toggle Filters"
                     >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="4" y1="21" x2="4" y2="14"></line>
                             <line x1="4" y1="10" x2="4" y2="3"></line>
                             <line x1="12" y1="21" x2="12" y2="12"></line>
@@ -69,8 +71,7 @@ export default {
                             <line x1="9" y1="8" x2="15" y2="8"></line>
                             <line x1="17" y1="16" x2="23" y2="16"></line>
                         </svg>
-                        <span>Filters</span>
-                        <span v-if="selectedTags.length" style="background: #007A3D; padding: 0.1rem 0.35rem; border-radius: 10px; font-size: 0.75rem; margin-left: 0.1rem;">{{ selectedTags.length }}</span>
+                        <span v-if="selectedTags.length" style="background: #007A3D; color: #fff; padding: 0.1rem 0.35rem; border-radius: 10px; font-size: 0.7rem; font-weight: bold; margin-left: 0.3rem;">{{ selectedTags.length }}</span>
                     </button>
                 </div>
 
@@ -78,9 +79,10 @@ export default {
                     <div style="display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
                         <div style="display: flex; align-items: center; gap: 0.4rem;">
                             <span class="type-label-sm" style="opacity: 0.7;">Sort By:</span>
-                            <select v-model="sortBy" class="type-label-sm" style="background: rgba(255,255,255,0.08); color: inherit; border: 1px solid rgba(255,255,255,0.12); padding: 0.25rem 0.4rem; border-radius: 4px; cursor: pointer;">
-                                <option value="list">List Rank</option>
-                                <option value="aredl">AREDL Rank</option>
+                            <!-- Custom styling on select and options to fix dark mode text visibility -->
+                            <select v-model="sortBy" class="type-label-sm" style="background: var(--color-background, #111); color: inherit; border: 1px solid rgba(255,255,255,0.12); padding: 0.25rem 0.4rem; border-radius: 4px; cursor: pointer;">
+                                <option value="list" style="background: #1a1a1a; color: #ffffff;">List Rank</option>
+                                <option value="aredl" style="background: #1a1a1a; color: #ffffff;">AREDL Rank</option>
                             </select>
                         </div>
                         
@@ -195,7 +197,7 @@ export default {
                 </div>
             </div>
 
-            <!-- Right Column Meta: Editor Cards with Glow Hover Flare -->
+            <!-- Right Column Meta: Editor Cards -->
             <div class="meta-container">
                 <div class="meta">
                     <div class="errors" v-show="errors.length > 0">
@@ -228,7 +230,6 @@ export default {
                                     cursor: 'default'
                                 }"
                             >
-                                <!-- Interactive Accent Glow Line -->
                                 <div 
                                     :style="{
                                         position: 'absolute',
@@ -242,7 +243,6 @@ export default {
                                     }"
                                 ></div>
 
-                                <!-- Avatar -->
                                 <img 
                                     :src="editor.pfp || 'https://assets.aredl.net/avatars/default.png'" 
                                     alt="pfp" 
@@ -257,7 +257,6 @@ export default {
                                     }"
                                 />
                                 
-                                <!-- User & Role Details -->
                                 <div style="display: flex; flex-direction: column; flex: 1;">
                                     <div style="display: flex; align-items: center; gap: 0.45rem;">
                                         <template v-if="editor.roles">
