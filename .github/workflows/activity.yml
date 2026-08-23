@@ -1,0 +1,52 @@
+name: Generate Activity Feed
+
+on:
+  push:
+    paths:
+      - 'data/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Generate Activity JSON
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+
+            try {
+              // Get last 20 commits modifying data/
+              const commits = execSync('git log -n 20 --pretty=format:"%H|%an|%s|%cd" --date=iso data/').toString().split('\n');
+              const activities = [];
+
+              for (const line of commits) {
+                if (!line) continue;
+                const [hash, author, message, date] = line.split('|');
+                
+                // Only include relevance messages
+                activities.push({
+                  id: hash.substring(0, 7),
+                  author: author,
+                  message: message,
+                  date: date
+                });
+              }
+
+              fs.writeFileSync('./data/activity.json', JSON.stringify(activities.slice(0, 10), null, 2));
+            } catch (err) {
+              console.error(err);
+            }
+
+      - name: Commit activity.json
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/activity.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update activity feed [skip ci]" && git push)
