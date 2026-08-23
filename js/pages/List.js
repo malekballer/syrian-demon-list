@@ -53,7 +53,6 @@ export default {
                         </button>
                     </div>
 
-                    <!-- Clean Icon-Only Filter Button -->
                     <button 
                         @click="showFilterMenu = !showFilterMenu"
                         class="type-label-lg"
@@ -145,10 +144,27 @@ export default {
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     
+                    <!-- Clickable Interactive Tags -->
                     <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.75rem 0 0.5rem 0;">
-                        <span v-for="tag in currentAredlTags" :key="tag" class="type-label-lg" style="background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.25rem 0.6rem; border-radius: 6px; font-weight: 600;">
+                        <button 
+                            v-for="tag in currentAredlTags" 
+                            :key="tag" 
+                            @click="selectSingleTag(tag)"
+                            class="type-label-lg" 
+                            :title="'Click to view all ' + tag + ' levels'"
+                            :style="{
+                                background: selectedTags.includes(tag) ? '#007A3D' : 'rgba(0, 122, 61, 0.2)',
+                                border: '1px solid #007A3D',
+                                color: '#fff',
+                                padding: '0.25rem 0.6rem',
+                                borderRadius: '6px',
+                                fontWeight: '600',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s ease'
+                            }"
+                        >
                             {{ tag }}
-                        </span>
+                        </button>
                     </div>
 
                     <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
@@ -395,21 +411,18 @@ export default {
         }
     },
     watch: {
-        // Sync state to URL Query Parameters on change
         query(val) { this.updateQueryParams(); },
         selectedTags: { deep: true, handler() { this.updateQueryParams(); } },
         sortBy(val) { this.updateQueryParams(); },
         sortOrder(val) { this.updateQueryParams(); }
     },
     async mounted() {
-        // 1. Restore filter state from URL Query Parameters
         const q = this.$route.query;
         if (q.q) this.query = q.q;
         if (q.tags) this.selectedTags = q.tags.split(',').filter(Boolean);
         if (q.sort) this.sortBy = q.sort;
         if (q.order) this.sortOrder = q.order;
 
-        // 2. Fetch Data
         const [listData, editorsData, aredlData] = await Promise.all([
             fetchList(),
             fetchEditors(),
@@ -470,6 +483,10 @@ export default {
             } else {
                 this.selectedTags.push(tag);
             }
+        },
+        selectSingleTag(tag) {
+            // Isolates list to only levels containing this tag
+            this.selectedTags = [tag];
         },
         selectLevel(index) {
             this.selected = index;
