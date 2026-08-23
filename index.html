@@ -35,8 +35,18 @@
         <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
         <script type="module" src="./js/main.js"></script>
 
-        <!-- Active Navigation Highlight Styling -->
+        <!-- Strict Active Navigation Highlight Styling -->
         <style>
+            /* Reset default router active styles */
+            .nav__tab.router-link-active,
+            .nav__tab.router-link-exact-active {
+                color: inherit;
+                border-bottom: none;
+                opacity: 0.7;
+                font-weight: normal;
+            }
+
+            /* Apply highlight ONLY when our custom active class is present */
             .nav__tab.active {
                 color: #00FF80 !important;
                 border-bottom: 2px solid #007A3D !important;
@@ -56,7 +66,7 @@
                 <router-link 
                     class="nav__tab" 
                     to="/" 
-                    :class="{ active: !['/leaderboard', '/roulette', '/rules'].includes(store.currentPath) }"
+                    :class="{ active: store.currentPath === '/' || (!store.currentPath.startsWith('/leaderboard') && !store.currentPath.startsWith('/roulette') && !store.currentPath.startsWith('/rules')) }"
                 >
                     <span class="type-label-lg">List</span>
                 </router-link>
