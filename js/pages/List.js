@@ -42,7 +42,6 @@ export default {
                         placeholder="Search levels or creators..." 
                         style="flex: 1;"
                     />
-                    <!-- Clean SVG Sliders Filter Button -->
                     <button 
                         @click="showFilterMenu = !showFilterMenu"
                         class="type-label-lg"
@@ -64,8 +63,31 @@ export default {
                     </button>
                 </div>
 
-                <!-- Categorized Tag Filter Menu -->
-                <div v-if="showFilterMenu" style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); max-height: 320px; overflow-y: auto;">
+                <!-- Categorized Tag & Sorting Filter Menu -->
+                <div v-if="showFilterMenu" style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); max-height: 380px; overflow-y: auto;">
+                    
+                    <!-- Sorting Controls Row -->
+                    <div style="display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                        <div style="display: flex; align-items: center; gap: 0.4rem;">
+                            <span class="type-label-sm" style="opacity: 0.7;">Sort By:</span>
+                            <select v-model="sortBy" class="type-label-sm" style="background: rgba(255,255,255,0.08); color: inherit; border: 1px solid rgba(255,255,255,0.12); padding: 0.25rem 0.4rem; border-radius: 4px; cursor: pointer;">
+                                <option value="list">List Rank</option>
+                                <option value="aredl">AREDL Rank</option>
+                            </select>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 0.4rem;">
+                            <span class="type-label-sm" style="opacity: 0.7;">Order:</span>
+                            <button 
+                                @click="sortOrder = sortOrder === 'asc' ? 'desc' : 'asc'" 
+                                class="type-label-sm"
+                                style="background: rgba(255,255,255,0.08); color: inherit; border: 1px solid rgba(255,255,255,0.12); padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer;"
+                            >
+                                {{ sortOrder === 'asc' ? '▲ Ascending' : '▼ Descending' }}
+                            </button>
+                        </div>
+                    </div>
+
                     <div v-for="(tags, category) in tagCategories" :key="category" style="margin-bottom: 0.6rem;">
                         <div class="type-label-sm" style="opacity: 0.6; font-weight: bold; margin-bottom: 0.25rem; text-transform: uppercase;">{{ category }}</div>
                         <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
@@ -95,9 +117,9 @@ export default {
                 </div>
 
                 <table class="list" v-if="list">
-                    <tr v-for="({ level, err, originalIndex }) in filteredList" :key="originalIndex">
+                    <tr v-for="({ level, err, originalIndex, displayRank }) in filteredList" :key="originalIndex">
                         <td class="rank">
-                            <p v-if="originalIndex + 1 <= 150" class="type-label-lg">#{{ originalIndex + 1 }}</p>
+                            <p v-if="displayRank !== null" class="type-label-lg">#{{ displayRank }}</p>
                             <p v-else class="type-label-lg">Legacy</p>
                         </td>
                         <td class="level" :class="{ 'active': selected == originalIndex, 'error': !level }">
@@ -217,6 +239,8 @@ export default {
         query: '',
         showFilterMenu: false,
         selectedTags: [],
+        sortBy: 'list', // 'list' or 'aredl'
+        sortOrder: 'asc', // 'asc' or 'desc'
         tagCategories: CATEGORIZED_TAGS,
         copied: false,
         errors: [],
@@ -248,25 +272,25 @@ export default {
         filteredList() {
             if (!this.list) return [];
             
-            const mappedList = this.list.map(([level, err], i) => ({
+            let mappedList = this.list.map(([level, err], i) => ({
                 level,
                 err,
                 originalIndex: i
             }));
 
-            let result = mappedList;
-
+            // 1. Tag Filter
             if (this.selectedTags.length > 0) {
-                result = result.filter(({ level }) => {
+                mappedList = mappedList.filter(({ level }) => {
                     if (!level?.id) return false;
                     const levelTags = this.aredlTagsMap[level.id] || [];
                     return this.selectedTags.every(t => levelTags.includes(t));
                 });
             }
 
+            // 2. Search Query Filter
             if (this.query.trim()) {
                 const q = this.query.toLowerCase().trim();
-                result = result.filter(({ level }) => {
+                mappedList = mappedList.filter(({ level }) => {
                     if (!level) return false;
                     
                     const nameMatch = level.name?.toLowerCase().includes(q);
@@ -277,7 +301,29 @@ export default {
                 });
             }
 
-            return result;
+            // 3. Sorting (List vs AREDL Rank)
+            mappedList.sort((a, b) => {
+                let rankA = a.originalIndex + 1;
+                let rankB = b.originalIndex + 1;
+
+                if (this.sortBy === 'aredl') {
+                    rankA = this.aredlRanks[a.level?.id] || 9999;
+                    rankB = this.aredlRanks[b.level?.id] || 9999;
+                }
+
+                return this.sortOrder === 'asc' ? rankA - rankB : rankB - rankA;
+            });
+
+            // 4. Attach display rank label
+            return mappedList.map(item => {
+                let displayRank = item.originalIndex + 1;
+                if (this.sortBy === 'aredl') {
+                    displayRank = this.aredlRanks[item.level?.id] || null;
+                } else if (displayRank > 150) {
+                    displayRank = null; // Legacy cutoff
+                }
+                return { ...item, displayRank };
+            });
         }
     },
     async mounted() {
