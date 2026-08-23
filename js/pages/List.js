@@ -42,12 +42,25 @@ export default {
                         placeholder="Search levels or creators..." 
                         style="flex: 1;"
                     />
+                    <!-- Clean SVG Sliders Filter Button -->
                     <button 
                         @click="showFilterMenu = !showFilterMenu"
                         class="type-label-lg"
-                        style="padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--color-background, #111); color: inherit; cursor: pointer;"
+                        style="display: flex; align-items: center; gap: 0.4rem; padding: 0.5rem 0.75rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: inherit; cursor: pointer;"
                     >
-                        ⚙️ Filters {{ selectedTags.length ? \`(\${selectedTags.length})\` : '' }}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="21" x2="4" y2="14"></line>
+                            <line x1="4" y1="10" x2="4" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12" y2="3"></line>
+                            <line x1="20" y1="21" x2="20" y2="16"></line>
+                            <line x1="20" y1="10" x2="20" y2="3"></line>
+                            <line x1="1" y1="14" x2="7" y2="14"></line>
+                            <line x1="9" y1="8" x2="15" y2="8"></line>
+                            <line x1="17" y1="16" x2="23" y2="16"></line>
+                        </svg>
+                        <span>Filters</span>
+                        <span v-if="selectedTags.length" style="background: #007A3D; padding: 0.1rem 0.35rem; border-radius: 10px; font-size: 0.75rem; margin-left: 0.1rem;">{{ selectedTags.length }}</span>
                     </button>
                 </div>
 
@@ -101,9 +114,9 @@ export default {
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     
-                    <!-- Display Level Tags from Local AREDL Data -->
-                    <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin: 0.5rem 0;">
-                        <span v-for="tag in currentAredlTags" :key="tag" class="type-label-sm" style="background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 600;">
+                    <!-- Bigger Display Tags -->
+                    <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.75rem 0 0.5rem 0;">
+                        <span v-for="tag in currentAredlTags" :key="tag" class="type-label-lg" style="background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.25rem 0.6rem; border-radius: 6px; font-weight: 600;">
                             {{ tag }}
                         </span>
                     </div>
@@ -243,7 +256,6 @@ export default {
 
             let result = mappedList;
 
-            // Filter levels by selected tags
             if (this.selectedTags.length > 0) {
                 result = result.filter(({ level }) => {
                     if (!level?.id) return false;
