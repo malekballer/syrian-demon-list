@@ -42,7 +42,7 @@ export default {
                     </table>
                 </div>
                 <div class="player-container">
-                    <div class="player">
+                    <div class="player" v-if="entry">
                         <h1>#{{ selected + 1 }} {{ entry.user }}</h1>
                         <h3>{{ entry.total }}</h3>
                         <h2 v-if="entry.verified.length > 0">Verified ({{ entry.verified.length}})</h2>
@@ -96,6 +96,18 @@ export default {
         entry() {
             return this.leaderboard[this.selected];
         },
+    },
+    watch: {
+        entry: {
+            immediate: true,
+            handler(newEntry) {
+                if (newEntry && newEntry.user) {
+                    document.title = `${newEntry.user}'s Profile`;
+                } else {
+                    document.title = 'Leaderboard';
+                }
+            }
+        }
     },
     async mounted() {
         const [leaderboard, err] = await fetchLeaderboard();
