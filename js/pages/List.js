@@ -63,7 +63,6 @@ export default {
                     </button>
                 </div>
 
-                <!-- Categorized Tag & Sorting Filter Menu -->
                 <div v-if="showFilterMenu" style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); max-height: 380px; overflow-y: auto;">
                     <div style="display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
                         <div style="display: flex; align-items: center; gap: 0.4rem;">
@@ -185,7 +184,7 @@ export default {
                 </div>
             </div>
 
-            <!-- Right Column Meta: Enhanced Credits Cards -->
+            <!-- Right Column Meta: Enhanced & Flare Editor Cards -->
             <div class="meta-container">
                 <div class="meta">
                     <div class="errors" v-show="errors.length > 0">
@@ -193,27 +192,44 @@ export default {
                     </div>
                     
                     <template v-if="editors">
-                        <h3 style="margin-bottom: 0.75rem;">List Editors</h3>
-                        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;">
+                        <h3 style="margin-bottom: 0.85rem;">List Editors</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.5rem;">
                             <div 
                                 v-for="editor in editors" 
                                 :key="editor.name"
-                                style="display: flex; align-items: center; gap: 0.65rem; padding: 0.5rem 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;"
+                                style="display: flex; align-items: center; gap: 0.85rem; padding: 0.8rem 1rem; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; transition: transform 0.2s, border-color 0.2s; position: relative; overflow: hidden;"
                             >
+                                <!-- Accent glow line -->
+                                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #007A3D;"></div>
+
+                                <!-- Avatar -->
                                 <img 
                                     :src="editor.pfp || 'https://assets.aredl.net/avatars/default.png'" 
                                     alt="pfp" 
-                                    style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.15);"
+                                    style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.15); box-shadow: 0 4px 10px rgba(0,0,0,0.3);"
                                 />
+                                
+                                <!-- User & Role Details -->
                                 <div style="display: flex; flex-direction: column; flex: 1;">
-                                    <div style="display: flex; align-items: center; gap: 0.35rem;">
-                                        <img :src="'/syrian-demon-list/assets/' + roleIconMap[editor.role] + '.svg'" :alt="editor.role" style="width: 14px; height: 14px;">
-                                        <a v-if="editor.link" :href="editor.link" target="_blank" class="type-label-lg link" style="font-weight: 700; text-decoration: none;">
+                                    <div style="display: flex; align-items: center; gap: 0.45rem;">
+                                        <!-- Dynamically Inverted SVG Icon -->
+                                        <img 
+                                            :src="'/syrian-demon-list/assets/' + roleIconMap[editor.role] + '.svg'" 
+                                            :alt="editor.role" 
+                                            :style="{
+                                                width: '16px', 
+                                                height: '16px', 
+                                                filter: store.dark ? 'invert(1)' : 'none'
+                                            }"
+                                        >
+                                        <a v-if="editor.link" :href="editor.link" target="_blank" class="type-label-lg link" style="font-weight: 800; font-size: 1rem; text-decoration: none;">
                                             {{ editor.name }}
                                         </a>
-                                        <span v-else class="type-label-lg" style="font-weight: 700;">{{ editor.name }}</span>
+                                        <span v-else class="type-label-lg" style="font-weight: 800; font-size: 1rem;">{{ editor.name }}</span>
                                     </div>
-                                    <span class="type-label-sm" style="font-size: 0.7rem; opacity: 0.65;">
+                                    
+                                    <!-- Role Tag Badge -->
+                                    <span class="type-label-sm" style="font-size: 0.72rem; opacity: 0.8; margin-top: 0.15rem; font-weight: 600;">
                                         {{ editor.tag || editor.role }}
                                     </span>
                                 </div>
