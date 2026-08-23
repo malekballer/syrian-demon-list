@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'data/*.json'
+  workflow_dispatch: # Enables manual triggering on GitHub Actions tab
 
 jobs:
   build:
