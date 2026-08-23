@@ -56,7 +56,18 @@ export default {
                     <button 
                         @click="showFilterMenu = !showFilterMenu"
                         class="type-label-lg"
-                        style="display: flex; align-items: center; justify-content: center; padding: 0.6rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: inherit; cursor: pointer; position: relative;"
+                        :style="{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '0.6rem',
+                            borderRadius: '8px',
+                            border: store.dark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)',
+                            background: store.dark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
+                            color: 'inherit',
+                            cursor: 'pointer',
+                            position: 'relative'
+                        }"
                         title="Toggle Filters"
                     >
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -74,22 +85,52 @@ export default {
                     </button>
                 </div>
 
-                <div v-if="showFilterMenu" style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); max-height: 380px; overflow-y: auto;">
-                    <div style="display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <div v-if="showFilterMenu" :style="{
+                    marginTop: '0.5rem',
+                    padding: '0.75rem',
+                    background: store.dark ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.04)',
+                    borderRadius: '8px',
+                    border: store.dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
+                    maxHeight: '380px',
+                    overflowY: 'auto'
+                }">
+                    <div :style="{
+                        display: 'flex',
+                        gap: '0.75rem',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginBottom: '0.75rem',
+                        paddingBottom: '0.6rem',
+                        borderBottom: store.dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)'
+                    }">
                         <div style="display: flex; align-items: center; gap: 0.4rem;">
-                            <span class="type-label-sm" style="opacity: 0.7;">Sort By:</span>
-                            <select v-model="sortBy" class="type-label-sm" style="background: var(--color-background, #111); color: inherit; border: 1px solid rgba(255,255,255,0.12); padding: 0.25rem 0.4rem; border-radius: 4px; cursor: pointer;">
-                                <option value="list" style="background: #1a1a1a; color: #ffffff;">List Rank</option>
-                                <option value="aredl" style="background: #1a1a1a; color: #ffffff;">AREDL Rank</option>
+                            <span class="type-label-sm" style="opacity: 0.7; color: inherit;">Sort By:</span>
+                            <select v-model="sortBy" class="type-label-sm" :style="{
+                                background: store.dark ? '#181818' : '#ffffff',
+                                color: 'inherit',
+                                border: store.dark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)',
+                                padding: '0.25rem 0.4rem',
+                                borderRadius: '4px',
+                                cursor: 'pointer'
+                            }">
+                                <option value="list">List Rank</option>
+                                <option value="aredl">AREDL Rank</option>
                             </select>
                         </div>
                         
                         <div style="display: flex; align-items: center; gap: 0.4rem;">
-                            <span class="type-label-sm" style="opacity: 0.7;">Order:</span>
+                            <span class="type-label-sm" style="opacity: 0.7; color: inherit;">Order:</span>
                             <button 
                                 @click="sortOrder = sortOrder === 'asc' ? 'desc' : 'asc'" 
                                 class="type-label-sm"
-                                style="background: rgba(255,255,255,0.08); color: inherit; border: 1px solid rgba(255,255,255,0.12); padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer;"
+                                :style="{
+                                    background: store.dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)',
+                                    color: 'inherit',
+                                    border: store.dark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)',
+                                    padding: '0.25rem 0.5rem',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer'
+                                }"
                             >
                                 {{ sortOrder === 'asc' ? '▲ Ascending' : '▼ Descending' }}
                             </button>
@@ -97,7 +138,7 @@ export default {
                     </div>
 
                     <div v-for="(tags, category) in tagCategories" :key="category" style="margin-bottom: 0.6rem;">
-                        <div class="type-label-sm" style="opacity: 0.6; font-weight: bold; margin-bottom: 0.25rem; text-transform: uppercase;">{{ category }}</div>
+                        <div class="type-label-sm" style="opacity: 0.7; font-weight: bold; margin-bottom: 0.25rem; text-transform: uppercase; color: inherit;">{{ category }}</div>
                         <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
                             <button 
                                 v-for="tag in tags" 
@@ -107,9 +148,10 @@ export default {
                                 :style="{
                                     padding: '0.2rem 0.45rem',
                                     borderRadius: '4px',
-                                    border: '1px solid rgba(255,255,255,0.1)',
-                                    background: selectedTags.includes(tag) ? '#007A3D' : 'transparent',
-                                    color: '#fff',
+                                    border: selectedTags.includes(tag) ? '1px solid #007A3D' : (store.dark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)'),
+                                    background: selectedTags.includes(tag) ? '#007A3D' : (store.dark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)'),
+                                    color: selectedTags.includes(tag) ? '#ffffff' : 'inherit',
+                                    fontWeight: selectedTags.includes(tag) ? '700' : 'normal',
                                     cursor: 'pointer'
                                 }"
                             >
@@ -118,7 +160,7 @@ export default {
                         </div>
                     </div>
                     <div v-if="selectedTags.length > 0" style="margin-top: 0.5rem; text-align: right;">
-                        <button @click="selectedTags = []" class="type-label-sm" style="background: none; border: none; color: #ce1126; cursor: pointer; text-decoration: underline;">
+                        <button @click="selectedTags = []" class="type-label-sm" style="background: none; border: none; color: #ce1126; cursor: pointer; text-decoration: underline; font-weight: bold;">
                             Reset Tags
                         </button>
                     </div>
@@ -152,9 +194,9 @@ export default {
                             class="type-label-lg" 
                             :title="'Click to view all ' + tag + ' levels'"
                             :style="{
-                                background: selectedTags.includes(tag) ? '#007A3D' : 'rgba(0, 122, 61, 0.2)',
+                                background: selectedTags.includes(tag) ? '#007A3D' : (store.dark ? 'rgba(0, 122, 61, 0.2)' : 'rgba(0, 122, 61, 0.1)'),
                                 border: '1px solid #007A3D',
-                                color: '#fff',
+                                color: selectedTags.includes(tag) ? '#ffffff' : (store.dark ? '#ffffff' : '#005a2d'),
                                 padding: '0.25rem 0.6rem',
                                 borderRadius: '6px',
                                 fontWeight: '600',
@@ -220,7 +262,7 @@ export default {
                     
                     <!-- 1. List Editors Section -->
                     <template v-if="editors">
-                        <h3 style="margin-bottom: 0.85rem;">List Editors</h3>
+                        <h3 style="margin-bottom: 0.85rem; color: inherit;">List Editors</h3>
                         <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.5rem;">
                             <div 
                                 v-for="editor in editors" 
@@ -233,14 +275,16 @@ export default {
                                     gap: '0.85rem',
                                     padding: '0.8rem 1rem',
                                     background: hoveredEditor === editor.name 
-                                        ? 'linear-gradient(135deg, rgba(0, 122, 61, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%)' 
-                                        : 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
-                                    border: hoveredEditor === editor.name ? '1px solid #007A3D' : '1px solid rgba(255,255,255,0.1)',
+                                        ? (store.dark ? 'linear-gradient(135deg, rgba(0, 122, 61, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%)' : 'linear-gradient(135deg, rgba(0, 122, 61, 0.15) 0%, rgba(0, 0, 0, 0.03) 100%)')
+                                        : (store.dark ? 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)' : 'linear-gradient(135deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.01) 100%)'),
+                                    border: hoveredEditor === editor.name 
+                                        ? '1px solid #007A3D' 
+                                        : (store.dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)'),
                                     borderRadius: '12px',
                                     position: 'relative',
                                     overflow: 'hidden',
                                     transform: hoveredEditor === editor.name ? 'translateY(-3px) scale(1.02)' : 'translateY(0) scale(1)',
-                                    boxShadow: hoveredEditor === editor.name ? '0 8px 20px rgba(0, 122, 61, 0.3)' : 'none',
+                                    boxShadow: hoveredEditor === editor.name ? '0 8px 20px rgba(0, 122, 61, 0.25)' : 'none',
                                     transition: 'all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1)',
                                     cursor: 'default'
                                 }"
@@ -266,8 +310,8 @@ export default {
                                         height: '44px',
                                         borderRadius: '50%',
                                         objectFit: 'cover',
-                                        border: hoveredEditor === editor.name ? '2px solid #00FF80' : '2px solid rgba(255,255,255,0.15)',
-                                        boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+                                        border: hoveredEditor === editor.name ? '2px solid #00FF80' : (store.dark ? '2px solid rgba(255,255,255,0.15)' : '2px solid rgba(0,0,0,0.15)'),
+                                        boxShadow: '0 4px 10px rgba(0,0,0,0.15)',
                                         transition: 'all 0.25s ease'
                                     }"
                                 />
@@ -299,13 +343,13 @@ export default {
                                             >
                                         </template>
 
-                                        <a v-if="editor.link" :href="editor.link" target="_blank" class="type-label-lg link" style="font-weight: 800; font-size: 1rem; text-decoration: none;">
+                                        <a v-if="editor.link" :href="editor.link" target="_blank" class="type-label-lg link" style="font-weight: 800; font-size: 1rem; text-decoration: none; color: inherit;">
                                             {{ editor.name }}
                                         </a>
-                                        <span v-else class="type-label-lg" style="font-weight: 800; font-size: 1rem;">{{ editor.name }}</span>
+                                        <span v-else class="type-label-lg" style="font-weight: 800; font-size: 1rem; color: inherit;">{{ editor.name }}</span>
                                     </div>
                                     
-                                    <span class="type-label-sm" style="font-size: 0.72rem; opacity: 0.8; margin-top: 0.15rem; font-weight: 600;">
+                                    <span class="type-label-sm" style="font-size: 0.72rem; opacity: 0.8; margin-top: 0.15rem; font-weight: 600; color: inherit;">
                                         {{ editor.tag || editor.role }}
                                     </span>
                                 </div>
@@ -314,7 +358,7 @@ export default {
                     </template>
 
                     <!-- 2. Recent Activity Board Component -->
-                    <h3 style="margin-bottom: 0.85rem; font-size: 1.25rem; font-weight: 800;">
+                    <h3 style="margin-bottom: 0.85rem; font-size: 1.25rem; font-weight: 800; color: inherit;">
                         Recent Activity
                     </h3>
 
@@ -322,17 +366,25 @@ export default {
                         <div 
                             v-for="act in activityList" 
                             :key="act.id"
-                            style="padding: 0.95rem 1.1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; display: flex; flex-direction: column; gap: 0.35rem;"
+                            :style="{
+                                padding: '0.95rem 1.1rem',
+                                background: store.dark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+                                border: store.dark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.08)',
+                                borderRadius: '10px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '0.35rem'
+                            }"
                         >
-                            <p class="type-label-lg" style="font-weight: 700; font-size: 0.98rem; line-height: 1.35; margin: 0; color: #ffffff;">
+                            <p class="type-label-lg" style="font-weight: 700; font-size: 0.98rem; line-height: 1.35; margin: 0; color: inherit;">
                                 {{ act.message }}
                             </p>
-                            <span class="type-label-sm" style="font-size: 0.78rem; opacity: 0.6; font-weight: 500;">
+                            <span class="type-label-sm" style="font-size: 0.78rem; opacity: 0.65; font-weight: 500; color: inherit;">
                                 {{ formatDate(act.date) }} • by {{ act.author }}
                             </span>
                         </div>
 
-                        <div v-if="activityList.length === 0" style="padding: 1.2rem; text-align: center; opacity: 0.5; font-size: 0.9rem;" class="type-label-lg">
+                        <div v-if="activityList.length === 0" style="padding: 1.2rem; text-align: center; opacity: 0.5; font-size: 0.9rem; color: inherit;" class="type-label-lg">
                             No recent updates.
                         </div>
                     </div>
