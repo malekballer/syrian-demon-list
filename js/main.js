@@ -20,19 +20,6 @@ const router = VueRouter.createRouter({
 
 router.afterEach((to) => {
     store.currentPath = to.path;
-
-    // Dynamically update tab title based on active page or level
-    if (to.params.level) {
-        document.title = `${to.params.level} - Syrian Demon List`;
-    } else if (to.path === '/leaderboard') {
-        document.title = 'Leaderboard - Syrian Demon List';
-    } else if (to.path === '/roulette') {
-        document.title = 'Roulette - Syrian Demon List';
-    } else if (to.path === '/rules') {
-        document.title = 'Submission Rules - Syrian Demon List';
-    } else {
-        document.title = 'Syrian Demon List';
-    }
 });
 
 app.use(router);
