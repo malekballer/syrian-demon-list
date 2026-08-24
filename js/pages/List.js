@@ -3,6 +3,7 @@ import { embed } from "../util.js";
 import { score } from "../score.js";
 import { fetchAredlData } from "../aredl.js";
 import { fetchEditors, fetchList } from "../content.js";
+import { supabase } from "../supabase.js";
 
 import Spinner from "../components/Spinner.js";
 import LevelAuthors from "../components/List/LevelAuthors.js";
@@ -235,7 +236,7 @@ export default {
                     <p v-else-if="selected + 1 <= 150"><strong>100%</strong> or better to qualify</p>
                     <p v-else>This level does not accept new records.</p>
                     <table class="records">
-                        <tr v-for="record in level.records" class="record">
+                        <tr v-for="record in combinedRecords" :key="record.link" class="record">
                             <td class="percent">
                                 <p>{{ record.percent }}%</p>
                             </td>
@@ -396,6 +397,7 @@ export default {
         list: [],
         editors: [],
         activityList: [],
+        approvedDbRecords: [],
         aredlRanks: {},
         aredlTagsMap: {},
         loading: true,
@@ -422,6 +424,13 @@ export default {
         currentAredlTags() {
             if (!this.selectedLevelId) return [];
             return this.aredlTagsMap[this.selectedLevelId] || [];
+        },
+        combinedRecords() {
+            if (!this.level) return [];
+            const jsonRecords = this.level.records || [];
+            
+            // Merge static JSON records with live approved database records
+            return [...jsonRecords, ...this.approvedDbRecords].sort((a, b) => b.percent - a.percent);
         },
         video() {
             if (!this.level.showcase) {
@@ -490,12 +499,14 @@ export default {
     watch: {
         level: {
             immediate: true,
-            handler(newLvl) {
+            async handler(newLvl) {
                 if (newLvl && newLvl.name) {
                     const rank = this.selected + 1;
                     document.title = `#${rank} - ${newLvl.name}`;
+                    await this.fetchApprovedRecordsForLevel(newLvl.id || newLvl.name);
                 } else {
                     document.title = 'Syrian Demon List';
+                    this.approvedDbRecords = [];
                 }
             }
         },
@@ -561,6 +572,34 @@ export default {
             if (!dateStr) return '';
             const date = new Date(dateStr);
             return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+        },
+        async fetchApprovedRecordsForLevel(levelId) {
+            if (!levelId) return;
+            
+            const { data, error } = await supabase
+                .from('submissions')
+                .select('percent, video_link, notes, user_id')
+                .eq('level_id', levelId.toString())
+                .eq('status', 'approved');
+
+            if (!error && data && data.length > 0) {
+                const userIds = [...new Set(data.map(d => d.user_id))];
+                const { data: profiles } = await supabase
+                    .from('profiles')
+                    .select('id, username')
+                    .in('id', userIds);
+
+                const profileMap = new Map((profiles || []).map(p => [p.id, p.username]));
+
+                this.approvedDbRecords = data.map(sub => ({
+                    user: profileMap.get(sub.user_id) || 'Player',
+                    percent: sub.percent,
+                    link: sub.video_link,
+                    mobile: sub.notes?.toLowerCase().includes('mobile') || false
+                }));
+            } else {
+                this.approvedDbRecords = [];
+            }
         },
         updateQueryParams() {
             const query = { ...this.$route.query };
