@@ -55,13 +55,26 @@ const app = Vue.createApp({
     data: () => ({ store }),
 });
 
-// Register modals globally
+// Register global modal components
 app.component('submission-modal', SubmissionModal);
 app.component('profile-modal', ProfileModal);
 
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
     routes,
+});
+
+// Route Guard: Block non-editors from manually accessing /review
+router.beforeEach((to, from, next) => {
+    if (to.path === '/review') {
+        if (store.profile && store.profile.is_editor === true) {
+            next();
+        } else {
+            next('/');
+        }
+    } else {
+        next();
+    }
 });
 
 router.afterEach((to) => {
