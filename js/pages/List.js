@@ -365,8 +365,8 @@ export default {
 
                     <div style="display: flex; flex-direction: column; gap: 0.65rem;">
                         <div 
-                            v-for="act in activityList" 
-                            :key="act.id"
+                            v-for="(act, idx) in activityList" 
+                            :key="act.id || idx"
                             :style="{
                                 padding: '0.95rem 1.1rem',
                                 background: store.dark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
@@ -531,20 +531,33 @@ export default {
         this.aredlRanks = aredlData.ranks;
         this.aredlTagsMap = aredlData.tagsMap;
 
-        // Fetch activity dynamically from Supabase
+        // Combine static GitHub activity.json + dynamic Supabase activity
+        let jsonActivity = [];
         try {
-            const { data: actData, error } = await supabase
+            const actRes = await fetch('./data/activity.json');
+            if (actRes.ok) {
+                jsonActivity = await actRes.json();
+            }
+        } catch (e) {
+            console.warn('GitHub activity.json load skipped.');
+        }
+
+        let dbActivity = [];
+        try {
+            const { data } = await supabase
                 .from('activity')
                 .select('*')
                 .order('date', { ascending: false })
                 .limit(10);
-
-            if (!error && actData) {
-                this.activityList = actData;
-            }
+            if (data) dbActivity = data;
         } catch (e) {
-            console.warn('Failed to load activity log from Supabase:', e);
+            console.warn('Supabase activity query failed.');
         }
+
+        // Merge both arrays and sort by date descending
+        this.activityList = [...dbActivity, ...jsonActivity]
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .slice(0, 10);
 
         const param = this.$route.params.level;
 
