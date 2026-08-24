@@ -1,5 +1,6 @@
 import routes from './routes.js';
 import { supabase, getAuthenticatedUser, loginWithDiscord, logoutUser } from './supabase.js';
+import SubmissionModal from './components/SubmissionModal.js';
 
 export const store = Vue.reactive({
     dark: JSON.parse(localStorage.getItem('dark')) || false,
@@ -51,6 +52,9 @@ supabase.auth.onAuthStateChange(async (event, session) => {
 const app = Vue.createApp({
     data: () => ({ store }),
 });
+
+// Register the submission modal globally
+app.component('submission-modal', SubmissionModal);
 
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
