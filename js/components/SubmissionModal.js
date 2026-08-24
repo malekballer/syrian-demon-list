@@ -35,7 +35,14 @@ export default {
                             <option v-for="(item, index) in list" :key="item[0]?.id" :value="item[0]?.id" class="dark-option">
                                 #{{ index + 1 }} - {{ item[0]?.name }}
                             </option>
+                            <option value="custom" class="dark-option">Other / Level Not on List</option>
                         </select>
+                    </div>
+
+                    <!-- Custom Level Name Input (shows only if 'Other' is selected) -->
+                    <div v-if="form.level_id === 'custom'">
+                        <label class="type-label-sm" style="display: block; margin-bottom: 0.35rem; opacity: 0.8;">Level Name or ID *</label>
+                        <input type="text" v-model="form.custom_level_name" required class="modal-input" placeholder="e.g. Bloodbath" />
                     </div>
 
                     <!-- Percentage -->
@@ -62,7 +69,7 @@ export default {
                                     cursor: 'pointer'
                                 }"
                             >
-                                💻 PC
+                                PC
                             </button>
                             <button 
                                 type="button" 
@@ -78,7 +85,7 @@ export default {
                                     cursor: 'pointer'
                                 }"
                             >
-                                📱 Mobile
+                                Mobile
                             </button>
                         </div>
                     </div>
@@ -112,6 +119,7 @@ export default {
         errorMsg: '',
         form: {
             level_id: '',
+            custom_level_name: '',
             percent: 100,
             device: 'PC',
             video_link: '',
@@ -127,20 +135,28 @@ export default {
             this.store.showSubmissionModal = false;
             this.submitted = false;
             this.errorMsg = '';
-            this.form = { level_id: '', percent: 100, device: 'PC', video_link: '', raw_link: '' };
+            this.form = { level_id: '', custom_level_name: '', percent: 100, device: 'PC', video_link: '', raw_link: '' };
         },
         async submitRecord() {
             this.submitting = true;
             this.errorMsg = '';
 
-            const selectedItem = this.list.find(i => i[0]?.id === this.form.level_id);
-            const levelName = selectedItem ? selectedItem[0].name : 'Unknown Level';
+            let levelIdToSubmit = this.form.level_id;
+            let levelNameToSubmit = '';
+
+            if (this.form.level_id === 'custom') {
+                levelIdToSubmit = 'custom';
+                levelNameToSubmit = this.form.custom_level_name.trim();
+            } else {
+                const selectedItem = this.list.find(i => i[0]?.id === this.form.level_id);
+                levelNameToSubmit = selectedItem ? selectedItem[0].name : 'Unknown Level';
+            }
 
             const { error } = await supabase.from('submissions').insert([
                 {
                     user_id: this.store.user.id,
-                    level_id: this.form.level_id.toString(),
-                    level_name: levelName,
+                    level_id: levelIdToSubmit.toString(),
+                    level_name: levelNameToSubmit,
                     percent: this.form.percent,
                     video_link: this.form.video_link,
                     notes: `Device: ${this.form.device}` + (this.form.raw_link ? ` | Raw: ${this.form.raw_link}` : '')
