@@ -49,7 +49,8 @@ export default {
                         <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.5rem; padding: 1.2rem; background: rgba(128,128,128,0.06); border: 1px solid rgba(128,128,128,0.15); border-radius: 12px;">
                             <img 
                                 :src="entry.pfp_url || 'https://assets.aredl.net/avatars/default.png'" 
-                                alt="Avatar" 
+                                @error="$event.target.src='https://assets.aredl.net/avatars/default.png'"
+                                alt="" 
                                 style="width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid #007A3D; flex-shrink: 0;"
                             />
                             <div style="display: flex; flex-direction: column; gap: 0.25rem;">
@@ -66,8 +67,8 @@ export default {
                                     <a v-if="entry.twitch" :href="entry.twitch" target="_blank" style="color: #9146ff; text-decoration: none; font-weight: 600;">
                                         👾 Twitch
                                     </a>
-                                    <span v-if="entry.discord" style="opacity: 0.75; font-weight: 600;">
-                                        💬 {{ entry.discord }}
+                                    <span v-if="entry.discord_tag" style="opacity: 0.75; font-weight: 600;">
+                                        💬 {{ entry.discord_tag }}
                                     </span>
                                 </div>
                             </div>
@@ -166,7 +167,7 @@ export default {
             // Fetch profile data from Supabase
             const { data: dbProfiles } = await supabase
                 .from('profiles')
-                .select('username, pfp_url, governorate, youtube, twitch, discord');
+                .select('username, pfp_url, governorate, youtube, twitch, discord_tag');
 
             const profileDetails = new Map();
             if (dbProfiles) {
@@ -194,7 +195,7 @@ export default {
                     governorate: meta.governorate || null,
                     youtube: meta.youtube || null,
                     twitch: meta.twitch || null,
-                    discord: meta.discord || null
+                    discord_tag: meta.discord_tag || null
                 });
             });
 
@@ -240,7 +241,7 @@ export default {
                             governorate: profile.governorate || null,
                             youtube: profile.youtube || null,
                             twitch: profile.twitch || null,
-                            discord: profile.discord || null
+                            discord_tag: profile.discord_tag || null
                         });
                     }
 
