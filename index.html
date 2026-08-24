@@ -125,13 +125,34 @@
                 <a class="nav__icon" href="https://discord.gg/pPT7QK2cyv" target="_blank">
                     <img src="./assets/discord.svg" alt="Discord Logo" />
                 </a>
-                <!-- List record submission form -->
-                <a
+
+                <!-- Dynamic Auth / Submission CTA -->
+                <button 
+                    v-if="!store.user" 
+                    @click="store.login()" 
                     class="nav__cta type-label-lg"
-                    href="https://forms.gle/vFNdUoCBnFSg3rLu7"
-                    target="_blank"
-                    >Submit Record</a
+                    style="cursor: pointer; border: none; background: #007A3D; color: #fff;"
                 >
+                    Login with Discord
+                </button>
+
+                <div v-else style="display: flex; align-items: center; gap: 0.6rem;">
+                    <button 
+                        @click="store.showSubmissionModal = true" 
+                        class="nav__cta type-label-lg"
+                        style="cursor: pointer; border: none; background: #007A3D; color: #fff;"
+                    >
+                        Submit Record
+                    </button>
+                    <button 
+                        @click="store.logout()" 
+                        class="type-label-sm"
+                        style="background: transparent; border: 1px solid rgba(255,255,255,0.2); color: inherit; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer;"
+                        title="Logout"
+                    >
+                        Logout
+                    </button>
+                </div>
             </div>
         </header>
         <router-view :class="{ dark: store.dark }"></router-view>
