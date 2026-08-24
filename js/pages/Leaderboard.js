@@ -5,6 +5,8 @@ import { supabase } from '../supabase.js';
 
 import Spinner from '../components/Spinner.js';
 
+const FALLBACK_PFP = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23007A3D"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="%23ffffff" font-size="40" font-family="sans-serif">?</text></svg>`;
+
 export default {
     components: {
         Spinner,
@@ -48,8 +50,8 @@ export default {
                         <!-- Profile Card Banner -->
                         <div style="display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 1.5rem; padding: 1.25rem; background: rgba(128,128,128,0.06); border: 1px solid rgba(128,128,128,0.15); border-radius: 14px;">
                             <img 
-                                :src="entry.pfp_url || 'https://assets.aredl.net/avatars/default.png'" 
-                                @error="$event.target.src='https://assets.aredl.net/avatars/default.png'"
+                                :src="entry.pfp_url || fallbackPfp" 
+                                @error="handleImgError"
                                 alt="" 
                                 style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 3px solid #007A3D; flex-shrink: 0;"
                             />
@@ -125,6 +127,9 @@ export default {
         entry() {
             return this.leaderboard[this.selected];
         },
+        fallbackPfp() {
+            return FALLBACK_PFP;
+        }
     },
     watch: {
         entry: {
@@ -166,6 +171,10 @@ export default {
     },
     methods: {
         localize,
+        handleImgError(evt) {
+            evt.target.onerror = null;
+            evt.target.src = FALLBACK_PFP;
+        },
         selectUser(index) {
             this.selected = index;
             const currentUser = this.leaderboard[index]?.user;
@@ -174,15 +183,14 @@ export default {
             }
         },
         async loadLiveLeaderboard() {
-            // 1. Fetch static records, profiles from DB, and list array
             const [baseBoard, errs] = await fetchLeaderboard();
             const listData = await fetchList();
             this.err = errs || [];
 
-            // Query profiles table in Supabase for metadata
+            // Query profiles safely using select('*')
             const { data: dbProfiles } = await supabase
                 .from('profiles')
-                .select('username, pfp_url, governorate, bio, youtube, twitch, twitter, instagram, tiktok, discord_tag');
+                .select('*');
 
             const profileDetails = new Map();
             if (dbProfiles) {
@@ -195,7 +203,7 @@ export default {
 
             const playerMap = new Map();
 
-            // Populate static entries and match with profileDetails
+            // Populate base static entries and merge profile metadata
             baseBoard.forEach(p => {
                 const key = p.user.trim().toLowerCase();
                 const meta = profileDetails.get(key) || {};
@@ -218,7 +226,7 @@ export default {
                 });
             });
 
-            // 2. Query approved submissions from Supabase
+            // Fetch approved submissions from Supabase
             const { data: approvedSubs } = await supabase
                 .from('submissions')
                 .select('*')
@@ -293,7 +301,7 @@ export default {
                 });
             }
 
-            // 3. Sort leaderboard by total score
+            // Sort leaderboard by total score
             this.leaderboard = Array.from(playerMap.values()).sort((a, b) => b.total - a.total);
         }
     },
