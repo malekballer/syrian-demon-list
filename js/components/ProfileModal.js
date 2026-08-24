@@ -67,10 +67,20 @@ export default {
                     <!-- Socials Section -->
                     <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                         <span class="type-label-sm" style="font-weight: 800; opacity: 0.9;">Social Links</span>
+
+                        <div>
+                            <label class="type-label-sm" style="display: block; margin-bottom: 0.25rem; opacity: 0.6; font-size: 0.75rem;">Spreadsheet</label>
+                            <input type="url" v-model="form.spreadsheet" class="modal-input" placeholder="https://docs.google.com/spreadsheets/d/..." />
+                        </div>
                         
                         <div>
                             <label class="type-label-sm" style="display: block; margin-bottom: 0.25rem; opacity: 0.6; font-size: 0.75rem;">YouTube</label>
                             <input type="url" v-model="form.youtube" class="modal-input" placeholder="https://youtube.com/@yourchannel" />
+                        </div>
+
+                        <div>
+                            <label class="type-label-sm" style="display: block; margin-bottom: 0.25rem; opacity: 0.6; font-size: 0.75rem;">Twitch</label>
+                            <input type="url" v-model="form.twitch" class="modal-input" placeholder="https://twitch.tv/yourhandle" />
                         </div>
 
                         <div>
@@ -109,7 +119,9 @@ export default {
             pfp_url: '',
             governorate: '',
             bio: '',
+            spreadsheet: '',
             youtube: '',
+            twitch: '',
             twitter: '',
             instagram: '',
             tiktok: ''
@@ -119,7 +131,6 @@ export default {
         discordTag() {
             const meta = this.store.user?.user_metadata;
             if (!meta) return 'N/A';
-            // Strictly checks unique handle fields before falling back to display names
             return meta.preferred_username || meta.user_name || meta.custom_claims?.preferred_username || meta.full_name || 'Connected';
         }
     },
@@ -140,7 +151,9 @@ export default {
                 this.form.pfp_url = this.store.profile.pfp_url || '';
                 this.form.governorate = this.store.profile.governorate || 'Damascus';
                 this.form.bio = this.store.profile.bio || '';
+                this.form.spreadsheet = this.store.profile.spreadsheet || '';
                 this.form.youtube = this.store.profile.youtube || '';
+                this.form.twitch = this.store.profile.twitch || '';
                 this.form.twitter = this.store.profile.twitter || '';
                 this.form.instagram = this.store.profile.instagram || '';
                 this.form.tiktok = this.store.profile.tiktok || '';
@@ -160,7 +173,9 @@ export default {
                     pfp_url: this.form.pfp_url.trim(),
                     governorate: this.form.governorate,
                     bio: this.form.bio.trim(),
+                    spreadsheet: this.form.spreadsheet.trim(),
                     youtube: this.form.youtube.trim(),
+                    twitch: this.form.twitch.trim(),
                     twitter: this.form.twitter.trim(),
                     instagram: this.form.instagram.trim(),
                     tiktok: this.form.tiktok.trim()
