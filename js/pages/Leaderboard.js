@@ -23,7 +23,7 @@ export default {
             <div class="page-leaderboard">
                 <div class="error-container">
                     <p class="error" v-if="err.length > 0">
-                        Leaderboard may be incorrect, as the following levels could not be loaded: {{ err.join(', ') }}
+                        Leaderboard may be incomplete: {{ err.join(', ') }}
                     </p>
                 </div>
                 <div class="board-container">
@@ -45,48 +45,59 @@ export default {
                 </div>
                 <div class="player-container">
                     <div class="player" v-if="entry">
-                        <h1>#{{ selected + 1 }} {{ entry.user }}</h1>
-                        <h3>{{ localize(entry.total) }}</h3>
-                        <h2 v-if="entry.verified.length > 0">Verified ({{ entry.verified.length}})</h2>
+                        <!-- Profile Card Banner -->
+                        <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.5rem; padding: 1.2rem; background: rgba(128,128,128,0.06); border: 1px solid rgba(128,128,128,0.15); border-radius: 12px;">
+                            <img 
+                                :src="entry.pfp_url || 'https://assets.aredl.net/avatars/default.png'" 
+                                alt="Avatar" 
+                                style="width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid #007A3D; flex-shrink: 0;"
+                            />
+                            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                                <h1 style="margin: 0; font-size: 1.8rem; font-weight: 800;">#{{ selected + 1 }} {{ entry.user }}</h1>
+                                <span style="font-size: 0.95rem; font-weight: 700; color: #00FF80;">{{ localize(entry.total) }} points</span>
+                                
+                                <div style="display: flex; gap: 0.8rem; align-items: center; margin-top: 0.35rem; font-size: 0.85rem; opacity: 0.85; flex-wrap: wrap;">
+                                    <span v-if="entry.governorate" style="background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 600;">
+                                        📍 {{ entry.governorate }}
+                                    </span>
+                                    <a v-if="entry.youtube" :href="entry.youtube" target="_blank" style="color: #ff4d4d; text-decoration: none; font-weight: 600;">
+                                        ▶ YouTube
+                                    </a>
+                                    <a v-if="entry.twitch" :href="entry.twitch" target="_blank" style="color: #9146ff; text-decoration: none; font-weight: 600;">
+                                        👾 Twitch
+                                    </a>
+                                    <span v-if="entry.discord" style="opacity: 0.75; font-weight: 600;">
+                                        💬 {{ entry.discord }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Completion Breakdown Tables -->
+                        <h2 v-if="entry.verified.length > 0">Verified ({{ entry.verified.length }})</h2>
                         <table class="table" v-if="entry.verified.length > 0">
-                            <tr v-for="score in entry.verified" :key="score.level">
-                                <td class="rank">
-                                    <p>#{{ score.rank }}</p>
-                                </td>
-                                <td class="level">
-                                    <a class="type-label-lg" target="_blank" :href="score.link">{{ score.level }}</a>
-                                </td>
-                                <td class="score">
-                                    <p>+{{ localize(score.score) }}</p>
-                                </td>
+                            <tr v-for="s in entry.verified" :key="s.level">
+                                <td class="rank"><p>#{{ s.rank }}</p></td>
+                                <td class="level"><a class="type-label-lg" target="_blank" :href="s.link">{{ s.level }}</a></td>
+                                <td class="score"><p>+{{ localize(s.score) }}</p></td>
                             </tr>
                         </table>
+
                         <h2 v-if="entry.completed.length > 0">Completed ({{ entry.completed.length }})</h2>
                         <table class="table" v-if="entry.completed.length > 0">
-                            <tr v-for="score in entry.completed" :key="score.level">
-                                <td class="rank">
-                                    <p>#{{ score.rank }}</p>
-                                </td>
-                                <td class="level">
-                                    <a class="type-label-lg" target="_blank" :href="score.link">{{ score.level }}</a>
-                                </td>
-                                <td class="score">
-                                    <p>+{{ localize(score.score) }}</p>
-                                </td>
+                            <tr v-for="s in entry.completed" :key="s.level">
+                                <td class="rank"><p>#{{ s.rank }}</p></td>
+                                <td class="level"><a class="type-label-lg" target="_blank" :href="s.link">{{ s.level }}</a></td>
+                                <td class="score"><p>+{{ localize(s.score) }}</p></td>
                             </tr>
                         </table>
-                        <h2 v-if="entry.progressed.length > 0">Progressed ({{entry.progressed.length}})</h2>
+
+                        <h2 v-if="entry.progressed.length > 0">Progressed ({{ entry.progressed.length }})</h2>
                         <table class="table" v-if="entry.progressed.length > 0">
-                            <tr v-for="score in entry.progressed" :key="score.level">
-                                <td class="rank">
-                                    <p>#{{ score.rank }}</p>
-                                </td>
-                                <td class="level">
-                                    <a class="type-label-lg" target="_blank" :href="score.link">{{ score.percent }}% {{ score.level }}</a>
-                                </td>
-                                <td class="score">
-                                    <p>+{{ localize(score.score) }}</p>
-                                </td>
+                            <tr v-for="s in entry.progressed" :key="s.level">
+                                <td class="rank"><p>#{{ s.rank }}</p></td>
+                                <td class="level"><a class="type-label-lg" target="_blank" :href="s.link">{{ s.percent }}% {{ s.level }}</a></td>
+                                <td class="score"><p>+{{ localize(s.score) }}</p></td>
                             </tr>
                         </table>
                     </div>
@@ -118,7 +129,7 @@ export default {
 
         if (param && this.leaderboard.length > 0) {
             const foundIndex = this.leaderboard.findIndex(
-                (entry) => entry.user.toLowerCase() === param.toLowerCase()
+                (entry) => entry.user.toLowerCase() === decodeURIComponent(param).toLowerCase()
             );
             if (foundIndex !== -1) {
                 this.selected = foundIndex;
@@ -147,65 +158,89 @@ export default {
             }
         },
         async loadLiveLeaderboard() {
-            // 1. Fetch static records and list data
+            // 1. Fetch static records, profiles from DB, and list array
             const [baseBoard, errs] = await fetchLeaderboard();
             const listData = await fetchList();
             this.err = errs || [];
 
+            // Fetch profile data from Supabase
+            const { data: dbProfiles } = await supabase
+                .from('profiles')
+                .select('username, pfp_url, governorate, youtube, twitch, discord');
+
+            const profileDetails = new Map();
+            if (dbProfiles) {
+                dbProfiles.forEach(p => {
+                    if (p.username) {
+                        profileDetails.set(p.username.toLowerCase(), p);
+                    }
+                });
+            }
+
             const playerMap = new Map();
 
-            // Populate existing players
+            // Populate static entries + attach profile info
             baseBoard.forEach(p => {
-                playerMap.set(p.user.toLowerCase(), {
+                const key = p.user.toLowerCase();
+                const meta = profileDetails.get(key) || {};
+
+                playerMap.set(key, {
                     user: p.user,
                     total: p.total,
                     verified: [...p.verified],
                     completed: [...p.completed],
-                    progressed: [...p.progressed]
+                    progressed: [...p.progressed],
+                    pfp_url: meta.pfp_url || null,
+                    governorate: meta.governorate || null,
+                    youtube: meta.youtube || null,
+                    twitch: meta.twitch || null,
+                    discord: meta.discord || null
                 });
             });
 
-            // 2. Query approved submissions from Supabase
+            // 2. Fetch approved submissions from Supabase
             const { data: approvedSubs } = await supabase
                 .from('submissions')
                 .select('*')
                 .eq('status', 'approved');
 
             if (approvedSubs && approvedSubs.length > 0) {
-                // Fetch player usernames
                 const uIds = [...new Set(approvedSubs.map(d => d.user_id))];
-                const { data: profiles } = await supabase
+                const { data: userProfiles } = await supabase
                     .from('profiles')
-                    .select('id, username')
+                    .select('*')
                     .in('id', uIds);
 
-                const profileMap = new Map((profiles || []).map(p => [p.id, p.username]));
+                const profileMap = new Map((userProfiles || []).map(p => [p.id, p]));
 
-                // Index levels by ID
                 const totalLevels = listData.length;
                 const levelIndex = new Map();
                 listData.forEach(([lvl], index) => {
                     if (lvl) levelIndex.set(lvl.id.toString(), { lvl, rank: index + 1 });
                 });
 
-                // Merge submissions into scores
                 approvedSubs.forEach(sub => {
-                    const username = profileMap.get(sub.user_id);
-                    if (!username) return;
+                    const profile = profileMap.get(sub.user_id);
+                    if (!profile || !profile.username) return;
 
                     const match = levelIndex.get(sub.level_id.toString());
                     if (!match) return;
 
                     const { lvl, rank } = match;
-                    const key = username.toLowerCase();
+                    const key = profile.username.toLowerCase();
 
                     if (!playerMap.has(key)) {
                         playerMap.set(key, {
-                            user: username,
+                            user: profile.username,
                             total: 0,
                             verified: [],
                             completed: [],
-                            progressed: []
+                            progressed: [],
+                            pfp_url: profile.pfp_url || null,
+                            governorate: profile.governorate || null,
+                            youtube: profile.youtube || null,
+                            twitch: profile.twitch || null,
+                            discord: profile.discord || null
                         });
                     }
 
