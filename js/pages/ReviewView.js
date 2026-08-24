@@ -50,16 +50,16 @@ export default {
                         <!-- Player Info Header -->
                         <div style="display: flex; align-items: center; gap: 1rem; background: rgba(128,128,128,0.08); padding: 0.85rem 1.1rem; border-radius: 10px;">
                             <img 
-                                :src="sub.profiles?.pfp_url || 'https://assets.aredl.net/avatars/default.png'" 
+                                :src="sub.player_profile?.pfp_url || 'https://assets.aredl.net/avatars/default.png'" 
                                 alt="Avatar" 
                                 style="width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid #007A3D; flex-shrink: 0;"
                             />
                             <div>
                                 <span style="font-weight: 800; font-size: 1.05rem; display: block;">
-                                    {{ sub.profiles?.username || 'Player' }}
+                                    {{ sub.player_profile?.username || 'Player' }}
                                 </span>
                                 <span style="font-size: 0.8rem; opacity: 0.6;">
-                                    Governorate: {{ sub.profiles?.governorate || 'Unspecified' }}
+                                    Governorate: {{ sub.player_profile?.governorate || 'Unspecified' }}
                                 </span>
                             </div>
                         </div>
@@ -112,25 +112,32 @@ export default {
         async fetchPending() {
             this.loading = true;
 
-            // Fetch submissions and fall back to plain query if relational join fails
-            const { data, error } = await supabase
+            // Fetch pending records
+            const { data: rawSubmissions, error } = await supabase
                 .from('submissions')
-                .select('*, profiles(username, pfp_url, governorate)')
+                .select('*')
                 .or('status.eq.pending,status.is.null')
                 .order('created_at', { ascending: true });
 
-            if (error) {
-                // Fallback fetch if relationship error occurs
-                const { data: fallbackData } = await supabase
-                    .from('submissions')
-                    .select('*')
-                    .or('status.eq.pending,status.is.null')
-                    .order('created_at', { ascending: true });
+            if (!error && rawSubmissions && rawSubmissions.length > 0) {
+                // Fetch profiles associated with user IDs
+                const userIds = [...new Set(rawSubmissions.map(s => s.user_id))];
+                const { data: profiles } = await supabase
+                    .from('profiles')
+                    .select('id, username, pfp_url, governorate')
+                    .in('id', userIds);
 
-                this.submissions = (fallbackData || []).map(s => ({ ...s, processing: false }));
+                const profileMap = new Map((profiles || []).map(p => [p.id, p]));
+
+                this.submissions = rawSubmissions.map(sub => ({
+                    ...sub,
+                    processing: false,
+                    player_profile: profileMap.get(sub.user_id) || { username: 'Player', governorate: 'Unspecified' }
+                }));
             } else {
-                this.submissions = (data || []).map(s => ({ ...s, processing: false }));
+                this.submissions = [];
             }
+
             this.loading = false;
         },
         async approve(id) {
