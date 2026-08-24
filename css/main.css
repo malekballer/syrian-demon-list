@@ -268,6 +268,29 @@ main.loading-container .spinner,
     margin: 0 auto !important;
     width: 100% !important;
 }
+/* ==========================================
+   Modal Typography & Submissions Styling
+   ========================================== */
+.modal-card,
+.modal-card input,
+.modal-card select,
+.modal-card textarea,
+.modal-card button {
+    font-family: 'Lexend Deca', sans-serif !important;
+}
+
+/* Force dark mode background on native HTML select dropdown options */
+.modal-card.dark select option,
+.modal-card.dark .dark-option {
+    background-color: #1c1c1c !important;
+    color: #ffffff !important;
+}
+
+.modal-input option {
+    background-color: #ffffff;
+    color: #121212;
+}
+
 /* Modal Overlays & Cards */
 .modal-overlay {
     position: fixed;
@@ -290,9 +313,11 @@ main.loading-container .spinner,
     border-radius: 14px;
     padding: 1.5rem;
     width: 100%;
-    max-width: 440px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    max-width: 460px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(0, 0, 0, 0.1);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .modal-card.dark {
@@ -308,7 +333,6 @@ main.loading-container .spinner,
     border: 1px solid rgba(0, 0, 0, 0.15);
     background: rgba(0, 0, 0, 0.03);
     color: inherit;
-    font-family: inherit;
     font-size: 0.95rem;
     box-sizing: border-box;
 }
