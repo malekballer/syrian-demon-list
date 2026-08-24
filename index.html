@@ -56,7 +56,6 @@
 
         <!-- Strict Active Navigation Highlight & Custom CTA Styling -->
         <style>
-            /* Reset default router active styles */
             .nav__tab.router-link-active,
             .nav__tab.router-link-exact-active {
                 color: inherit;
@@ -65,7 +64,6 @@
                 font-weight: normal;
             }
 
-            /* Apply highlight ONLY when custom active class is present */
             .nav__tab.active {
                 color: #00FF80 !important;
                 border-bottom: 2px solid #007A3D !important;
@@ -73,7 +71,6 @@
                 font-weight: bold;
             }
 
-            /* Golden Syrian Accent CTA Button */
             .syrian-cta {
                 background: linear-gradient(135deg, #c0a25c 0%, #b9a779 100%) !important;
                 color: #121212 !important;
@@ -157,8 +154,20 @@
                     Login with Discord
                 </button>
 
-                <!-- Logged In: Submit Record CTA & Exit Icon -->
+                <!-- Logged In: Edit Profile, Submit Record, Logout -->
                 <div v-else style="display: flex; align-items: center; gap: 0.5rem;">
+                    <button 
+                        @click="store.showProfileModal = true" 
+                        class="nav__icon"
+                        title="Edit Profile"
+                        style="cursor: pointer; background: transparent; border: none; display: flex; align-items: center; justify-content: center;"
+                    >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; opacity: 0.85;">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </button>
+
                     <button 
                         @click="store.showSubmissionModal = true" 
                         class="nav__cta syrian-cta type-label-lg"
@@ -184,7 +193,8 @@
 
         <router-view :class="{ dark: store.dark }"></router-view>
 
-        <!-- Native Submission Modal Component -->
+        <!-- Global Modals -->
         <submission-modal></submission-modal>
+        <profile-modal></profile-modal>
     </body>
 </html>
