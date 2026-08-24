@@ -21,15 +21,40 @@ export async function logoutUser() {
 }
 
 export async function getAuthenticatedUser() {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return null;
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (userError || !user) return null;
 
-    // Fetch user profile info if it exists
-    const { data: profile } = await supabase
+    // Check if user profile exists in public.profiles; if not, create it automatically from Discord metadata
+    let { data: profile } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', user.id)
         .single();
+
+    if (!profile) {
+        const username = user.user_metadata?.full_name || user.user_metadata?.name || 'Geometry Dash Player';
+        const pfpUrl = user.user_metadata?.avatar_url || null;
+        const discordTag = user.user_metadata?.preferred_username || null;
+
+        const { data: newProfile, error: insertError } = await supabase
+            .from('profiles')
+            .insert([
+                { 
+                    id: user.id, 
+                    username: username, 
+                    pfp_url: pfpUrl,
+                    discord_tag: discordTag
+                }
+            ])
+            .select()
+            .single();
+
+        if (!insertError) {
+            profile = newProfile;
+        } else {
+            console.error('Error creating profile row:', insertError.message);
+        }
+    }
 
     return { user, profile };
 }
