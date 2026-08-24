@@ -26,7 +26,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500;700;800&display=swap"
             rel="stylesheet"
         />
         <link rel="stylesheet" type="text/css" href="./css/reset.css" />
@@ -54,7 +54,7 @@
         <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
         <script type="module" src="./js/main.js"></script>
 
-        <!-- Strict Active Navigation Highlight Styling -->
+        <!-- Strict Active Navigation Highlight & Custom CTA Styling -->
         <style>
             /* Reset default router active styles */
             .nav__tab.router-link-active,
@@ -71,6 +71,27 @@
                 border-bottom: 2px solid #007A3D !important;
                 opacity: 1 !important;
                 font-weight: bold;
+            }
+
+            /* Golden Syrian Accent CTA Button */
+            .syrian-cta {
+                background: linear-gradient(135deg, #c0a25c 0%, #b9a779 100%) !important;
+                color: #121212 !important;
+                font-weight: 800 !important;
+                border: none !important;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(185, 167, 121, 0.35);
+                transition: transform 0.2s ease, boxShadow 0.2s ease, filter 0.2s ease;
+            }
+
+            .syrian-cta:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 6px 16px rgba(185, 167, 121, 0.5);
+                filter: brightness(1.05);
+            }
+
+            .syrian-cta:active {
+                transform: translateY(0);
             }
         </style>
     </head>
@@ -121,36 +142,41 @@
                         alt=""
                     />
                 </button>
-                <!-- Discord invite link -->
+
+                <!-- Discord Invite Link -->
                 <a class="nav__icon" href="https://discord.gg/pPT7QK2cyv" target="_blank">
                     <img src="./assets/discord.svg" alt="Discord Logo" />
                 </a>
 
-                <!-- Dynamic Auth / Submission CTA -->
+                <!-- Logged Out: Login CTA -->
                 <button 
                     v-if="!store.user" 
                     @click="store.login()" 
-                    class="nav__cta type-label-lg"
-                    style="cursor: pointer; border: none; background: #007A3D; color: #fff;"
+                    class="nav__cta syrian-cta type-label-lg"
                 >
                     Login with Discord
                 </button>
 
-                <div v-else style="display: flex; align-items: center; gap: 0.6rem;">
+                <!-- Logged In: Submit Record CTA & Exit Icon -->
+                <div v-else style="display: flex; align-items: center; gap: 0.5rem;">
                     <button 
                         @click="store.showSubmissionModal = true" 
-                        class="nav__cta type-label-lg"
-                        style="cursor: pointer; border: none; background: #007A3D; color: #fff;"
+                        class="nav__cta syrian-cta type-label-lg"
                     >
                         Submit Record
                     </button>
+                    
                     <button 
                         @click="store.logout()" 
-                        class="type-label-sm"
-                        style="background: transparent; border: 1px solid rgba(255,255,255,0.2); color: inherit; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer;"
+                        class="nav__icon"
                         title="Logout"
+                        style="cursor: pointer; background: transparent; border: none; display: flex; align-items: center; justify-content: center;"
                     >
-                        Logout
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: inherit; opacity: 0.85;">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
                     </button>
                 </div>
             </div>
