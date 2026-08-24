@@ -119,7 +119,8 @@ export default {
         discordTag() {
             const meta = this.store.user?.user_metadata;
             if (!meta) return 'N/A';
-            return meta.custom_claims?.global_name || meta.full_name || meta.name || meta.preferred_username || 'Connected';
+            // Strictly checks unique handle fields before falling back to display names
+            return meta.preferred_username || meta.user_name || meta.custom_claims?.preferred_username || meta.full_name || 'Connected';
         }
     },
     watch: {
