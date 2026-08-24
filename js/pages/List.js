@@ -428,8 +428,6 @@ export default {
         combinedRecords() {
             if (!this.level) return [];
             const jsonRecords = this.level.records || [];
-            
-            // Merge static JSON records with live approved database records
             return [...jsonRecords, ...this.approvedDbRecords].sort((a, b) => b.percent - a.percent);
         },
         video() {
@@ -510,10 +508,10 @@ export default {
                 }
             }
         },
-        query(val) { this.updateQueryParams(); },
+        query() { this.updateQueryParams(); },
         selectedTags: { deep: true, handler() { this.updateQueryParams(); } },
-        sortBy(val) { this.updateQueryParams(); },
-        sortOrder(val) { this.updateQueryParams(); }
+        sortBy() { this.updateQueryParams(); },
+        sortOrder() { this.updateQueryParams(); }
     },
     async mounted() {
         const q = this.$route.query;
@@ -533,13 +531,19 @@ export default {
         this.aredlRanks = aredlData.ranks;
         this.aredlTagsMap = aredlData.tagsMap;
 
+        // Fetch activity dynamically from Supabase
         try {
-            const actRes = await fetch('./data/activity.json');
-            if (actRes.ok) {
-                this.activityList = await actRes.json();
+            const { data: actData, error } = await supabase
+                .from('activity')
+                .select('*')
+                .order('date', { ascending: false })
+                .limit(10);
+
+            if (!error && actData) {
+                this.activityList = actData;
             }
         } catch (e) {
-            console.warn('Activity feed not found or failed to load.');
+            console.warn('Failed to load activity log from Supabase:', e);
         }
 
         const param = this.$route.params.level;
