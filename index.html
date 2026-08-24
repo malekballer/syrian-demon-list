@@ -128,9 +128,9 @@
                 >
                     <span class="type-label-lg">Submission Rules</span>
                 </router-link>
-                <!-- Editor-Only Navigation Link -->
+                <!-- Strict Editor-Only Navigation Link -->
                 <router-link 
-                    v-if="store.profile?.is_editor"
+                    v-if="store.profile && store.profile.is_editor === true"
                     class="nav__tab" 
                     to="/review" 
                     :class="{ active: store.currentPath.startsWith('/review') }"
@@ -163,7 +163,7 @@
                     Login with Discord
                 </button>
 
-                <!-- Logged In: Edit Profile, Submit Record, Logout -->
+                <!-- Logged In Actions -->
                 <div v-else style="display: flex; align-items: center; gap: 0.5rem;">
                     <button 
                         @click="store.showProfileModal = true" 
