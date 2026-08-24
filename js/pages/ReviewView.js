@@ -3,7 +3,7 @@ import { supabase } from "../supabase.js";
 
 export default {
     template: `
-        <main :class="{ dark: store.dark }" style="padding: 2.5rem 1.5rem; max-width: 900px; margin: 0 auto; min-height: 85vh; font-family: 'Lexend Deca', sans-serif;">
+        <div class="page-container" :class="{ dark: store.dark }" style="padding: 2rem 1.5rem; width: 100%; max-width: 1000px; margin: 0 auto; min-height: 85vh; box-sizing: border-box;">
             <!-- Header Bar -->
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.25rem;">
                 <div>
@@ -14,7 +14,7 @@ export default {
             </div>
 
             <!-- Access Denied Guard -->
-            <div v-if="!store.profile?.is_editor" style="text-align: center; padding: 4rem 1.5rem; background: rgba(206,17,38,0.1); border: 1px solid rgba(206,17,38,0.3); border-radius: 14px; margin-top: 2rem;">
+            <div v-if="!store.profile?.is_editor" style="text-align: center; padding: 4rem 1.5rem; background: rgba(206,17,38,0.1); border: 1px solid rgba(206,17,38,0.3); border-radius: 14px;">
                 <h3 style="color: #ce1126; font-size: 1.35rem; font-weight: 800; margin-bottom: 0.5rem;">Access Restricted</h3>
                 <p style="opacity: 0.85; font-size: 0.95rem;">You need Editor permissions to view and process submissions.</p>
             </div>
@@ -25,13 +25,13 @@ export default {
             </div>
 
             <!-- Empty State -->
-            <div v-else-if="submissions.length === 0" style="text-align: center; padding: 4rem 1.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;">
+            <div v-else-if="submissions.length === 0" style="text-align: center; padding: 4rem 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;">
                 <p style="font-size: 1.25rem; font-weight: 800; color: #00FF80; margin-bottom: 0.35rem;">Queue Clear!</p>
                 <p style="opacity: 0.7; font-size: 0.9rem;">No pending record submissions waiting for review.</p>
             </div>
 
             <!-- Pending Submissions Cards -->
-            <div v-else style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <div v-else style="display: flex; flex-direction: column; gap: 1.25rem; width: 100%;">
                 <div 
                     v-for="sub in submissions" 
                     :key="sub.id" 
@@ -55,7 +55,7 @@ export default {
                         />
                         <div>
                             <span style="font-weight: 800; font-size: 1.05rem; display: block; color: inherit;">
-                                {{ sub.profiles?.username || 'Player ID: ' + sub.user_id.slice(0, 8) }}
+                                {{ sub.profiles?.username || 'Player' }}
                             </span>
                             <span style="font-size: 0.8rem; opacity: 0.6;">
                                 Governorate: {{ sub.profiles?.governorate || 'Unspecified' }}
@@ -96,7 +96,7 @@ export default {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     `,
     data: () => ({
         store,
