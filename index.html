@@ -103,7 +103,7 @@
                 <router-link 
                     class="nav__tab" 
                     to="/" 
-                    :class="{ active: store.currentPath === '/' || (!store.currentPath.startsWith('/leaderboard') && !store.currentPath.startsWith('/roulette') && !store.currentPath.startsWith('/rules')) }"
+                    :class="{ active: store.currentPath === '/' || (!store.currentPath.startsWith('/leaderboard') && !store.currentPath.startsWith('/roulette') && !store.currentPath.startsWith('/rules') && !store.currentPath.startsWith('/review')) }"
                 >
                     <span class="type-label-lg">List</span>
                 </router-link>
@@ -127,6 +127,15 @@
                     :class="{ active: store.currentPath.startsWith('/rules') }"
                 >
                     <span class="type-label-lg">Submission Rules</span>
+                </router-link>
+                <!-- Editor-Only Navigation Link -->
+                <router-link 
+                    v-if="store.profile?.is_editor"
+                    class="nav__tab" 
+                    to="/review" 
+                    :class="{ active: store.currentPath.startsWith('/review') }"
+                >
+                    <span class="type-label-lg" style="color: #c0a25c;">Review Queue</span>
                 </router-link>
             </nav>
             <div class="nav__actions">
