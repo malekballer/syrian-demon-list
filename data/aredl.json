@@ -19,6 +19,7 @@
       "Long",
       "Timings",
       "Chokepoints",
+      "High CPS",
       "Nerve Control",
       "Ship",
       "Wave"
@@ -68,7 +69,7 @@
       "XL",
       "Fast-Paced",
       "Timings",
-      "Memory",
+      "Learny",
       "Gimmicky",
       "Nerve Control"
     ]
@@ -109,7 +110,11 @@
     "tags": [
       "2.2",
       "XL",
-      "Memory"
+      "Timings",
+      "Memory",
+      "Gimmicky",
+      "Nerve Control",
+      "Ship"
     ]
   },
   "135661111": {
@@ -3242,17 +3247,14 @@
   "91019161": {
     "rank": 293,
     "tags": [
-      "NONG",
       "2.1",
       "Medium",
-      "Overall",
-      "Clicksync",
+      "NONG",
       "Timings",
       "Chokepoints",
       "Gimmicky",
       "Ball",
-      "Wave",
-      "Old Swing"
+      "Wave"
     ]
   },
   "94928487": {
@@ -4992,6 +4994,8 @@
       "2.1",
       "Long",
       "Fast-Paced",
+      "Timings",
+      "Chokepoints",
       "Learny",
       "Duals"
     ]
@@ -5121,7 +5125,9 @@
       "2.1",
       "Long",
       "Clicksync",
-      "Timings"
+      "Timings",
+      "Ship",
+      "UFO"
     ]
   },
   "81656376": {
@@ -8889,7 +8895,8 @@
       "2.2",
       "Long",
       "Timings",
-      "Learny",
+      "Memory",
+      "Gimmicky",
       "Slow-Paced"
     ]
   },
@@ -10696,10 +10703,10 @@
     "tags": [
       "2.1",
       "Long",
-      "Gimmicky",
-      "Duals",
       "Learny",
-      "Mirror"
+      "Gimmicky",
+      "Mirror",
+      "Duals"
     ]
   },
   "136984556": {
@@ -11184,7 +11191,6 @@
     "tags": [
       "1.9PS",
       "Long",
-      "Ship",
       "Duals",
       "Timings",
       "Learny",
@@ -11348,7 +11354,7 @@
       "2.2",
       "Long",
       "Timings",
-      "Learny",
+      "Memory",
       "Gimmicky",
       "Cube",
       "Ship"
@@ -15089,7 +15095,6 @@
       "Fast-Paced",
       "Timings",
       "Chokepoints",
-      "Precision",
       "Wave",
       "Duals"
     ]
@@ -16892,7 +16897,9 @@
       "2.2",
       "Long",
       "Timings",
-      "Slow-Paced"
+      "Slow-Paced",
+      "Cube",
+      "Spider"
     ]
   },
   "60197839": {
