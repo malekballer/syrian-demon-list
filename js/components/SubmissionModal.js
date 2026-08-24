@@ -159,6 +159,7 @@ export default {
                     level_name: levelNameToSubmit,
                     percent: this.form.percent,
                     video_link: this.form.video_link,
+                    status: 'pending', // Explicitly set pending status
                     notes: `Device: ${this.form.device}` + (this.form.raw_link ? ` | Raw: ${this.form.raw_link}` : '')
                 }
             ]);
