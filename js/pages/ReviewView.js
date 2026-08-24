@@ -3,75 +3,100 @@ import { supabase } from "../supabase.js";
 
 export default {
     template: `
-        <div class="page-container" style="padding: 2rem 1rem; max-width: 900px; margin: 0 auto;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <main :class="{ dark: store.dark }" style="padding: 2.5rem 1.5rem; max-width: 900px; margin: 0 auto; min-height: 85vh; font-family: 'Lexend Deca', sans-serif;">
+            <!-- Header Bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.25rem;">
                 <div>
-                    <h1 style="font-size: 1.8rem; font-weight: 800; margin: 0;">Editor Review Queue</h1>
-                    <p style="opacity: 0.7; font-size: 0.9rem; margin-top: 0.25rem;">Approve or reject pending record submissions.</p>
+                    <h1 style="font-size: 2rem; font-weight: 800; margin: 0; color: inherit;">Editor Review Queue</h1>
+                    <p style="opacity: 0.7; font-size: 0.95rem; margin-top: 0.35rem;">Approve or reject pending record submissions.</p>
                 </div>
-                <button @click="fetchPending" class="syrian-cta" style="padding: 0.4rem 0.9rem; border-radius: 6px; font-size: 0.85rem;">Refresh</button>
+                <button @click="fetchPending" class="syrian-cta" style="padding: 0.55rem 1.25rem; border-radius: 8px; font-size: 0.9rem;">Refresh Queue</button>
             </div>
 
-            <!-- Access Denied -->
-            <div v-if="!store.profile?.is_editor" style="text-align: center; padding: 4rem 1rem; background: rgba(0,0,0,0.2); border-radius: 12px;">
-                <h3 style="color: #ce1126; font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem;">Access Restricted</h3>
-                <p style="opacity: 0.8; font-size: 0.95rem;">You need Editor permissions to view this dashboard.</p>
+            <!-- Access Denied Guard -->
+            <div v-if="!store.profile?.is_editor" style="text-align: center; padding: 4rem 1.5rem; background: rgba(206,17,38,0.1); border: 1px solid rgba(206,17,38,0.3); border-radius: 14px; margin-top: 2rem;">
+                <h3 style="color: #ce1126; font-size: 1.35rem; font-weight: 800; margin-bottom: 0.5rem;">Access Restricted</h3>
+                <p style="opacity: 0.85; font-size: 0.95rem;">You need Editor permissions to view and process submissions.</p>
             </div>
 
-            <!-- Pending List -->
-            <div v-else-if="loading" style="text-align: center; padding: 3rem; opacity: 0.7;">
-                Loading submissions...
+            <!-- Loading State -->
+            <div v-else-if="loading" style="text-align: center; padding: 4rem 1rem; opacity: 0.7; font-size: 1.1rem; font-weight: 700;">
+                Loading pending queue...
             </div>
 
-            <div v-else-if="submissions.length === 0" style="text-align: center; padding: 3rem; background: rgba(0,0,0,0.15); border-radius: 12px;">
-                <p style="font-size: 1.05rem; font-weight: 700; color: #00FF80;">Queue Clear!</p>
-                <p style="opacity: 0.7; font-size: 0.85rem;">No pending submissions waiting for review.</p>
+            <!-- Empty State -->
+            <div v-else-if="submissions.length === 0" style="text-align: center; padding: 4rem 1.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;">
+                <p style="font-size: 1.25rem; font-weight: 800; color: #00FF80; margin-bottom: 0.35rem;">Queue Clear!</p>
+                <p style="opacity: 0.7; font-size: 0.9rem;">No pending record submissions waiting for review.</p>
             </div>
 
+            <!-- Pending Submissions Cards -->
             <div v-else style="display: flex; flex-direction: column; gap: 1.25rem;">
                 <div 
                     v-for="sub in submissions" 
                     :key="sub.id" 
-                    style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;"
+                    style="background: rgba(20, 20, 20, 0.75); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: 0 8px 24px rgba(0,0,0,0.4);"
                 >
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem;">
+                    <!-- Card Top Row -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.85rem;">
                         <div>
-                            <span style="font-size: 1.2rem; font-weight: 800; color: #00FF80;">{{ sub.level_name }}</span>
-                            <span style="font-size: 0.95rem; font-weight: 700; opacity: 0.9; margin-left: 0.5rem;">({{ sub.percent }}%)</span>
+                            <span style="font-size: 1.4rem; font-weight: 800; color: #00FF80;">{{ sub.level_name }}</span>
+                            <span style="font-size: 1.1rem; font-weight: 700; opacity: 0.9; margin-left: 0.6rem;">({{ sub.percent }}%)</span>
                         </div>
-                        <span style="font-size: 0.75rem; opacity: 0.6; text-transform: uppercase; font-weight: bold;">ID: {{ sub.id }}</span>
+                        <span style="font-size: 0.75rem; opacity: 0.5; font-family: monospace;">ID: {{ sub.id.slice(0, 8) }}</span>
                     </div>
 
-                    <div style="display: flex; gap: 1rem; font-size: 0.85rem; opacity: 0.85; flex-wrap: wrap;">
-                        <div><strong>Player ID:</strong> {{ sub.user_id }}</div>
-                        <div><strong>Details:</strong> {{ sub.notes }}</div>
+                    <!-- Player Info Header -->
+                    <div style="display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.04); padding: 0.85rem 1.1rem; border-radius: 10px;">
+                        <img 
+                            :src="sub.profiles?.pfp_url || 'https://assets.aredl.net/avatars/default.png'" 
+                            alt="Avatar" 
+                            style="width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid #007A3D; flex-shrink: 0;"
+                        />
+                        <div>
+                            <span style="font-weight: 800; font-size: 1.05rem; display: block; color: inherit;">
+                                {{ sub.profiles?.username || 'Player ID: ' + sub.user_id.slice(0, 8) }}
+                            </span>
+                            <span style="font-size: 0.8rem; opacity: 0.6;">
+                                Governorate: {{ sub.profiles?.governorate || 'Unspecified' }}
+                            </span>
+                        </div>
                     </div>
 
-                    <!-- Video Links -->
-                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.25rem;">
-                        <a :href="sub.video_link" target="_blank" style="color: #c0a25c; font-weight: 700; font-size: 0.85rem; text-decoration: none;">▶ View Proof Video</a>
+                    <!-- Submission Details -->
+                    <div style="font-size: 0.9rem; opacity: 0.85; line-height: 1.4;">
+                        <strong>Details:</strong> {{ sub.notes || 'None provided' }}
                     </div>
 
-                    <!-- Review Actions -->
-                    <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem; align-items: center;">
+                    <!-- Video Proof Links -->
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <a :href="sub.video_link" target="_blank" style="color: #c0a25c; font-weight: 800; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(192, 162, 92, 0.12); padding: 0.45rem 0.9rem; border-radius: 8px; border: 1px solid rgba(192, 162, 92, 0.3);">
+                            ▶ Watch Completion Video
+                        </a>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
                         <button 
                             @click="approve(sub.id)" 
                             :disabled="sub.processing"
-                            style="background: #007A3D; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 700; cursor: pointer;"
+                            style="flex: 1; background: #007A3D; color: #ffffff; border: none; padding: 0.75rem; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.95rem;"
+                            :style="{ opacity: sub.processing ? 0.5 : 1 }"
                         >
-                            Approve
+                            {{ sub.processing ? 'Approving...' : 'Approve Record' }}
                         </button>
                         <button 
                             @click="reject(sub.id)" 
                             :disabled="sub.processing"
-                            style="background: #ce1126; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 700; cursor: pointer;"
+                            style="flex: 1; background: #ce1126; color: #ffffff; border: none; padding: 0.75rem; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.95rem;"
+                            :style="{ opacity: sub.processing ? 0.5 : 1 }"
                         >
                             Reject
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     `,
     data: () => ({
         store,
@@ -79,18 +104,14 @@ export default {
         loading: true
     }),
     async mounted() {
-        if (this.store.profile?.is_editor) {
-            await this.fetchPending();
-        } else {
-            this.loading = false;
-        }
+        await this.fetchPending();
     },
     methods: {
         async fetchPending() {
             this.loading = true;
             const { data, error } = await supabase
                 .from('submissions')
-                .select('*')
+                .select('*, profiles(username, pfp_url, governorate)')
                 .eq('status', 'pending')
                 .order('created_at', { ascending: true });
 
@@ -108,13 +129,16 @@ export default {
                 .update({ status: 'approved' })
                 .eq('id', id);
 
-            if (!error) {
+            if (error) {
+                alert("Approval Error: " + error.message);
+                if (item) item.processing = false;
+            } else {
                 this.submissions = this.submissions.filter(s => s.id !== id);
             }
         },
         async reject(id) {
             const reason = prompt("Enter rejection reason (optional):");
-            if (reason === null) return; // Cancelled
+            if (reason === null) return;
 
             const item = this.submissions.find(s => s.id === id);
             if (item) item.processing = true;
@@ -124,7 +148,10 @@ export default {
                 .update({ status: 'rejected', reject_reason: reason })
                 .eq('id', id);
 
-            if (!error) {
+            if (error) {
+                alert("Rejection Error: " + error.message);
+                if (item) item.processing = false;
+            } else {
                 this.submissions = this.submissions.filter(s => s.id !== id);
             }
         }
