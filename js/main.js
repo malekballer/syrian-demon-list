@@ -1,6 +1,7 @@
 import routes from './routes.js';
 import { supabase, getAuthenticatedUser, loginWithDiscord, logoutUser } from './supabase.js';
 import SubmissionModal from './components/SubmissionModal.js';
+import ProfileModal from './components/ProfileModal.js';
 
 export const store = Vue.reactive({
     dark: JSON.parse(localStorage.getItem('dark')) || false,
@@ -8,6 +9,7 @@ export const store = Vue.reactive({
     user: null,
     profile: null,
     showSubmissionModal: false,
+    showProfileModal: false,
 
     toggleDark() {
         this.dark = !this.dark;
@@ -53,8 +55,9 @@ const app = Vue.createApp({
     data: () => ({ store }),
 });
 
-// Register the submission modal globally
+// Register modals globally
 app.component('submission-modal', SubmissionModal);
+app.component('profile-modal', ProfileModal);
 
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
