@@ -50,7 +50,7 @@ export default {
                         <!-- Profile Card Banner -->
                         <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; padding: 1.35rem; background: rgba(128,128,128,0.06); border: 1px solid rgba(128,128,128,0.15); border-radius: 14px;">
                             
-                            <!-- Top Bar: Username + Points + Socials (No Overlap) -->
+                            <!-- Top Bar: Avatar, Name, Points & Social Icons -->
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
                                 <div style="display: flex; align-items: center; gap: 1.25rem; flex: 1; min-width: 240px;">
                                     <img 
@@ -113,7 +113,7 @@ export default {
                                 {{ entry.bio ? '"' + entry.bio + '"' : 'No bio provided.' }}
                             </p>
                             
-                            <!-- Badges (Larger Governorate text + Location pin SVG) -->
+                            <!-- Badges (Governorate + Discord Tag) -->
                             <div style="display: flex; gap: 0.65rem; align-items: center; opacity: 0.95; flex-wrap: wrap;">
                                 <span v-if="entry.governorate" class="type-label-lg" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.35rem 0.75rem; border-radius: 8px; font-size: 0.95rem; font-weight: 700; color: inherit;">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00FF80" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -123,8 +123,11 @@ export default {
                                     {{ entry.governorate }}
                                 </span>
                                 
-                                <span v-if="entry.discord_tag" class="type-label-lg" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(88, 101, 242, 0.15); border: 1px solid rgba(88, 101, 242, 0.35); padding: 0.35rem 0.75rem; border-radius: 8px; font-size: 0.95rem; font-weight: 700; color: inherit;">
-                                    💬 {{ entry.discord_tag }}
+                                <span v-if="entry.discord_tag" class="type-label-lg" style="display: inline-flex; align-items: center; gap: 0.45rem; background: rgba(88, 101, 242, 0.18); border: 1px solid rgba(88, 101, 242, 0.4); padding: 0.35rem 0.75rem; border-radius: 8px; font-size: 0.95rem; font-weight: 700; color: inherit;">
+                                    <svg width="16" height="16" viewBox="0 0 127.14 96.36" fill="#5865F2">
+                                        <path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.68 1.76 1.36 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.91-72.14zM42.45 65.69c-6.32 0-11.52-5.8-11.52-12.91s5.07-12.9 11.52-12.9c6.5 0 11.64 5.86 11.52 12.9 0 7.11-5.07 12.91-11.52 12.91zm42.24 0c-6.32 0-11.52-5.8-11.52-12.91s5.07-12.9 11.52-12.9c6.5 0 11.64 5.86 11.52 12.9 0 7.11-5.07 12.91-11.52 12.91z"/>
+                                    </svg>
+                                    {{ entry.discord_tag }}
                                 </span>
                             </div>
 
