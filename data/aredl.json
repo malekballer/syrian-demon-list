@@ -51,6 +51,9 @@
       "2.1",
       "XXL",
       "NONG",
+      "Fast-Paced",
+      "Timings",
+      "Nerve Control",
       "Wave"
     ]
   },
@@ -175,7 +178,12 @@
     "tags": [
       "2.2",
       "Long",
-      "Circles"
+      "Circles",
+      "Timings",
+      "Chokepoints",
+      "High CPS",
+      "Nerve Control",
+      "Wave"
     ]
   },
   "114283297": {
@@ -217,6 +225,9 @@
       "2.2",
       "XL",
       "Fast-Paced",
+      "Chokepoints",
+      "Nerve Control",
+      "Old Swing",
       "Overall"
     ]
   },
@@ -969,7 +980,8 @@
       "2.2",
       "Long",
       "Timings",
-      "Chokepoints"
+      "Chokepoints",
+      "Cube"
     ]
   },
   "125788781": {
@@ -1344,6 +1356,7 @@
       "Medium",
       "NONG",
       "Fast-Paced",
+      "Chokepoints",
       "High CPS",
       "Wave"
     ]
@@ -3789,6 +3802,7 @@
       "2.1",
       "Long",
       "Fast-Paced",
+      "Nerve Control",
       "Ship",
       "Wave"
     ]
@@ -3897,6 +3911,7 @@
       "Timings",
       "Chokepoints",
       "High CPS",
+      "Nerve Control",
       "Wave"
     ]
   },
@@ -7008,8 +7023,11 @@
       "2.1",
       "Long",
       "Circles",
-      "Wave",
-      "Fast-Paced"
+      "Timings",
+      "Chokepoints",
+      "High CPS",
+      "Nerve Control",
+      "Wave"
     ]
   },
   "94410319": {
@@ -13048,8 +13066,7 @@
       "Learny",
       "High CPS",
       "Gimmicky",
-      "Nerve Control",
-      "Cube"
+      "Mirror"
     ]
   },
   "128765333": {
@@ -14611,9 +14628,9 @@
     "tags": [
       "2.2",
       "Long",
+      "Chokepoints",
       "Memory",
-      "Gimmicky",
-      "Chokepoints"
+      "Gimmicky"
     ]
   },
   "102562296": {
