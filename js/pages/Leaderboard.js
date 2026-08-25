@@ -246,28 +246,27 @@ export default {
 
             const playerMap = new Map();
 
-            // Re-calculate base static records using updated continuous score formula
+            // 1. Process static records from base JSON
             baseBoard.forEach(p => {
                 const key = p.user.trim().toLowerCase();
                 const meta = profileDetails.get(key) || {};
 
-                // Recalculate static record scores seamlessly
                 let recalculatedTotal = 0;
 
-                const verified = p.verified.map(v => {
+                const verified = (p.verified || []).map(v => {
                     const newScore = score(v.rank, 100, 100, totalLevels);
                     recalculatedTotal += newScore;
                     return { ...v, score: newScore };
                 });
 
-                const completed = p.completed.map(c => {
+                const completed = (p.completed || []).map(c => {
                     const newScore = score(c.rank, 100, 100, totalLevels);
                     recalculatedTotal += newScore;
                     return { ...c, score: newScore };
                 });
 
-                const progressed = p.progressed.map(pr => {
-                    const newScore = score(pr.rank, pr.percent, 50, totalLevels);
+                const progressed = (p.progressed || []).map(pr => {
+                    const newScore = score(pr.rank, pr.percent, 0, totalLevels);
                     recalculatedTotal += newScore;
                     return { ...pr, score: newScore };
                 });
@@ -291,7 +290,7 @@ export default {
                 });
             });
 
-            // Process approved live submissions from Supabase
+            // 2. Fetch and merge approved live submissions from Supabase
             const { data: approvedSubs } = await supabase
                 .from('submissions')
                 .select('*')
@@ -306,16 +305,31 @@ export default {
 
                 const profileMap = new Map((userProfiles || []).map(p => [p.id, p]));
 
+                // Build Level Index Map supporting String ID, Numeric ID, Level Name, & Rank
                 const levelIndex = new Map();
-                listData.forEach(([lvl], index) => {
-                    if (lvl) levelIndex.set(lvl.id.toString(), { lvl, rank: index + 1 });
+                listData.forEach((item, index) => {
+                    const lvl = Array.isArray(item) ? item[0] : item;
+                    if (lvl) {
+                        const rank = index + 1;
+                        if (lvl.id !== undefined && lvl.id !== null) {
+                            levelIndex.set(lvl.id.toString(), { lvl, rank });
+                            levelIndex.set(lvl.id, { lvl, rank });
+                        }
+                        if (lvl.name) {
+                            levelIndex.set(lvl.name.trim().toLowerCase(), { lvl, rank });
+                        }
+                        levelIndex.set(rank.toString(), { lvl, rank });
+                    }
                 });
 
                 approvedSubs.forEach(sub => {
                     const profile = profileMap.get(sub.user_id);
                     if (!profile || !profile.username) return;
 
-                    const match = levelIndex.get(sub.level_id.toString());
+                    const match = levelIndex.get(sub.level_id?.toString()) 
+                             || levelIndex.get(sub.level_id)
+                             || (sub.level_name ? levelIndex.get(sub.level_name.trim().toLowerCase()) : null);
+
                     if (!match) return;
 
                     const { lvl, rank } = match;
@@ -342,7 +356,7 @@ export default {
                     }
 
                     const player = playerMap.get(key);
-                    const earnedScore = score(rank, sub.percent, lvl.percentToQualify, totalLevels);
+                    const earnedScore = score(rank, sub.percent, 0, totalLevels);
 
                     const recordObj = {
                         rank,
@@ -352,13 +366,21 @@ export default {
                         percent: sub.percent
                     };
 
-                    if (sub.percent === 100) {
-                        if (!player.completed.some(c => c.level === lvl.name)) {
+                    if (sub.percent >= 100) {
+                        const exists = player.completed.some(c => c.level === lvl.name);
+                        if (!exists) {
                             player.completed.push(recordObj);
                             player.total += earnedScore;
                         }
-                    } else if (sub.percent >= lvl.percentToQualify) {
-                        if (!player.progressed.some(p => p.level === lvl.name)) {
+                    } else {
+                        const existingIndex = player.progressed.findIndex(p => p.level === lvl.name);
+                        if (existingIndex !== -1) {
+                            if (sub.percent > player.progressed[existingIndex].percent) {
+                                player.total -= player.progressed[existingIndex].score;
+                                player.progressed[existingIndex] = recordObj;
+                                player.total += earnedScore;
+                            }
+                        } else {
                             player.progressed.push(recordObj);
                             player.total += earnedScore;
                         }
