@@ -72,7 +72,7 @@ export default {
                             <label class="type-label-sm" style="display: block; margin-bottom: 0.25rem; opacity: 0.6; font-size: 0.75rem;">Spreadsheet</label>
                             <input type="url" v-model="form.spreadsheet" class="modal-input" placeholder="https://docs.google.com/spreadsheets/d/..." />
                         </div>
-                        
+
                         <div>
                             <label class="type-label-sm" style="display: block; margin-bottom: 0.25rem; opacity: 0.6; font-size: 0.75rem;">YouTube</label>
                             <input type="url" v-model="form.youtube" class="modal-input" placeholder="https://youtube.com/@yourchannel" />
@@ -166,11 +166,22 @@ export default {
             this.saving = true;
             this.errorMsg = '';
 
+            const tagToSave = (this.discordTag !== 'N/A' && this.discordTag !== 'Connected')
+                ? this.discordTag
+                : (this.store.profile?.discord_tag || null);
+
+            // Automatically fall back to Discord OAuth avatar metadata if custom pfp URL is left empty
+            const pfpToSave = this.form.pfp_url.trim() || 
+                this.store.user?.user_metadata?.avatar_url || 
+                this.store.user?.user_metadata?.picture || 
+                null;
+
             const { error } = await supabase
                 .from('profiles')
                 .update({
                     username: this.form.username.trim(),
-                    pfp_url: this.form.pfp_url.trim(),
+                    discord_tag: tagToSave,
+                    pfp_url: pfpToSave,
                     governorate: this.form.governorate,
                     bio: this.form.bio.trim(),
                     spreadsheet: this.form.spreadsheet.trim(),
