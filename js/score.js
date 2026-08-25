@@ -11,26 +11,21 @@ const scale = 3;
  * @param {Number} [totalLevels=100] Total number of levels on the list
  * @returns {Number}
  */
-export function score(rank, percent, minPercent = 100, totalLevels = 100) {
-    // If percent doesn't reach the required minimum, award 0
-    if (percent < minPercent) {
-        return 0;
-    }
-
+export function score(rank, percent, minPercent = 0, totalLevels = 100) {
     const maxRank = Math.max(2, totalLevels);
     
-    // Decay factor k so Rank 1 = 350 and maxRank = 1.000
+    // Exponential decay factor k so Rank 1 = 350.000 and maxRank = 1.000
     const k = Math.log(350) / (maxRank - 1);
     const basePoints = 350 * Math.exp(-k * (rank - 1));
 
-    if (percent === 100) {
+    if (percent >= 100) {
         return Math.max(0, round(basePoints));
     }
 
-    // Scale progress smoothly based on percentage achieved
+    // Smoothly scale progress points based on percent achieved
     let progressScore = basePoints * (percent / 100);
 
-    // Apply standard 1/3 progress reduction penalty
+    // Apply standard 1/3 penalty for non-100% completions
     progressScore = progressScore - (progressScore / 3);
 
     return Math.max(0, round(progressScore));
