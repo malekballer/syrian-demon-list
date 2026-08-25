@@ -241,7 +241,9 @@ export default {
                                 <p>{{ record.percent }}%</p>
                             </td>
                             <td class="user">
-                                <a :href="record.link" target="_blank" class="type-label-lg">{{ record.user }}</a>
+                                <router-link :to="`/leaderboard/${encodeURIComponent(record.user)}`" class="type-label-lg">
+                                    {{ record.user }}
+                                </router-link>
                             </td>
                             <td class="mobile">
                                 <img v-if="record.mobile" :src="\`./assets/phone-landscape\${store.dark ? '-dark' : ''}.svg\`" alt="Mobile">
@@ -344,10 +346,9 @@ export default {
                                             >
                                         </template>
 
-                                        <a v-if="editor.link" :href="editor.link" target="_blank" class="type-label-lg link" style="font-weight: 800; font-size: 1rem; text-decoration: none; color: inherit;">
+                                        <router-link :to="`/leaderboard/${encodeURIComponent(editor.name)}`" class="type-label-lg link" style="font-weight: 800; font-size: 1rem; text-decoration: none; color: inherit;">
                                             {{ editor.name }}
-                                        </a>
-                                        <span v-else class="type-label-lg" style="font-weight: 800; font-size: 1rem; color: inherit;">{{ editor.name }}</span>
+                                        </router-link>
                                     </div>
                                     
                                     <span class="type-label-sm" style="font-size: 0.72rem; opacity: 0.8; margin-top: 0.15rem; font-weight: 600; color: inherit;">
