@@ -1,40 +1,34 @@
 /**
- * Numbers of decimal digits to round to
- */
-const scale = 3;
-
-/**
  * Calculates continuous exponential score where Rank 1 = 350 pts and Last Rank = 1 pt.
- * @param {Number} rank 1-based level rank (or AREDL rank)
+ * @param {Number} rank 1-based level rank
  * @param {Number} percent Completion percentage
  * @param {Number} minPercent Minimum percentage required for progress points
  * @param {Number} [totalLevels=100] Total number of levels on the list
  * @returns {Number}
  */
 export function score(rank, percent, minPercent = 100, totalLevels = 100) {
+    // If percent doesn't reach the required minimum, award 0
     if (percent < minPercent) {
         return 0;
     }
 
     const maxRank = Math.max(2, totalLevels);
     
-    // Calculate decay factor k so Rank 1 = 350 and maxRank = 1.000
+    // Decay factor k so Rank 1 = 350 and maxRank = 1.000
     const k = Math.log(350) / (maxRank - 1);
-    
-    // Continuous exponential decay formula
     const basePoints = 350 * Math.exp(-k * (rank - 1));
 
-    // Handle partial progress runs
-    let finalScore = basePoints;
-    if (percent < 100) {
-        const progressRatio = (percent - (minPercent - 1)) / (100 - (minPercent - 1));
-        finalScore = basePoints * progressRatio;
-
-        // Standard 1/3 point reduction penalty for non-100% runs
-        finalScore = finalScore - (finalScore / 3);
+    if (percent === 100) {
+        return Math.max(0, round(basePoints));
     }
 
-    return Math.max(0, round(finalScore));
+    // Scale progress smoothly based on percentage achieved
+    let progressScore = basePoints * (percent / 100);
+
+    // Apply standard 1/3 progress reduction penalty
+    progressScore = progressScore - (progressScore / 3);
+
+    return Math.max(0, round(progressScore));
 }
 
 export function round(num) {
