@@ -5,7 +5,7 @@
     "creators": ["Riot", "Giron", "Vermillion", "Michigun", "Evasium", "Crack", "Asymmetry", "Havok", "Etzer", "GBoy", "weoweoteo"],
     "verifier": "Riot",
     "verification": "https://www.youtube.com/watch?v=PVdWwdHeb2Q",
-    "percentToQualify": 100,
+    "percentToQualify": 34,
     "password": "Not Copyable",
     "records": [
         {
@@ -33,6 +33,11 @@
             "link": "https://www.youtube.com/watch?v=Ws3oCanpOBA",
             "mobile": true,
             "percent": 100
+        },
+        {
+            "user": "baller",
+            "link": "https://ihavenofootage.com",
+            "percent": 34
         }
     ]
 }
