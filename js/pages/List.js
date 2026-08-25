@@ -175,7 +175,7 @@ export default {
                         </td>
                         <td class="level" :class="{ 'active': selected == originalIndex, 'error': !level }">
                             <button @click="selectLevel(originalIndex)">
-                                <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
+                                <span class="type-label-lg">{{ level ? level.name : 'Error (' + err + '.json)' }}</span>
                             </button>
                         </td>
                     </tr>
@@ -241,12 +241,12 @@ export default {
                                 <p>{{ record.percent }}%</p>
                             </td>
                             <td class="user">
-                                <router-link :to="`/leaderboard/${encodeURIComponent(record.user)}`" class="type-label-lg">
+                                <router-link :to="'/leaderboard/' + encodeURIComponent(record.user)" class="type-label-lg">
                                     {{ record.user }}
                                 </router-link>
                             </td>
                             <td class="mobile">
-                                <img v-if="record.mobile" :src="\`./assets/phone-landscape\${store.dark ? '-dark' : ''}.svg\`" alt="Mobile">
+                                <img v-if="record.mobile" :src="'./assets/phone-landscape' + (store.dark ? '-dark' : '') + '.svg'" alt="Mobile">
                             </td>
                         </tr>
                     </table>
@@ -346,7 +346,7 @@ export default {
                                             >
                                         </template>
 
-                                        <router-link :to="`/leaderboard/${encodeURIComponent(editor.name)}`" class="type-label-lg link" style="font-weight: 800; font-size: 1rem; text-decoration: none; color: inherit;">
+                                        <router-link :to="'/leaderboard/' + encodeURIComponent(editor.name)" class="type-label-lg link" style="font-weight: 800; font-size: 1rem; text-decoration: none; color: inherit;">
                                             {{ editor.name }}
                                         </router-link>
                                     </div>
@@ -532,7 +532,6 @@ export default {
         this.aredlRanks = aredlData.ranks;
         this.aredlTagsMap = aredlData.tagsMap;
 
-        // Combine static GitHub activity.json + dynamic Supabase activity
         let jsonActivity = [];
         try {
             const actRes = await fetch('./data/activity.json');
@@ -555,7 +554,6 @@ export default {
             console.warn('Supabase activity query failed.');
         }
 
-        // Merge both arrays and sort by date descending
         this.activityList = [...dbActivity, ...jsonActivity]
             .sort((a, b) => new Date(b.date) - new Date(a.date))
             .slice(0, 10);
@@ -571,13 +569,13 @@ export default {
             } else {
                 this.selected = 0;
                 if (this.list[0]?.[0]) {
-                    this.$router.replace({ path: `/${this.list[0][0].id}`, query: this.$route.query });
+                    this.$router.replace({ path: '/' + this.list[0][0].id, query: this.$route.query });
                 }
             }
         } else {
             this.selected = 0;
             if (this.list[0]?.[0]) {
-                this.$router.replace({ path: `/${this.list[0][0].id}`, query: this.$route.query });
+                this.$router.replace({ path: '/' + this.list[0][0].id, query: this.$route.query });
             }
         }
 
@@ -650,7 +648,7 @@ export default {
             this.selected = index;
             const currentLevel = this.list[index]?.[0];
             if (currentLevel) {
-                this.$router.push({ path: `/${currentLevel.id}`, query: this.$route.query });
+                this.$router.push({ path: '/' + currentLevel.id, query: this.$route.query });
             }
         },
         copyId(id) {
