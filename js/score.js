@@ -1,4 +1,9 @@
 /**
+ * Numbers of decimal digits to round to
+ */
+const scale = 3;
+
+/**
  * Calculates continuous exponential score where Rank 1 = 350 pts and Last Rank = 1 pt.
  * @param {Number} rank 1-based level rank
  * @param {Number} percent Completion percentage
