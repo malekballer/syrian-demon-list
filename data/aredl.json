@@ -533,6 +533,7 @@
       "2.1",
       "XL",
       "Fast-Paced",
+      "Timings",
       "Nerve Control",
       "Overall"
     ]
@@ -9486,7 +9487,7 @@
     "rank": 863,
     "tags": [
       "2.2",
-      "Medium",
+      "Long",
       "Bossfight",
       "Ship",
       "UFO",
@@ -12112,9 +12113,11 @@
     "tags": [
       "2.2",
       "Long",
+      "Clicksync",
       "Fast-Paced",
-      "Nerve Control",
-      "Duals"
+      "Timings",
+      "Duals",
+      "Overall"
     ]
   },
   "103748335": {
@@ -12179,7 +12182,7 @@
     "rank": 1120,
     "tags": [
       "2.1",
-      "Medium",
+      "Long",
       "Timings",
       "Cube"
     ]
@@ -15313,10 +15316,10 @@
     "rank": 1414,
     "tags": [
       "2.1",
-      "Long",
-      "High CPS",
-      "Fast-Paced",
+      "Medium",
       "Clicksync",
+      "Fast-Paced",
+      "High CPS",
       "Wave"
     ]
   },
