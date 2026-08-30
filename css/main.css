@@ -1,28 +1,48 @@
+/* ============================================================
+   CUSTOM FONT INJECTION (Logo Only)
+   ============================================================ */
+@font-face {
+    font-family: 'Hayyakum Allah';
+    src: url('https://syrian.zone/syid-assets/fonts/HayyakumAllah/WOFF/HayyakumAllah-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ============================================================
+   DESIGN TOKENS & PALETTE (Primary #002623 & Accent #b9a779)
+   ============================================================ */
 :root {
-    --color-background: white;
-    --color-on-background: black;
-    --color-background-hover: #eee;
-    --color-on-background-hover: black;
-    --color-primary: #007A3D;
-    --color-on-primary: white;
+    --color-background: #002623;
+    --color-on-background: #edebe0;
+    --color-background-hover: #05332f;
+    --color-on-background-hover: #ffffff;
+    --color-primary: #b9a779 !important;
+    --color-accent-gold: #b9a779;
+    --color-accent-gold-hover: #c0a25c;
+    --color-on-primary: #002623;
     --color-error: #de0000;
-    --color-on-error: white;
+    --color-on-error: #ffffff;
+    --color-border-subtle: rgba(185, 167, 121, 0.25);
 }
 
 main.dark,
-header.dark {
+header.dark,
+.dark {
     color-scheme: dark;
-    --color-background: #1c1b1f;
-    --color-on-background: white;
-    --color-background-hover: #27262c;
-    --color-on-background-hover: white;
-    --color-primary: #007A3D;
-    --color-primary-disabled: #1f213c;
-    --color-on-primary: white;
+    --color-background: #002623;
+    --color-on-background: #edebe0;
+    --color-background-hover: #05332f;
+    --color-on-background-hover: #ffffff;
+    --color-primary: #b9a779 !important;
+    --color-primary-disabled: #081816;
+    --color-on-primary: #002623;
     --color-error: #de0000;
-    --color-on-error: white;
+    --color-on-error: #ffffff;
 }
 
+/* ============================================================
+   GLOBAL BODY & SEAMLESS MOSAIC TILE BACKGROUND
+   ============================================================ */
 html,
 body {
     height: 100%;
@@ -32,68 +52,486 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
+    background-color: #002623 !important;
+    color: #edebe0;
+    background-image: url("../assets/mosaic.png") !important;
+    background-repeat: repeat !important;
+    background-size: 180px 180px !important;
+    background-attachment: fixed !important;
 }
 
 header,
 main {
-    background-color: var(--color-background);
+    background-color: transparent;
     color: var(--color-on-background);
-    display: grid;
-    grid-template-columns: minmax(16rem, 1fr) minmax(16rem, 2fr) minmax(
-            16em,
-            1fr
-        );
-    column-gap: 2rem;
 }
 
+/* ============================================================
+   EXTRA-WIDE FLOATING PILL NAVBAR
+   ============================================================ */
 header {
-    display: flex;
-    padding-inline: calc(25vw - 10rem);
-    height: 4rem;
-    background-color: var(--color-primary);
-    color: var(--color-on-primary);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 2.5rem !important;
+    height: 4.5rem !important;
+    background-color: rgba(0, 38, 35, 0.9) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(185, 167, 121, 0.35) !important;
+    border-radius: 9999px !important;
+    width: 98.5% !important;
+    max-width: 1980px !important;
+    margin: 0.75rem auto 0 auto !important;
+    position: sticky !important;
+    top: 0.75rem !important;
+    z-index: 1000 !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    box-sizing: border-box !important;
 }
-@media screen and (min-width: 1366px) {
-    header {
-        display: grid;
-        padding-inline: 0;
-    }
-}
+
 header .logo {
-    justify-self: end;
-    align-self: center;
-    display: flex;
-    align-items: flex-end;
-    gap: 1rem;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    justify-self: start !important;
+    flex: 0 0 auto !important;
 }
+
+header .logo img.nav__logo {
+    width: 42px !important;
+    height: 42px !important;
+    object-fit: contain !important;
+}
+
+header .logo h2 {
+    font-family: 'Hayyakum Allah', sans-serif !important;
+    font-size: 2rem !important;
+    font-weight: normal !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    transform: translateY(3px);
+}
+
+header .logo p {
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 0.7rem !important;
+    color: #002623 !important;
+    background: #b9a779 !important;
+    padding: 2px 6px !important;
+    border-radius: 6px !important;
+    margin: 0 !important;
+    font-weight: 700;
+}
+
 header .nav {
-    flex: 1;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2.5rem !important;
+    flex: 1 !important;
+    margin: 0 1rem !important;
+}
+
+header .nav__actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    flex: 0 0 auto !important;
+}
+
+/* ============================================================
+   FORCE FLAT SOLID WHEAT COLOR ON ALL CTA BUTTONS
+   ============================================================ */
+button.syrian-cta,
+a.syrian-cta,
+.nav__actions .syrian-cta {
+    background: #b9a779 !important;
+    background-image: none !important;
+    color: #002623 !important;
+    font-weight: 800 !important;
+    border: none !important;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(185, 167, 121, 0.35);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+button.syrian-cta:hover,
+a.syrian-cta:hover {
+    background: #c5b487 !important;
+    background-image: none !important;
+    transform: translateY(-1px);
+    filter: brightness(1.05);
 }
 
 main {
     height: 0;
     flex: 1;
     display: grid;
+    grid-template-columns: minmax(16rem, 1fr) minmax(16rem, 2fr) minmax(16em, 1fr);
     grid-template-rows: minmax(0, 1fr);
     column-gap: 2rem;
+    padding-top: 1rem;
+    width: 98% !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
 }
+
 main > div {
     overflow-y: auto;
 }
 
-.spinner {
+/* ============================================================
+   LEVEL LIST ITEM CARDS & FULL-WIDTH CLICKABLE BUTTONS
+   ============================================================ */
+table.list {
+    border-collapse: separate !important;
+    border-spacing: 0 6px !important;
+    width: 100% !important;
+}
+
+table.list td.level {
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+table.list td.level button {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    text-align: left !important;
+    padding: 0.6rem 0.8rem !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+}
+
+/* Rank column background badge */
+table.list td.rank {
+    padding: 0 6px 0 0 !important;
+    vertical-align: middle !important;
+}
+
+table.list td.rank p,
+table.list td.rank div {
+    background: rgba(0, 20, 18, 0.65) !important;
+    border: 1px solid rgba(185, 167, 121, 0.2) !important;
+    border-radius: 8px !important;
+    color: #b9a779 !important;
+    font-weight: 800 !important;
+    padding: 6px 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    min-width: 38px !important;
+    box-sizing: border-box !important;
+}
+
+/* Level Name column unselected card background */
+table.list td.level:not(.active) button {
+    background: rgba(0, 20, 18, 0.55) !important;
+    border: 1px solid rgba(185, 167, 121, 0.18) !important;
+    border-radius: 8px !important;
+    transition: background 0.2s ease, border-color 0.2s ease !important;
+}
+
+table.list td.level:not(.active) button:hover {
+    background: rgba(185, 167, 121, 0.15) !important;
+    border-color: rgba(185, 167, 121, 0.35) !important;
+}
+
+/* Keep active selected level gold across full width */
+table.list td.level.active button {
+    background: #b9a779 !important;
+    border-color: #b9a779 !important;
+    color: #002623 !important;
+    border-radius: 8px !important;
+}
+
+table.list td.level.active button span {
+    color: #002623 !important;
+    font-weight: 800 !important;
+}
+
+/* ============================================================
+   SUBMISSION RULES SPECIFIC FIX
+   ============================================================ */
+.rules-list .rule-card,
+.page-rules .rule-item {
+    background: rgba(0, 38, 35, 0.6) !important;
+    border: 1px solid rgba(185, 167, 121, 0.25) !important;
+    border-radius: 12px !important;
+}
+
+.page-rules span,
+.page-rules [class*="rule"] span,
+.rules-list span,
+.rule-number, 
+.rules-list .number, 
+.rule-step-number,
+.rule-badge,
+.rule-num {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-style: normal !important;
+    font-weight: 800 !important;
+    font-size: 0.9rem !important;
+    line-height: 1 !important;
+    background-color: #b9a779 !important;
+    color: #002623 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    min-width: 28px !important;
+    height: 28px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.page-rules p,
+.rules-list p {
+    color: #edebe0 !important;
+    margin: 0 !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+}
+
+/* ============================================================
+   SINGLE COLUMN PAGE LAYOUT OVERRIDE (Rules & Single Pages)
+   ============================================================ */
+main:has(.page-rules),
+main.page-rules-container,
+main.page-rules {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    grid-template-columns: none !important;
+    width: 100% !important;
+    max-width: 1000px !important;
+    margin: 0 auto !important;
+}
+
+.page-rules {
+    width: 100% !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+}
+
+/* ============================================================
+   ABSOLUTE GREEN ERADICATION & WHEAT OVERRIDES
+   ============================================================ */
+.editor-card img:not(.avatar),
+.role-icon,
+.editor-badge img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.editor-card img[src*="svg"]:onerror {
+    display: none !important;
+}
+
+.list .type-label-lg.active,
+.list-item.selected,
+span.tag, 
+div.tag, 
+.badge, 
+.level-tags span,
+.version,
+.version-tag,
+span.version {
+    background-color: #b9a779 !important;
+    background-image: none !important;
+    border-color: #b9a779 !important;
+    color: #002623 !important;
+    font-weight: 800 !important;
+}
+
+/* Fix Level Detail Tag Buttons specifically */
+.level-container button[style*="border: 1px solid #007A3D"],
+.level-container button[style*="background:"] {
+    background-color: rgba(185, 167, 121, 0.15) !important;
+    border: 1px solid #b9a779 !important;
+    color: #b9a779 !important;
+}
+
+.level-container button[style*="background: rgb(0, 122, 61)"],
+.level-container button[style*="background: #007A3D"] {
+    background-color: #b9a779 !important;
+    color: #002623 !important;
+}
+
+/* Leaderboard Profile & Avatar Rings */
+.profile-card img, 
+.user-profile img, 
+.leaderboard-container img,
+img.avatar,
+.profile-icon-wrap,
+.player-avatar,
+.profile-card,
+.user-profile {
+    border-color: #b9a779 !important;
+}
+
+.editor-card *, .activity-card * {
+    color: #edebe0 !important;
+}
+
+input:focus, 
+select:focus, 
+textarea:focus,
+.search-input:focus {
+    border-color: #b9a779 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(185, 167, 121, 0.35) !important;
+}
+
+/* ============================================================
+   HERO LEVEL CARD COMPONENT
+   ============================================================ */
+.hero-level-card {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    min-height: 340px;
+    background: #001f1c;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.4) contrast(1.1);
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(0,38,35,0.3) 0%, rgba(0,26,24,0.95) 100%);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hero-title {
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 16px 0;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+}
+
+.hero-meta-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 260px;
+}
+
+.glass-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(5, 25, 23, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(185, 167, 121, 0.2);
+    padding: 8px 14px;
+    border-radius: 12px;
+}
+
+.pill-icon {
+    font-size: 1.1rem;
+}
+
+.pill-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.pill-label {
+    font-size: 0.68rem;
+    color: rgba(237, 235, 224, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pill-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #edebe0;
+}
+
+.hero-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 20, 18, 0.85);
+    backdrop-filter: blur(16px);
+    padding: 10px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(185, 167, 121, 0.2);
+}
+
+.stat-badge-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    grid-column: span 3;
+    font-size: 1.1rem;
 }
 
-input[type="checkbox"] {
-    height: 1.25rem;
-    width: 1.25rem;
-    cursor: pointer;
-    margin: 0;
+.gold-stat .stat-badge-icon { background: rgba(185, 167, 121, 0.25); color: #b9a779; }
+.red-stat .stat-badge-icon { background: rgba(239, 68, 68, 0.25); color: #ef4444; }
+.blue-stat .stat-badge-icon { background: rgba(59, 130, 246, 0.25); color: #3b82f6; }
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
 }
+
+.stat-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: rgba(237, 235, 224, 0.6);
+}
+
+.stat-num {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
 /* Lock horizontal scrolling globally */
 html, body, #app {
     width: 100% !important;
@@ -107,17 +545,6 @@ html, body, #app {
    GLOBAL MOBILE RESPONSIVE MASTER FIX (< 900px)
    ============================================================ */
 @media screen and (max-width: 900px) {
-
-    /* 1. Prevent Horizonal Page Overflow */
-    html, body, #app {
-        width: 100% !important;
-        max-width: 100vw !important;
-        overflow-x: hidden !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* 2. HEADER & NAVIGATION FIX */
     header {
         flex-direction: column !important;
         align-items: center !important;
@@ -125,181 +552,55 @@ html, body, #app {
         padding: 0.75rem 0.5rem !important;
         gap: 0.5rem !important;
         height: auto !important;
+        border-radius: 24px !important;
+        width: 95% !important;
     }
 
     header .logo {
-        display: flex !important;
-        align-items: center !important;
         justify-content: center !important;
-        gap: 0.5rem !important;
-    }
-
-    header .logo h2 {
-        display: block !important; /* Forces logo text visibility */
-        font-size: 1.1rem !important;
     }
 
     header .nav {
-        display: flex !important;
         flex-wrap: wrap !important;
-        justify-content: center !important;
+        margin: 0 !important;
         gap: 0.5rem !important;
     }
 
-    header .nav__actions {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 0.5rem !important;
-    }
-
-    /* 3. SPINNER CENTER FIX */
-    main > div.spinner,
-    .spinner {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        margin: 4rem auto !important;
-        width: 100% !important;
-    }
-
-    /* 4. LIST PAGE STACK FIX */
     main.page-list,
-    .page-list {
-        display: flex !important;
-        flex-direction: column !important;
-        grid-template-columns: none !important;
-        padding: 0.5rem !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    /* 5. LEADERBOARD PAGE STACK FIX */
+    .page-list,
     .page-leaderboard-container,
     .page-leaderboard,
-    main.page-leaderboard {
-        display: flex !important;
-        flex-direction: column !important;
-        grid-template-columns: none !important;
-        padding: 0.5rem !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    .board-container,
-    .player-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-    }
-
-    /* 6. ROULETTE PAGE STACK FIX */
+    main.page-leaderboard,
     .page-roulette,
     main.page-roulette {
         display: flex !important;
         flex-direction: column !important;
-        grid-template-columns: none !important;
         padding: 0.5rem !important;
         width: 100% !important;
         box-sizing: border-box !important;
     }
 
-    .page-roulette .sidebar,
-    .page-roulette .levels-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-    }
-
-    /* 7. ALL CONTAINERS FULL-WIDTH OVERRIDE */
-    .list-container,
-    .level-container,
-    .meta-container,
-    .level {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-        box-sizing: border-box !important;
-    }
-
-    /* Make selection sidebars scrollable vertically on phones */
-    .list-container,
-    .board-container {
-        max-height: 250px !important;
-        overflow-y: auto !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding-bottom: 0.5rem;
-    }
-
-    /* Responsive Video Frames */
-    .level .video, 
-    #videoframe,
-    .levels .video {
-        width: 100% !important;
-        max-width: 100% !important;
-        height: auto !important;
-        aspect-ratio: 16 / 9 !important;
+    .hero-stats-row {
+        grid-template-columns: 1fr;
     }
 }
 
 /* ==========================================
-   CENTER LOADING SPINNER (DESKTOP & MOBILE)
+   CENTER LOADING SPINNER & MODALS
    ========================================== */
 main.loading-container {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     width: 100% !important;
-    max-width: 100vw !important;
     min-height: 50vh !important;
-    grid-template-columns: none !important;
-    margin: 0 auto !important;
-    padding: 2rem 0 !important;
-    box-sizing: border-box !important;
 }
 
-main.loading-container .spinner,
-.spinner {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-    margin: 0 auto !important;
-    width: 100% !important;
-}
-/* ==========================================
-   Modal Typography & Submissions Styling
-   ========================================== */
-.modal-card,
-.modal-card input,
-.modal-card select,
-.modal-card textarea,
-.modal-card button {
-    font-family: 'Lexend Deca', sans-serif !important;
-}
-
-/* Force dark mode background on native HTML select dropdown options */
-.modal-card.dark select option,
-.modal-card.dark .dark-option {
-    background-color: #1c1c1c !important;
-    color: #ffffff !important;
-}
-
-.modal-input option {
-    background-color: #ffffff;
-    color: #121212;
-}
-
-/* Modal Overlays & Cards */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -308,36 +609,14 @@ main.loading-container .spinner,
 }
 
 .modal-card {
-    background: #ffffff;
-    color: #121212;
+    background: #002623;
+    color: #edebe0;
     border-radius: 14px;
     padding: 1.5rem;
     width: 100%;
     max-width: 460px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--color-border-subtle);
     max-height: 90vh;
     overflow-y: auto;
-}
-
-.modal-card.dark {
-    background: #181818;
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.modal-input {
-    width: 100%;
-    padding: 0.65rem 0.8rem;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    background: rgba(0, 0, 0, 0.03);
-    color: inherit;
-    font-size: 0.95rem;
-    box-sizing: border-box;
-}
-
-.modal-card.dark .modal-input {
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.05);
 }

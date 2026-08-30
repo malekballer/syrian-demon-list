@@ -12,14 +12,14 @@
         <meta property="og:title" content="Syrian Demon List" />
         <meta property="og:description" content="The official Syrian Demon List, ranking the hardest Geometry Dash levels completed by Syrian players." />
         <meta property="og:url" content="https://malekballer.github.io/syrian-demon-list/" />
-        <meta property="og:image" content="https://malekballer.github.io/syrian-demon-list/list_icon.png" />
-        <meta name="theme-color" content="#007A3D" />
+        <meta property="og:image" content="https://malekballer.github.io/syrian-demon-list/assets/syria%20dneib.png" />
+        <meta name="theme-color" content="#002623" />
 
         <!-- Twitter Card Meta Tags -->
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="Syrian Demon List" />
         <meta name="twitter:description" content="The official Syrian Demon List ranking the hardest Geometry Dash levels completed by Syrian players." />
-        <meta name="twitter:image" content="https://malekballer.github.io/syrian-demon-list/list_icon.png" />
+        <meta name="twitter:image" content="https://malekballer.github.io/syrian-demon-list/assets/syria%20dneib.png" />
 
         <!-- Server icon -->
         <link rel="icon" href="./list_icon.png" />
@@ -60,25 +60,25 @@
             .nav__tab.router-link-exact-active {
                 color: inherit;
                 border-bottom: none;
-                opacity: 0.7;
+                opacity: 0.75;
                 font-weight: normal;
             }
 
             .nav__tab.active {
-                color: #00FF80 !important;
-                border-bottom: 2px solid #007A3D !important;
+                color: #b9a779 !important;
+                border-bottom: 2px solid #b9a779 !important;
                 opacity: 1 !important;
                 font-weight: bold;
             }
 
             .syrian-cta {
                 background: linear-gradient(135deg, #c0a25c 0%, #b9a779 100%) !important;
-                color: #121212 !important;
+                color: #002623 !important;
                 font-weight: 800 !important;
                 border: none !important;
                 cursor: pointer;
                 box-shadow: 0 4px 12px rgba(185, 167, 121, 0.35);
-                transition: transform 0.2s ease, boxShadow 0.2s ease, filter 0.2s ease;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
             }
 
             .syrian-cta:hover {
@@ -92,12 +92,12 @@
             }
         </style>
     </head>
-    <body id="app">
-        <header :class="{ dark: store.dark }">
+    <body id="app" class="dark">
+        <header class="dark">
             <div class="logo">
                 <img src="./list_icon.png" alt="List Logo" class="nav__logo" />
                 <h2>Syrian Demon List</h2>
-                <p>v1.5.0</p>
+                <p>v2.0</p>
             </div>
             <nav class="nav">
                 <router-link 
@@ -135,20 +135,10 @@
                     to="/review" 
                     :class="{ active: store.currentPath.startsWith('/review') }"
                 >
-                    <span class="type-label-lg" style="color: #c0a25c;">Review Queue</span>
+                    <span class="type-label-lg" style="color: #b9a779;">Review Queue</span>
                 </router-link>
             </nav>
             <div class="nav__actions">
-                <button
-                    class="nav__icon"
-                    @click.prevent="store.toggleDark()"
-                >
-                    <img
-                        :src="store.dark ? './assets/light.svg' : './assets/dark.svg'"
-                        alt=""
-                    />
-                </button>
-
                 <!-- Discord Invite Link -->
                 <a class="nav__icon" href="https://discord.gg/pPT7QK2cyv" target="_blank">
                     <img src="./assets/discord.svg" alt="Discord Logo" />
@@ -200,7 +190,7 @@
             </div>
         </header>
 
-        <router-view :class="{ dark: store.dark }"></router-view>
+        <router-view class="dark"></router-view>
 
         <!-- Global Modals -->
         <submission-modal></submission-modal>

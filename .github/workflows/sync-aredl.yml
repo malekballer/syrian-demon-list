@@ -1,4 +1,4 @@
-name: Auto-Sync AREDL Rankings and Tags
+name: Auto-Sync AREDL Rankings, Tags & Thumbnails
 
 on:
   schedule:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Fetch and Process AREDL Data & Tags
+      - name: Fetch and Process AREDL Data, Tags & Thumbnails
         run: |
           mkdir -p data
           
@@ -49,10 +49,17 @@ jobs:
                           # Tags array
                           tags = lvl.get('tags', [])
                           
+                          # AREDL Official Thumbnail URL construction
+                          thumbnail = f'https://raw.githubusercontent.com/AREDL/Thumbnails/main/levels/{gid}.png' if gid else ''
+                          
                           if gid:
-                              mapping[gid] = {'rank': pos, 'tags': tags}
+                              mapping[gid] = {
+                                  'rank': pos, 
+                                  'tags': tags,
+                                  'thumbnail': thumbnail
+                              }
                               
-                      print(f'Successfully fetched {len(mapping)} levels with tags!')
+                      print(f'Successfully fetched {len(mapping)} levels with tags & thumbnails!')
           except Exception as e:
               print(f'Failed to fetch AREDL levels: {e}')
 
@@ -69,4 +76,4 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add data/aredl.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update AREDL rankings and tags [skip ci]" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update AREDL rankings, tags & thumbnails [skip ci]" && git push)

@@ -5,7 +5,7 @@ import { supabase } from '../supabase.js';
 
 import Spinner from '../components/Spinner.js';
 
-const FALLBACK_PFP = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23007A3D"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="%23ffffff" font-size="40" font-family="sans-serif">?</text></svg>`;
+const FALLBACK_PFP = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23b9a779"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="%23002623" font-size="40" font-family="sans-serif">?</text></svg>`;
 
 export default {
     components: {
@@ -48,7 +48,7 @@ export default {
                 <div class="player-container">
                     <div class="player" v-if="entry">
                         <!-- Profile Card Banner -->
-                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; padding: 1.35rem; background: rgba(128,128,128,0.06); border: 1px solid rgba(128,128,128,0.15); border-radius: 14px;">
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; padding: 1.35rem; background: rgba(185,167,121,0.06); border: 1px solid rgba(185,167,121,0.25); border-radius: 14px;">
                             
                             <!-- Top Bar: Avatar, Name, Points & Social Icons -->
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
@@ -57,13 +57,13 @@ export default {
                                         :src="entry.pfp_url || fallbackPfp" 
                                         @error="handleImgError"
                                         alt="" 
-                                        style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 3px solid #007A3D; flex-shrink: 0;"
+                                        style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 3px solid #b9a779; flex-shrink: 0;"
                                     />
                                     <div>
                                         <h1 class="type-label-lg" style="margin: 0; font-size: 1.85rem; font-weight: 800; color: inherit; line-height: 1.2;">
                                             #{{ selected + 1 }} {{ entry.user }}
                                         </h1>
-                                        <span class="type-label-lg" style="font-size: 1.15rem; font-weight: 800; color: #00FF80; display: inline-block; margin-top: 0.25rem;">
+                                        <span class="type-label-lg" style="font-size: 1.15rem; font-weight: 800; color: #b9a779; display: inline-block; margin-top: 0.25rem;">
                                             {{ localize(entry.total) }} pts
                                         </span>
                                     </div>
@@ -115,8 +115,8 @@ export default {
                             
                             <!-- Badges (Governorate + Discord Tag) -->
                             <div style="display: flex; gap: 0.65rem; align-items: center; opacity: 0.95; flex-wrap: wrap;">
-                                <span v-if="entry.governorate" class="type-label-lg" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(0, 122, 61, 0.2); border: 1px solid #007A3D; padding: 0.35rem 0.75rem; border-radius: 8px; font-size: 0.95rem; font-weight: 700; color: inherit;">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00FF80" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <span v-if="entry.governorate" class="type-label-lg" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(185, 167, 121, 0.15); border: 1px solid #b9a779; padding: 0.35rem 0.75rem; border-radius: 8px; font-size: 0.95rem; font-weight: 700; color: inherit;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b9a779" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                         <circle cx="12" cy="10" r="3"></circle>
                                     </svg>
@@ -327,8 +327,8 @@ export default {
                     if (!profile || !profile.username) return;
 
                     const match = levelIndex.get(sub.level_id?.toString()) 
-                             || levelIndex.get(sub.level_id)
-                             || (sub.level_name ? levelIndex.get(sub.level_name.trim().toLowerCase()) : null);
+                               || levelIndex.get(sub.level_id)
+                               || (sub.level_name ? levelIndex.get(sub.level_name.trim().toLowerCase()) : null);
 
                     if (!match) return;
 

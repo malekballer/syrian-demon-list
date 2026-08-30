@@ -82,7 +82,7 @@ export default {
                             <line x1="9" y1="8" x2="15" y2="8"></line>
                             <line x1="17" y1="16" x2="23" y2="16"></line>
                         </svg>
-                        <span v-if="selectedTags.length" style="background: #007A3D; color: #fff; padding: 0.1rem 0.35rem; border-radius: 10px; font-size: 0.7rem; font-weight: bold; margin-left: 0.3rem;">{{ selectedTags.length }}</span>
+                        <span v-if="selectedTags.length" style="background: #b9a779; color: #002623; padding: 0.1rem 0.35rem; border-radius: 10px; font-size: 0.7rem; font-weight: bold; margin-left: 0.3rem;">{{ selectedTags.length }}</span>
                     </button>
                 </div>
 
@@ -149,9 +149,9 @@ export default {
                                 :style="{
                                     padding: '0.2rem 0.45rem',
                                     borderRadius: '4px',
-                                    border: selectedTags.includes(tag) ? '1px solid #007A3D' : (store.dark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)'),
-                                    background: selectedTags.includes(tag) ? '#007A3D' : (store.dark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)'),
-                                    color: selectedTags.includes(tag) ? '#ffffff' : 'inherit',
+                                    border: selectedTags.includes(tag) ? '1px solid #b9a779' : (store.dark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)'),
+                                    background: selectedTags.includes(tag) ? '#b9a779' : (store.dark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)'),
+                                    color: selectedTags.includes(tag) ? '#002623' : 'inherit',
                                     fontWeight: selectedTags.includes(tag) ? '700' : 'normal',
                                     cursor: 'pointer'
                                 }"
@@ -195,9 +195,9 @@ export default {
                             class="type-label-lg" 
                             :title="'Click to view all ' + tag + ' levels'"
                             :style="{
-                                background: selectedTags.includes(tag) ? '#007A3D' : (store.dark ? 'rgba(0, 122, 61, 0.2)' : 'rgba(0, 122, 61, 0.1)'),
-                                border: '1px solid #007A3D',
-                                color: selectedTags.includes(tag) ? '#ffffff' : (store.dark ? '#ffffff' : '#005a2d'),
+                                background: selectedTags.includes(tag) ? '#b9a779' : (store.dark ? 'rgba(185, 167, 121, 0.2)' : 'rgba(185, 167, 121, 0.1)'),
+                                border: '1px solid #b9a779',
+                                color: selectedTags.includes(tag) ? '#002623' : (store.dark ? '#edebe0' : '#002623'),
                                 padding: '0.25rem 0.6rem',
                                 borderRadius: '6px',
                                 fontWeight: '600',
@@ -278,16 +278,16 @@ export default {
                                     gap: '0.85rem',
                                     padding: '0.8rem 1rem',
                                     background: hoveredEditor === editor.name 
-                                        ? (store.dark ? 'linear-gradient(135deg, rgba(0, 122, 61, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%)' : 'linear-gradient(135deg, rgba(0, 122, 61, 0.15) 0%, rgba(0, 0, 0, 0.03) 100%)')
+                                        ? (store.dark ? 'linear-gradient(135deg, rgba(185, 167, 121, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%)' : 'linear-gradient(135deg, rgba(185, 167, 121, 0.15) 0%, rgba(0, 0, 0, 0.03) 100%)')
                                         : (store.dark ? 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)' : 'linear-gradient(135deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.01) 100%)'),
                                     border: hoveredEditor === editor.name 
-                                        ? '1px solid #007A3D' 
+                                        ? '1px solid #b9a779' 
                                         : (store.dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)'),
                                     borderRadius: '12px',
                                     position: 'relative',
                                     overflow: 'hidden',
                                     transform: hoveredEditor === editor.name ? 'translateY(-3px) scale(1.02)' : 'translateY(0) scale(1)',
-                                    boxShadow: hoveredEditor === editor.name ? '0 8px 20px rgba(0, 122, 61, 0.25)' : 'none',
+                                    boxShadow: hoveredEditor === editor.name ? '0 8px 20px rgba(185, 167, 121, 0.25)' : 'none',
                                     transition: 'all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1)',
                                     cursor: 'default'
                                 }"
@@ -299,8 +299,8 @@ export default {
                                         top: 0,
                                         bottom: 0,
                                         width: hoveredEditor === editor.name ? '5px' : '3px',
-                                        background: hoveredEditor === editor.name ? '#00FF80' : '#007A3D',
-                                        boxShadow: hoveredEditor === editor.name ? '0 0 12px #00FF80' : 'none',
+                                        background: hoveredEditor === editor.name ? '#c0a25c' : '#b9a779',
+                                        boxShadow: hoveredEditor === editor.name ? '0 0 12px #c0a25c' : 'none',
                                         transition: 'all 0.25s ease'
                                     }"
                                 ></div>
@@ -313,7 +313,7 @@ export default {
                                         height: '44px',
                                         borderRadius: '50%',
                                         objectFit: 'cover',
-                                        border: hoveredEditor === editor.name ? '2px solid #00FF80' : (store.dark ? '2px solid rgba(255,255,255,0.15)' : '2px solid rgba(0,0,0,0.15)'),
+                                        border: hoveredEditor === editor.name ? '2px solid #c0a25c' : (store.dark ? '2px solid rgba(255,255,255,0.15)' : '2px solid rgba(0,0,0,0.15)'),
                                         boxShadow: '0 4px 10px rgba(0,0,0,0.15)',
                                         transition: 'all 0.25s ease'
                                     }"

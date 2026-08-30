@@ -1,5 +1,6 @@
 import { fetchList } from '../content.js';
 import { getThumbnailFromId, getYoutubeIdFromUrl, shuffle } from '../util.js';
+import { store } from '../main.js';
 
 import Spinner from '../components/Spinner.js';
 import Btn from '../components/Btn.js';
@@ -13,10 +14,10 @@ export default {
         <main v-else class="page-roulette">
             <div class="sidebar">
                 <p class="type-label-md" style="color: #aaa">
-                    Shameless copy of the Extreme Demon Roulette by <a href="https://matcool.github.io/extreme-demon-roulette/" target="_blank">matcool</a>.
+                    Shameless copy of the Extreme Demon Roulette by <a href="https://matcool.github.io/extreme-demon-roulette/" target="_blank" style="color: #b9a779;">matcool</a>.
                 </p>
                 <form class="options">
-                    <Btn @click.native.prevent="onStart">{{ levels.length === 0 ? 'Start' : 'Restart'}}</Btn>
+                    <Btn @click.native.prevent="onStart" :style="{ backgroundColor: '#b9a779', color: '#002623' }">{{ levels.length === 0 ? 'Start' : 'Restart'}}</Btn>
                 </form>
                 <p class="type-label-md" style="color: #aaa">
                     The roulette saves automatically.
@@ -24,8 +25,8 @@ export default {
                 <form class="save">
                     <p>Manual Load/Save</p>
                     <div class="btns">
-                        <Btn @click.native.prevent="onImport">Import</Btn>
-                        <Btn :disabled="!isActive" @click.native.prevent="onExport">Export</Btn>
+                        <Btn @click.native.prevent="onImport" :style="{ backgroundColor: store.dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)', color: 'inherit' }">Import</Btn>
+                        <Btn :disabled="!isActive" @click.native.prevent="onExport" :style="{ backgroundColor: store.dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)', color: 'inherit' }">Export</Btn>
                     </div>
                 </form>
             </div>
@@ -33,49 +34,49 @@ export default {
                 <div class="levels">
                     <template v-if="levels.length > 0">
                         <!-- Completed Levels -->
-                        <div class="level" v-for="(level, i) in levels.slice(0, progression.length)">
+                        <div class="level" v-for="(level, i) in levels.slice(0, progression.length)" :style="{ background: store.dark ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.03)', border: store.dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)' }">
                             <a :href="level.video" class="video">
                                 <img :src="getThumbnailFromId(getYoutubeIdFromUrl(level.video))" alt="">
                             </a>
                             <div class="meta">
-                                <p>#{{ level.rank }}</p>
-                                <h2>{{ level.name }}</h2>
-                                <p style="color: #00b54b; font-weight: 700">{{ progression[i] }}%</p>
+                                <p :style="{ color: '#b9a779' }">#{{ level.rank }}</p>
+                                <h2 :style="{ color: 'inherit' }">{{ level.name }}</h2>
+                                <p style="color: #b9a779; font-weight: 700">{{ progression[i] }}%</p>
                             </div>
                         </div>
                         <!-- Current Level -->
-                        <div class="level" v-if="!hasCompleted">
+                        <div class="level" v-if="!hasCompleted" :style="{ background: store.dark ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.03)', border: store.dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)' }">
                             <a :href="currentLevel.video" target="_blank" class="video">
                                 <img :src="getThumbnailFromId(getYoutubeIdFromUrl(currentLevel.video))" alt="">
                             </a>
                             <div class="meta">
-                                <p>#{{ currentLevel.rank }}</p>
-                                <h2>{{ currentLevel.name }}</h2>
-                                <p>{{ currentLevel.id }}</p>
+                                <p :style="{ color: '#b9a779' }">#{{ currentLevel.rank }}</p>
+                                <h2 :style="{ color: 'inherit' }">{{ currentLevel.name }}</h2>
+                                <p :style="{ color: 'inherit', opacity: 0.7 }">{{ currentLevel.id }}</p>
                             </div>
-                            <form class="actions" v-if="!givenUp">
-                                <input type="number" v-model="percentage" :placeholder="placeholder" :min="currentPercentage + 1" max=100>
-                                <Btn @click.native.prevent="onDone">Done</Btn>
-                                <Btn @click.native.prevent="onGiveUp" style="background-color: #e91e63;">Give Up</Btn>
+                            <form class="actions" v-if="!givenUp" :style="{ background: 'transparent', border: 'none', padding: 0 }">
+                                <input type="number" v-model="percentage" :placeholder="placeholder" :min="currentPercentage + 1" max=100 :style="{ background: store.dark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)', border: store.dark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)', color: 'inherit' }">
+                                <Btn @click.native.prevent="onDone" :style="{ backgroundColor: '#b9a779', color: '#002623' }">Done</Btn>
+                                <Btn @click.native.prevent="onGiveUp" style="background-color: rgba(206, 17, 38, 0.15); color: #ce1126; border: 1px solid #ce1126;">Give Up</Btn>
                             </form>
                         </div>
                         <!-- Results -->
-                        <div v-if="givenUp || hasCompleted" class="results">
-                            <h1>Results</h1>
-                            <p>Number of levels: {{ progression.length }}</p>
-                            <p>Highest percent: {{ currentPercentage }}%</p>
-                            <Btn v-if="currentPercentage < 99 && !hasCompleted" @click.native.prevent="showRemaining = true">Show remaining levels</Btn>
+                        <div v-if="givenUp || hasCompleted" class="results" :style="{ background: store.dark ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.03)', border: store.dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)' }">
+                            <h1 :style="{ color: '#b9a779' }">Results</h1>
+                            <p :style="{ color: 'inherit' }">Number of levels: {{ progression.length }}</p>
+                            <p :style="{ color: 'inherit' }">Highest percent: {{ currentPercentage }}%</p>
+                            <Btn v-if="currentPercentage < 99 && !hasCompleted" @click.native.prevent="showRemaining = true" :style="{ backgroundColor: '#b9a779', color: '#002623' }">Show remaining levels</Btn>
                         </div>
                         <!-- Remaining Levels -->
                         <template v-if="givenUp && showRemaining">
-                            <div class="level" v-for="(level, i) in levels.slice(progression.length + 1, levels.length - currentPercentage + progression.length)">
+                            <div class="level" v-for="(level, i) in levels.slice(progression.length + 1, levels.length - currentPercentage + progression.length)" :style="{ background: store.dark ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.03)', border: store.dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)' }">
                                 <a :href="level.video" target="_blank" class="video">
                                     <img :src="getThumbnailFromId(getYoutubeIdFromUrl(level.video))" alt="">
                                 </a>
                                 <div class="meta">
-                                    <p>#{{ level.rank }}</p>
-                                    <h2>{{ level.name }}</h2>
-                                    <p style="color: #d50000; font-weight: 700">{{ currentPercentage + 2 + i }}%</p>
+                                    <p :style="{ color: '#b9a779' }">#{{ level.rank }}</p>
+                                    <h2 :style="{ color: 'inherit' }">{{ level.name }}</h2>
+                                    <p style="color: #ce1126; font-weight: 700">{{ currentPercentage + 2 + i }}%</p>
                                 </div>
                             </div>
                         </template>
@@ -94,23 +95,22 @@ export default {
     data: () => ({
         loading: false,
         levels: [],
-        progression: [], // list of percentages completed
+        progression: [],
         percentage: undefined,
         givenUp: false,
         showRemaining: false,
         toasts: [],
         fileInput: undefined,
+        store,
     }),
     mounted() {
         document.title = 'SDL Roulette';
-        // Create File Input
         this.fileInput = document.createElement('input');
         this.fileInput.type = 'file';
         this.fileInput.multiple = false;
         this.fileInput.accept = '.json';
         this.fileInput.addEventListener('change', this.onImportUpload);
 
-        // Load progress from local storage
         const roulette = JSON.parse(localStorage.getItem('roulette'));
 
         if (!roulette) {
@@ -166,7 +166,6 @@ export default {
                 return;
             }
 
-            // Map all valid levels in the list
             const list = fullList.map(([lvl, _], i) => ({
                 rank: i + 1,
                 id: lvl.id,
@@ -174,7 +173,6 @@ export default {
                 video: lvl.verification,
             }));
 
-            // Shuffle all list levels
             this.levels = shuffle(list).slice(0, 100);
             this.showRemaining = false;
             this.givenUp = false;
@@ -212,8 +210,6 @@ export default {
         },
         onGiveUp() {
             this.givenUp = true;
-
-            // Save progress
             localStorage.removeItem('roulette');
         },
         onImport() {
