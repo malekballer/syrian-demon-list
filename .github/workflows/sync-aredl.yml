@@ -12,16 +12,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Fetch and Process AREDL Data, Tags & Thumbnails
+      - name: Run AREDL Sync Script
         run: |
-          mkdir -p data
-          
           python3 -c "
           import urllib.request
           import ssl
           import json
+          import os
 
-          # Bypass SSL runner restrictions
+          os.makedirs('data', exist_ok=True)
+
           ctx = ssl.create_default_context()
           ctx.check_hostname = False
           ctx.verify_mode = ssl.CERT_NONE
@@ -42,15 +42,11 @@ jobs:
                       levels = raw if isinstance(raw, list) else raw.get('levels', raw.get('data', []))
                       
                       for idx, lvl in enumerate(levels):
-                          # Grab GD level ID
                           gid = str(lvl.get('level_id') or lvl.get('gd_id') or lvl.get('id') or '')
-                          # Position / Rank
                           pos = lvl.get('position') or lvl.get('rank') or (idx + 1)
-                          # Tags array
                           tags = lvl.get('tags', [])
                           
-                          # AREDL Official Thumbnail URL construction
-                          thumbnail = f'https://raw.githubusercontent.com/AREDL/Thumbnails/main/levels/{gid}.png' if gid else ''
+                          thumbnail = f'https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/{gid}.webp' if gid else ''
                           
                           if gid:
                               mapping[gid] = {
@@ -59,7 +55,7 @@ jobs:
                                   'thumbnail': thumbnail
                               }
                               
-                      print(f'Successfully fetched {len(mapping)} levels with tags & thumbnails!')
+                      print(f'Successfully fetched {len(mapping)} levels with updated .webp thumbnails!')
           except Exception as e:
               print(f'Failed to fetch AREDL levels: {e}')
 
@@ -67,8 +63,6 @@ jobs:
               with open('data/aredl.json', 'w') as f:
                   json.dump(mapping, f, indent=2)
               print('data/aredl.json updated successfully.')
-          else:
-              print('WARNING: Mapping was empty. Preserving existing data/aredl.json.')
           "
 
       - name: Commit and Push Changes
