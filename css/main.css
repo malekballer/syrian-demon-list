@@ -164,94 +164,397 @@ a.syrian-cta:hover {
     filter: brightness(1.05);
 }
 
-main {
-    height: 0;
+/* ============================================================
+   MAIN THREE-COLUMN LAYOUT (Wider Left & Right Columns)
+   ============================================================ */
+main, main.page-list {
     flex: 1;
-    display: grid;
-    grid-template-columns: minmax(16rem, 1fr) minmax(16rem, 2fr) minmax(16em, 1fr);
-    grid-template-rows: minmax(0, 1fr);
-    column-gap: 2rem;
-    padding-top: 1rem;
-    width: 98% !important;
+    display: grid !important;
+    grid-template-columns: 460px minmax(0, 1fr) 500px !important; /* Widened side columns */
+    gap: 1.5rem !important;
+    padding: 1rem 1.5rem !important;
+    width: 100% !important;
+    max-width: 1980px !important;
     margin: 0 auto !important;
     box-sizing: border-box !important;
+    height: calc(100vh - 90px) !important;
+    overflow: hidden !important;
 }
 
-main > div {
-    overflow-y: auto;
+main > div,
+.list-container,
+.meta-container {
+    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 4px;
 }
 
-/* ============================================================
-   LEVEL LIST ITEM CARDS & FULL-WIDTH CLICKABLE BUTTONS
-   ============================================================ */
-table.list {
-    border-collapse: separate !important;
-    border-spacing: 0 6px !important;
+.level-container {
+    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 4px;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
     width: 100% !important;
 }
 
-table.list td.level {
+.level-container > .level {
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+
+/* ============================================================
+   HERO LEVEL CARD COMPONENT (Centering & Gap Fix)
+   ============================================================ */
+.hero-level-card {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    background: #001f1c;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px !important;
+    box-sizing: border-box;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.4) contrast(1.1);
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(0,38,35,0.3) 0%, rgba(0,26,24,0.95) 100%);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 12px !important;
+}
+
+/* 1. Header Bar Alignment Fix (Centers Title with Rank Badge) */
+.hero-content > div:first-child {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important; /* Forces title and #1 badge onto the exact same horizontal center line */
+    gap: 1rem !important;
+    margin-bottom: 0 !important;
+    min-height: 52px !important;
+}
+
+/* 2. Vertically Centered Title */
+.hero-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 2.2rem !important;
+    line-height: 1.2 !important; /* Smooth line-height to prevent vertical text clipping */
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+}
+
+.hero-content span.type-label-lg[style*="font-size: 1.5rem"] {
+    font-size: 1.6rem !important;
+    font-weight: 900 !important;
+    color: #b9a779 !important;
+    background: rgba(0, 38, 35, 0.95) !important;
+    padding: 0.4rem 1.4rem !important;
+    height: 52px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(185, 167, 121, 0.4) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6) !important;
+    box-sizing: border-box !important;
+}
+
+.hero-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 2px !important;
+}
+
+.stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 20, 18, 0.85);
+    backdrop-filter: blur(16px);
+    padding: 10px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(185, 167, 121, 0.2);
+}
+
+/* ============================================================
+   AREDL BANNER CARDS
+   ============================================================ */
+table.list,
+.leaderboard-container table.completed-list {
+    border-collapse: separate !important;
+    border-spacing: 0 8px !important;
+    width: 100% !important;
+}
+
+table.list td.level,
+.leaderboard-container table.completed-list td.level {
     width: 100% !important;
     padding: 0 !important;
 }
 
-table.list td.level button {
+table.list td.level button,
+.leaderboard-container table.completed-list td.level button {
+    position: relative !important;
+    overflow: hidden !important;
     width: 100% !important;
+    height: 56px !important;
     display: flex !important;
     align-items: center !important;
+    justify-content: space-between !important;
     text-align: left !important;
-    padding: 0.6rem 0.8rem !important;
+    padding: 0 1.25rem !important;
     box-sizing: border-box !important;
     cursor: pointer !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    border-radius: 10px !important;
+    -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
+    border: 1px solid rgba(185, 167, 121, 0.25) !important;
+    transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease !important;
 }
 
-/* Rank column background badge */
-table.list td.rank {
-    padding: 0 6px 0 0 !important;
-    vertical-align: middle !important;
+table.list td.level button::before,
+.leaderboard-container table.completed-list td.level button::before {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(90deg, rgba(0, 24, 22, 0.75) 0%, rgba(0, 38, 35, 0.45) 55%, rgba(0, 38, 35, 0.15) 100%) !important;
+    z-index: 1 !important;
+    border-radius: inherit !important;
+    transition: background 0.2s ease !important;
 }
 
-table.list td.rank p,
-table.list td.rank div {
-    background: rgba(0, 20, 18, 0.65) !important;
-    border: 1px solid rgba(185, 167, 121, 0.2) !important;
-    border-radius: 8px !important;
-    color: #b9a779 !important;
-    font-weight: 800 !important;
-    padding: 6px 10px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+table.list td.level button span,
+table.list td.level button p,
+table.list td.level button h2,
+table.list td.level button div,
+.leaderboard-container table.completed-list td.level button * {
+    position: relative !important;
+    z-index: 2 !important;
     margin: 0 !important;
-    min-width: 38px !important;
-    box-sizing: border-box !important;
 }
 
-/* Level Name column unselected card background */
-table.list td.level:not(.active) button {
-    background: rgba(0, 20, 18, 0.55) !important;
-    border: 1px solid rgba(185, 167, 121, 0.18) !important;
-    border-radius: 8px !important;
-    transition: background 0.2s ease, border-color 0.2s ease !important;
+table.list td.level button h2,
+table.list td.level button span.level-name,
+.leaderboard-container table.completed-list td.level button span.level-name {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    color: #edebe0 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9) !important;
 }
 
-table.list td.level:not(.active) button:hover {
-    background: rgba(185, 167, 121, 0.15) !important;
-    border-color: rgba(185, 167, 121, 0.35) !important;
+table.list td.level:not(.active) button:hover,
+.leaderboard-container table.completed-list td.level button:hover {
+    border-color: rgba(185, 167, 121, 0.6) !important;
+    transform: translateX(3px) !important;
 }
 
-/* Keep active selected level gold across full width */
+table.list td.level:not(.active) button:hover::before,
+.leaderboard-container table.completed-list td.level button:hover::before {
+    background: linear-gradient(90deg, rgba(0, 24, 22, 0.65) 0%, rgba(0, 38, 35, 0.35) 55%, rgba(0, 38, 35, 0.1) 100%) !important;
+}
+
 table.list td.level.active button {
-    background: #b9a779 !important;
-    border-color: #b9a779 !important;
-    color: #002623 !important;
-    border-radius: 8px !important;
+    border: 1.5px solid #b9a779 !important;
+    box-shadow: 0 0 16px rgba(185, 167, 121, 0.3) !important;
 }
 
+table.list td.level.active button::before {
+    background: linear-gradient(90deg, rgba(185, 167, 121, 0.85) 0%, rgba(185, 167, 121, 0.5) 60%, rgba(0, 38, 35, 0.3) 100%) !important;
+}
+
+table.list td.level.active button h2,
 table.list td.level.active button span {
     color: #002623 !important;
     font-weight: 800 !important;
+    text-shadow: none !important;
 }
+
+table.list td.rank,
+.leaderboard-container table.completed-list td.rank,
+.leaderboard-container table.players-list td.rank {
+    padding: 0 8px 0 0 !important;
+    vertical-align: middle !important;
+    width: 56px !important;
+}
+
+table.list td.rank p,
+table.list td.rank div,
+.leaderboard-container table.completed-list td.rank p,
+.leaderboard-container table.players-list td.rank p {
+    background: rgba(0, 20, 18, 0.85) !important;
+    border: 1px solid rgba(185, 167, 121, 0.25) !important;
+    border-radius: 10px !important;
+    color: #b9a779 !important;
+    font-weight: 800 !important;
+    font-size: 0.95rem !important;
+    width: 56px !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+
+/* ============================================================
+   LEADERBOARD PLAYER LIST CARDS (Pusab Text Clipping Fix)
+   ============================================================ */
+.leaderboard-container table.players-list {
+    border-collapse: separate !important;
+    border-spacing: 0 8px !important;
+    width: 100% !important;
+}
+
+.leaderboard-container table.players-list td.rank {
+    padding: 0 8px 0 0 !important;
+    vertical-align: middle !important;
+    width: 56px !important;
+}
+
+.leaderboard-container table.players-list td.rank p {
+    background: rgba(0, 20, 18, 0.85) !important;
+    border: 1px solid rgba(185, 167, 121, 0.25) !important;
+    border-radius: 10px !important;
+    color: #b9a779 !important;
+    font-weight: 800 !important;
+    font-size: 0.95rem !important;
+    width: 56px !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.leaderboard-container table.players-list td.player {
+    width: 100% !important;
+    padding: 0 !important;
+    vertical-align: middle !important;
+}
+
+.leaderboard-container table.players-list td.player button {
+    position: relative !important;
+    width: 100% !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 0.85rem !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    background: rgba(0, 20, 18, 0.65) !important;
+    border: 1px solid rgba(185, 167, 121, 0.2) !important;
+    border-radius: 10px !important;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease !important;
+    overflow: visible !important;
+}
+
+.leaderboard-container table.players-list td.player button:hover {
+    background: rgba(185, 167, 121, 0.15) !important;
+    border-color: rgba(185, 167, 121, 0.4) !important;
+    transform: translateX(3px) !important;
+}
+
+.leaderboard-container table.players-list td.player.active button {
+    background: #b9a779 !important;
+    border-color: #b9a779 !important;
+    box-shadow: 0 0 12px rgba(185, 167, 121, 0.35) !important;
+}
+
+.leaderboard-container table.players-list td.player.active button * {
+    color: #002623 !important;
+    font-weight: 800 !important;
+}
+
+.leaderboard-container table.players-list .player-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+    height: 100% !important;
+}
+
+.leaderboard-container table.players-list img.player-pfp {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 1.5px solid #b9a779 !important;
+    flex-shrink: 0 !important;
+}
+
+.leaderboard-container table.players-list span.player-name {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: #edebe0;
+    line-height: 0.95 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+}
+
+.leaderboard-container table.players-list span.player-score {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 800 !important;
+    color: #b9a779;
+    line-height: 0.95 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+}
+
+.leaderboard-container table.players-list span.player-subtext {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 0.72rem !important;
+    opacity: 0.75 !important;
+    line-height: 0.95 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+}
+
 
 /* ============================================================
    SUBMISSION RULES SPECIFIC FIX
@@ -297,7 +600,7 @@ table.list td.level.active button span {
 }
 
 /* ============================================================
-   SINGLE COLUMN PAGE LAYOUT OVERRIDE (Rules & Single Pages)
+   SINGLE COLUMN PAGE LAYOUT OVERRIDE
    ============================================================ */
 main:has(.page-rules),
 main.page-rules-container,
@@ -309,6 +612,8 @@ main.page-rules {
     width: 100% !important;
     max-width: 1000px !important;
     margin: 0 auto !important;
+    height: auto !important;
+    overflow: visible !important;
 }
 
 .page-rules {
@@ -318,7 +623,7 @@ main.page-rules {
 }
 
 /* ============================================================
-   ABSOLUTE GREEN ERADICATION & WHEAT OVERRIDES
+   WHEAT OVERRIDES & BADGES
    ============================================================ */
 .editor-card img:not(.avatar),
 .role-icon,
@@ -349,7 +654,6 @@ span.version {
     font-weight: 800 !important;
 }
 
-/* Fix Level Detail Tag Buttons specifically */
 .level-container button[style*="border: 1px solid #007A3D"],
 .level-container button[style*="background:"] {
     background-color: rgba(185, 167, 121, 0.15) !important;
@@ -363,7 +667,6 @@ span.version {
     color: #002623 !important;
 }
 
-/* Leaderboard Profile & Avatar Rings */
 .profile-card img, 
 .user-profile img, 
 .leaderboard-container img,
@@ -386,150 +689,6 @@ textarea:focus,
     border-color: #b9a779 !important;
     outline: none !important;
     box-shadow: 0 0 0 2px rgba(185, 167, 121, 0.35) !important;
-}
-
-/* ============================================================
-   HERO LEVEL CARD COMPONENT
-   ============================================================ */
-.hero-level-card {
-    position: relative;
-    width: 100%;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid var(--color-border-subtle);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-    min-height: 340px;
-    background: #001f1c;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 24px;
-    box-sizing: border-box;
-}
-
-.hero-bg {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-size: cover;
-    background-position: center;
-    filter: brightness(0.4) contrast(1.1);
-    z-index: 1;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(180deg, rgba(0,38,35,0.3) 0%, rgba(0,26,24,0.95) 100%);
-    z-index: 2;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 3;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.hero-title {
-    font-family: 'Lexend Deca', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 800;
-    margin: 0 0 16px 0;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-    color: #ffffff;
-}
-
-.hero-meta-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 260px;
-}
-
-.glass-pill {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(5, 25, 23, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(185, 167, 121, 0.2);
-    padding: 8px 14px;
-    border-radius: 12px;
-}
-
-.pill-icon {
-    font-size: 1.1rem;
-}
-
-.pill-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.pill-label {
-    font-size: 0.68rem;
-    color: rgba(237, 235, 224, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.pill-value {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #edebe0;
-}
-
-.hero-stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-top: 24px;
-}
-
-.stat-pill {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(0, 20, 18, 0.85);
-    backdrop-filter: blur(16px);
-    padding: 10px 16px;
-    border-radius: 14px;
-    border: 1px solid rgba(185, 167, 121, 0.2);
-}
-
-.stat-badge-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-}
-
-.gold-stat .stat-badge-icon { background: rgba(185, 167, 121, 0.25); color: #b9a779; }
-.red-stat .stat-badge-icon { background: rgba(239, 68, 68, 0.25); color: #ef4444; }
-.blue-stat .stat-badge-icon { background: rgba(59, 130, 246, 0.25); color: #3b82f6; }
-
-.stat-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.stat-title {
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: rgba(237, 235, 224, 0.6);
-}
-
-.stat-num {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: #ffffff;
 }
 
 /* Lock horizontal scrolling globally */
@@ -566,6 +725,7 @@ html, body, #app {
         gap: 0.5rem !important;
     }
 
+    main,
     main.page-list,
     .page-list,
     .page-leaderboard-container,
@@ -577,7 +737,17 @@ html, body, #app {
         flex-direction: column !important;
         padding: 0.5rem !important;
         width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
         box-sizing: border-box !important;
+    }
+
+    main > div,
+    .list-container,
+    .level-container,
+    .meta-container {
+        height: auto !important;
+        overflow: visible !important;
     }
 
     .hero-stats-row {
@@ -619,4 +789,204 @@ main.loading-container {
     border: 1px solid var(--color-border-subtle);
     max-height: 90vh;
     overflow-y: auto;
+}
+
+/* ============================================================
+   LEADERBOARD PAGE SPECIFIC OVERRIDES
+   ============================================================ */
+main:has(.page-leaderboard-container),
+main.page-leaderboard-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 1600px !important;
+    height: calc(100vh - 80px) !important;
+    margin: 0 auto !important;
+    padding: 1rem 1.5rem !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.page-leaderboard-container .leaderboard-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: 100% !important;
+    gap: 1rem !important;
+    overflow: hidden !important;
+}
+
+.top-map-section {
+    width: 100% !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+}
+
+.syria-map-wrapper.interactive-aaredl-map {
+    position: relative;
+    width: 100% !important;
+    height: 240px !important;
+    background: rgba(0, 15, 13, 0.85) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(185, 167, 121, 0.25) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+    overflow: hidden !important;
+    cursor: grab;
+    user-select: none;
+}
+
+.syria-map-wrapper.interactive-aaredl-map:active {
+    cursor: grabbing;
+}
+
+.aaredl-svg-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+}
+
+.board-and-profile-grid {
+    display: grid !important;
+    grid-template-columns: 460px minmax(0, 1fr) !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+.board-container {
+    width: 100% !important;
+    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 4px;
+}
+
+.player-container {
+    width: 100% !important;
+    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 4px;
+}
+
+.map-overlay-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+}
+
+.hovered-gov-name {
+    background: rgba(0, 0, 0, 0.85);
+    color: #b9a779;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    border: 1px solid rgba(185, 167, 121, 0.3);
+}
+
+.clear-gov-btn, .reset-view-btn {
+    background: #b9a779 !important;
+    color: #002623 !important;
+    font-weight: 800 !important;
+    font-size: 0.7rem !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    border: none !important;
+    cursor: pointer !important;
+}
+
+.reset-view-btn {
+    background: rgba(0, 38, 35, 0.9) !important;
+    color: #edebe0 !important;
+    border: 1px solid rgba(185, 167, 121, 0.3) !important;
+}
+
+@media screen and (max-width: 900px) {
+    main:has(.page-leaderboard-container),
+    main.page-leaderboard-container {
+        height: auto !important;
+        overflow: visible !important;
+    }
+    .board-and-profile-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+    .board-container, .player-container {
+        height: auto !important;
+        overflow: visible !important;
+    }
+}
+
+/* ============================================================
+   MODAL INPUT STYLING FIX
+   ============================================================ */
+.modal-input {
+    width: 100% !important;
+    background: rgba(0, 20, 18, 0.85) !important;
+    border: 1px solid rgba(185, 167, 121, 0.3) !important;
+    border-radius: 8px !important;
+    color: #edebe0 !important;
+    padding: 0.6rem 0.8rem !important;
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 0.9rem !important;
+    box-sizing: border-box !important;
+}
+
+.modal-input:focus {
+    border-color: #b9a779 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(185, 167, 121, 0.35) !important;
+}
+
+select.modal-input option {
+    background: #002623 !important;
+    color: #edebe0 !important;
+}
+
+/* ============================================================
+   FORCE HIDE MOSAIC PATTERN WHEN TOGGLED
+   ============================================================ */
+body.no-bg-pattern {
+    background-image: none !important;
+}
+
+/* ============================================================
+   HOME PAGE FULL-HEIGHT OVERRIDE
+   ============================================================ */
+body:has(.home-page-wrapper) {
+    overflow-y: auto !important;
+}
+
+.home-page-wrapper {
+    width: 100% !important;
+    max-width: 1980px !important;
+    margin: 0 auto !important;
+    overflow-y: visible !important;
+}
+
+/* Lock vertical scrollbar globally so header doesn't shrink/shift between pages */
+html {
+    overflow-y: scroll;
+}
+
+/* Ensure home page wrapper matches the max-width of the rest of the site */
+.home-page-wrapper {
+    width: 98.5% !important;
+    max-width: 1980px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+}
+
+html {
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
 }

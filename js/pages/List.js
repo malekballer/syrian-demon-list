@@ -6,7 +6,6 @@ import { fetchEditors, fetchList } from "../content.js";
 import { supabase } from "../supabase.js";
 
 import Spinner from "../components/Spinner.js";
-import LevelAuthors from "../components/List/LevelAuthors.js";
 
 const roleIconMap = {
     owner: "crown",
@@ -27,8 +26,10 @@ const CATEGORIZED_TAGS = {
     ]
 };
 
+const FALLBACK_PFP = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23b9a779"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="%23002623" font-size="40" font-family="sans-serif">?</text></svg>`;
+
 export default {
-    components: { Spinner, LevelAuthors },
+    components: { Spinner },
     template: `
         <main v-if="loading" class="loading-container">
             <Spinner></Spinner>
@@ -174,82 +175,222 @@ export default {
                             <p v-else class="type-label-lg">Legacy</p>
                         </td>
                         <td class="level" :class="{ 'active': selected == originalIndex, 'error': !level }">
-                            <button @click="selectLevel(originalIndex)">
-                                <span class="type-label-lg">{{ level ? level.name : 'Error (' + err + '.json)' }}</span>
+                            <button 
+                                @click="selectLevel(originalIndex)"
+                                :style="{
+                                    backgroundImage: getThumbnailStyle(level)
+                                }"
+                            >
+                                <span class="type-label-lg level-name">{{ level ? level.name : 'Error (' + err + '.json)' }}</span>
                             </button>
                         </td>
                     </tr>
                 </table>
             </div>
 
+            <!-- Center Column: Hero Level Card Detail View -->
             <div class="level-container">
                 <div class="level" v-if="level">
-                    <h1>{{ level.name }}</h1>
-                    <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
-                    
-                    <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.75rem 0 0.5rem 0;">
-                        <button 
-                            v-for="tag in currentAredlTags" 
-                            :key="tag" 
-                            @click="selectSingleTag(tag)"
-                            class="type-label-lg" 
-                            :title="'Click to view all ' + tag + ' levels'"
-                            :style="{
-                                background: selectedTags.includes(tag) ? '#b9a779' : (store.dark ? 'rgba(185, 167, 121, 0.2)' : 'rgba(185, 167, 121, 0.1)'),
-                                border: '1px solid #b9a779',
-                                color: selectedTags.includes(tag) ? '#002623' : (store.dark ? '#edebe0' : '#002623'),
-                                padding: '0.25rem 0.6rem',
-                                borderRadius: '6px',
-                                fontWeight: '600',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s ease'
-                            }"
-                        >
-                            {{ tag }}
-                        </button>
-                    </div>
+                    <!-- Hero Level Card Component -->
+                    <div class="hero-level-card" style="position: relative; width: 100%; border-radius: 16px; overflow: hidden; border: 1px solid rgba(185, 167, 121, 0.25); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5); background: #001f1c; color: #ffffff; display: flex; flex-direction: column; padding: 24px; box-sizing: border-box;">
+                        <div class="hero-bg" :style="{ backgroundImage: getThumbnailStyle(level) }" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-size: cover; background-position: center; filter: brightness(0.4) contrast(1.1); z-index: 1;"></div>
+                        <div class="hero-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(0,38,35,0.4) 0%, rgba(0,26,24,0.92) 100%); z-index: 2;"></div>
+                        
+                        <div class="hero-content" style="position: relative; z-index: 3; display: flex; flex-direction: column; gap: 12px;">
+                            <!-- Top Bar: Title & Larger Rank badge together -->
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.1rem;">
+                                <h1 class="hero-title type-label-lg" style="margin: 0; font-size: 2.2rem; font-weight: 800; text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8); color: #ffffff; line-height: 1.1;">
+                                    {{ level.name }}
+                                </h1>
+                                <span class="type-label-lg" style="font-size: 1.5rem; font-weight: 900; color: #b9a779; background: rgba(0,38,35,0.9); padding: 0.4rem 1.1rem; border-radius: 12px; border: 1px solid rgba(185,167,121,0.4); flex-shrink: 0; box-shadow: 0 4px 14px rgba(0,0,0,0.5);">
+                                    #{{ selected + 1 }}
+                                </span>
+                            </div>
 
-                    <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
-                    <ul class="stats">
-                        <li>
-                            <div class="type-title-sm">Points when completed</div>
-                            <p>{{ score(selected + 1, 100, level.percentToQualify, list.length) }}</p>
-                        </li>
-                        <li>
-                            <div class="type-title-sm">ID</div>
-                            <p
-                                @click="copyId(level.id)"
-                                style="cursor: pointer; user-select: none;"
-                                title="Click to copy ID"
-                            >
-                                {{ copied ? 'Copied!' : level.id }}
-                            </p>
-                        </li>
-                        <li>
-                            <div class="type-title-sm">AREDL Rank</div>
-                            <p v-if="aredlRanks[level.id]">#{{ aredlRanks[level.id] }}</p>
-                            <p v-else style="opacity: 0.6;">N/A</p>
-                        </li>
-                    </ul>
+                            <!-- Tags directly below the title -->
+                            <div v-if="currentAredlTags.length > 0" style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.1rem;">
+                                <button 
+                                    v-for="tag in currentAredlTags" 
+                                    :key="tag" 
+                                    @click="selectSingleTag(tag)"
+                                    class="type-label-lg" 
+                                    :title="'Click to view all ' + tag + ' levels'"
+                                    :style="{
+                                        background: selectedTags.includes(tag) ? '#b9a779' : 'rgba(5, 25, 23, 0.75)',
+                                        border: '1px solid rgba(185, 167, 121, 0.3)',
+                                        color: selectedTags.includes(tag) ? '#002623' : '#edebe0',
+                                        padding: '0.2rem 0.55rem',
+                                        borderRadius: '6px',
+                                        fontSize: '0.8rem',
+                                        fontWeight: '600',
+                                        cursor: 'pointer',
+                                        backdropFilter: 'blur(8px)',
+                                        transition: 'all 0.2s ease'
+                                    }"
+                                >
+                                    {{ tag }}
+                                </button>
+                            </div>
+
+                            <!-- Left-stacked Glass Pills for Creators, Verifier, Publisher -->
+                            <div style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
+                                <!-- Creators -->
+                                <div style="display: flex; align-items: flex-start; gap: 12px; background: rgba(5, 25, 23, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(185, 167, 121, 0.2); padding: 9px 14px; border-radius: 10px;">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b9a779" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 3px; flex-shrink: 0;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                    <div style="display: flex; flex-direction: column; flex: 1; min-width: 0;">
+                                        <span class="type-label-sm" style="font-size: 0.65rem; color: rgba(237, 235, 224, 0.6); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; margin-bottom: 3px;">Creators</span>
+                                        <span class="type-label-lg" style="font-size: 0.95rem; font-weight: 700; color: #edebe0; line-height: 1.4; word-break: break-word; overflow-wrap: break-word;">{{ formatCreators(level.creators) }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Verifier -->
+                                <div style="display: flex; align-items: center; gap: 12px; background: rgba(5, 25, 23, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(185, 167, 121, 0.2); padding: 8px 14px; border-radius: 10px;">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b9a779" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                    <div style="display: flex; flex-direction: column; flex: 1; min-width: 0;">
+                                        <span class="type-label-sm" style="font-size: 0.65rem; color: rgba(237, 235, 224, 0.6); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; margin-bottom: 2px;">Verifier</span>
+                                        <span class="type-label-lg" style="font-size: 0.95rem; font-weight: 700; color: #edebe0; word-break: break-word; overflow-wrap: break-word;">{{ level.verifier || 'Unknown' }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Publisher -->
+                                <div style="display: flex; align-items: center; gap: 12px; background: rgba(5, 25, 23, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(185, 167, 121, 0.2); padding: 8px 14px; border-radius: 10px;">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b9a779" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                    <div style="display: flex; flex-direction: column; flex: 1; min-width: 0;">
+                                        <span class="type-label-sm" style="font-size: 0.65rem; color: rgba(237, 235, 224, 0.6); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; margin-bottom: 2px;">Publisher</span>
+                                        <span class="type-label-lg" style="font-size: 0.95rem; font-weight: 700; color: #edebe0; word-break: break-word; overflow-wrap: break-word;">{{ level.publisher || level.verifier || 'Unknown' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Floating Stat Pills Row (Points, ID, AREDL Rank) -->
+                            <div class="hero-stats-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                                <!-- Points -->
+                                <div class="stat-pill" style="display: flex; align-items: center; gap: 12px; background: rgba(0, 20, 18, 0.85); backdrop-filter: blur(16px); padding: 9px 14px; border-radius: 12px; border: 1px solid rgba(185, 167, 121, 0.2);">
+                                    <div style="width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(185, 167, 121, 0.25); color: #b9a779; flex-shrink: 0;">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; flex: 1; min-width: 0;">
+                                        <span class="type-label-sm" style="font-size: 0.65rem; font-weight: 700; color: rgba(237, 235, 224, 0.6); margin-bottom: 3px;">POINTS</span>
+                                        <span class="type-label-lg" style="font-size: 1.05rem; font-weight: 800; color: #ffffff; word-break: break-word; overflow-wrap: break-word;">{{ score(selected + 1, 100, level.percentToQualify, list.length) }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Level ID -->
+                                <div class="stat-pill" @click="copyId(level.id)" style="display: flex; align-items: center; gap: 12px; background: rgba(0, 20, 18, 0.85); backdrop-filter: blur(16px); padding: 9px 14px; border-radius: 12px; border: 1px solid rgba(185, 167, 121, 0.2); cursor: pointer;" title="Click to copy ID">
+                                    <div style="width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(239, 68, 68, 0.25); color: #ef4444; flex-shrink: 0;">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; flex: 1; min-width: 0;">
+                                        <span class="type-label-sm" style="font-size: 0.65rem; font-weight: 700; color: rgba(237, 235, 224, 0.6); margin-bottom: 3px;">LEVEL ID</span>
+                                        <span class="type-label-lg" style="font-size: 1.05rem; font-weight: 800; color: #ffffff; word-break: break-word; overflow-wrap: break-word;">{{ copied ? 'Copied!' : level.id }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- AREDL Rank -->
+                                <div class="stat-pill" style="display: flex; align-items: center; gap: 12px; background: rgba(0, 20, 18, 0.85); backdrop-filter: blur(16px); padding: 9px 14px; border-radius: 12px; border: 1px solid rgba(185, 167, 121, 0.2);">
+                                    <img 
+                                        src="https://avatars.githubusercontent.com/u/136633743?s=200&v=4" 
+                                        alt="AREDL Icon" 
+                                        style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex-shrink: 0;"
+                                    />
+                                    <div style="display: flex; flex-direction: column; flex: 1; min-width: 0;">
+                                        <span class="type-label-sm" style="font-size: 0.65rem; font-weight: 700; color: rgba(237, 235, 224, 0.6); margin-bottom: 3px;">AREDL RANK</span>
+                                        <span class="type-label-lg" style="font-size: 1.05rem; font-weight: 800; color: #ffffff; word-break: break-word; overflow-wrap: break-word;">{{ aredlRanks[level.id] ? '#' + aredlRanks[level.id] : 'N/A' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Video Showcase Embed with Responsive Aspect Ratio -->
+                            <div style="width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid rgba(185, 167, 121, 0.25); position: relative; aspect-ratio: 16 / 9; background: #000;">
+                                <iframe class="video" id="videoframe" :src="video" frameborder="0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <h2>Records</h2>
                     <p v-if="selected + 1 <= 75"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
                     <p v-else-if="selected + 1 <= 150"><strong>100%</strong> or better to qualify</p>
                     <p v-else>This level does not accept new records.</p>
-                    <table class="records">
-                        <tr v-for="record in combinedRecords" :key="record.link" class="record">
-                            <td class="percent">
-                                <p>{{ record.percent }}%</p>
-                            </td>
-                            <td class="user">
-                                <router-link :to="'/leaderboard/' + encodeURIComponent(record.user)" class="type-label-lg">
-                                    {{ record.user }}
-                                </router-link>
-                            </td>
-                            <td class="mobile">
-                                <img v-if="record.mobile" :src="'./assets/phone-landscape' + (store.dark ? '-dark' : '') + '.svg'" alt="Mobile">
-                            </td>
-                        </tr>
-                    </table>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1rem;">
+                        <div 
+                            v-for="record in combinedRecords" 
+                            :key="record.link"
+                            :style="{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                padding: '0.8rem 1rem',
+                                background: store.dark ? 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)' : 'linear-gradient(135deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.01) 100%)',
+                                border: store.dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
+                                borderRadius: '12px',
+                                gap: '1rem'
+                            }"
+                        >
+                            <!-- Left: Percent badge -->
+                            <div :style="{
+                                minWidth: '65px',
+                                padding: '0.35rem 0.6rem',
+                                background: 'rgba(185, 167, 121, 0.2)',
+                                border: '1px solid rgba(185, 167, 121, 0.35)',
+                                borderRadius: '8px',
+                                textAlign: 'center',
+                                flexShrink: 0
+                            }">
+                                <span class="type-label-lg" style="font-weight: 800; font-size: 0.95rem; color: #b9a779;">{{ record.percent }}%</span>
+                            </div>
+
+                            <!-- Middle: User Info with PFP and No Truncation -->
+                            <div style="display: flex; align-items: center; gap: 0.85rem; flex: 1; min-width: 0;">
+                                <img 
+                                    :src="record.pfp || FALLBACK_PFP" 
+                                    alt="pfp" 
+                                    @error="$event.target.src = FALLBACK_PFP"
+                                    :style="{
+                                        width: '40px',
+                                        height: '40px',
+                                        borderRadius: '50%',
+                                        objectFit: 'cover',
+                                        border: store.dark ? '2px solid rgba(255,255,255,0.15)' : '2px solid rgba(0,0,0,0.15)',
+                                        flexShrink: 0
+                                    }"
+                                />
+                                <div style="display: flex; flex-direction: column; min-width: 0; flex: 1;">
+                                    <router-link :to="'/leaderboard/' + encodeURIComponent(record.user)" class="type-label-lg link" style="font-weight: 800; font-size: 1rem; text-decoration: none; color: inherit; word-break: break-word; overflow-wrap: break-word;">
+                                        {{ record.user }}
+                                    </router-link>
+                                    <span v-if="record.mobile" class="type-label-sm" style="font-size: 0.7rem; opacity: 0.7; font-weight: 600;">Mobile Player</span>
+                                </div>
+                            </div>
+
+                            <!-- Right: YouTube Video Link Icon (Wheat Color, No Background Circle) -->
+                            <a 
+                                :href="record.link" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                title="Watch Completion Video"
+                                :style="{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: '38px',
+                                    height: '38px',
+                                    color: '#b9a779',
+                                    flexShrink: 0,
+                                    transition: 'all 0.2s ease',
+                                    textDecoration: 'none'
+                                }"
+                            >
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div v-if="combinedRecords.length === 0" style="padding: 1.2rem; text-align: center; opacity: 0.5; font-size: 0.9rem;" class="type-label-lg">
+                            No records submitted yet.
+                        </div>
+                    </div>
                 </div>
                 <div v-else class="level" style="height: 100%; justify-content: center; align-items: center;">
                     <p>(ノಠ益ಠ)ノ彡┻━┻</p>
@@ -306,8 +447,9 @@ export default {
                                 ></div>
 
                                 <img 
-                                    :src="editor.pfp || 'https://assets.aredl.net/avatars/default.png'" 
+                                    :src="editor.pfp || FALLBACK_PFP" 
                                     alt="pfp" 
+                                    @error="$event.target.src = FALLBACK_PFP"
                                     :style="{
                                         width: '44px',
                                         height: '44px',
@@ -413,7 +555,8 @@ export default {
         copied: false,
         errors: [],
         roleIconMap,
-        store
+        store,
+        FALLBACK_PFP
     }),
     computed: {
         level() {
@@ -429,7 +572,26 @@ export default {
         combinedRecords() {
             if (!this.level) return [];
             const jsonRecords = this.level.records || [];
-            return [...jsonRecords, ...this.approvedDbRecords].sort((a, b) => b.percent - a.percent);
+            
+            const map = new Map();
+            
+            jsonRecords.forEach(r => {
+                const key = `${r.user.trim().toLowerCase()}-${r.percent}`;
+                map.set(key, {
+                    user: r.user,
+                    pfp: r.pfp || FALLBACK_PFP,
+                    percent: r.percent,
+                    link: r.link,
+                    mobile: r.mobile || false
+                });
+            });
+
+            this.approvedDbRecords.forEach(r => {
+                const key = `${r.user.trim().toLowerCase()}-${r.percent}`;
+                map.set(key, r);
+            });
+
+            return Array.from(map.values()).sort((a, b) => b.percent - a.percent);
         },
         video() {
             if (!this.level.showcase) {
@@ -575,7 +737,7 @@ export default {
         } else {
             this.selected = 0;
             if (this.list[0]?.[0]) {
-                this.$router.replace({ path: '/' + this.list[0][0].id, query: this.$route.query });
+                this.$router.replace({ path: '/' + this.list[0][0].id, query: this.$router.query });
             }
         }
 
@@ -584,6 +746,17 @@ export default {
     methods: {
         embed,
         score,
+        formatCreators(creators) {
+            if (!creators) return 'Unknown';
+            if (Array.isArray(creators)) return creators.join(', ');
+            return creators;
+        },
+        getThumbnailStyle(level) {
+            if (!level) return 'none';
+            const id = typeof level === 'object' ? level.id : level;
+            if (!id) return 'none';
+            return `url('https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/${id}.webp')`;
+        },
         formatDate(dateStr) {
             if (!dateStr) return '';
             const date = new Date(dateStr);
@@ -592,30 +765,54 @@ export default {
         async fetchApprovedRecordsForLevel(levelId) {
             if (!levelId) return;
             
+            const { data: dbProfiles } = await supabase
+                .from('profiles')
+                .select('*');
+
+            const profileMap = new Map();
+            if (dbProfiles) {
+                dbProfiles.forEach(p => {
+                    if (p.username) {
+                        const profileImageUrl = p.pfp_url || p.pfp || p.avatar_url || FALLBACK_PFP;
+                        profileMap.set(p.id, { username: p.username, pfp: profileImageUrl });
+                        profileMap.set(p.username.trim().toLowerCase(), { username: p.username, pfp: profileImageUrl });
+                    }
+                });
+            }
+
             const { data, error } = await supabase
                 .from('submissions')
                 .select('percent, video_link, notes, user_id')
                 .eq('level_id', levelId.toString())
                 .eq('status', 'approved');
 
+            let dbRecords = [];
             if (!error && data && data.length > 0) {
-                const userIds = [...new Set(data.map(d => d.user_id))];
-                const { data: profiles } = await supabase
-                    .from('profiles')
-                    .select('id, username')
-                    .in('id', userIds);
-
-                const profileMap = new Map((profiles || []).map(p => [p.id, p.username]));
-
-                this.approvedDbRecords = data.map(sub => ({
-                    user: profileMap.get(sub.user_id) || 'Player',
-                    percent: sub.percent,
-                    link: sub.video_link,
-                    mobile: sub.notes?.toLowerCase().includes('mobile') || false
-                }));
-            } else {
-                this.approvedDbRecords = [];
+                dbRecords = data.map(sub => {
+                    const prof = profileMap.get(sub.user_id) || {};
+                    const username = prof.username || 'Player';
+                    return {
+                        user: username,
+                        pfp: prof.pfp || FALLBACK_PFP,
+                        percent: sub.percent,
+                        link: sub.video_link,
+                        mobile: sub.notes?.toLowerCase().includes('mobile') || false
+                    };
+                });
             }
+
+            const jsonRecs = (this.level?.records || []).map(r => {
+                const prof = profileMap.get(r.user?.trim().toLowerCase()) || {};
+                return {
+                    user: r.user,
+                    pfp: prof.pfp || r.pfp || FALLBACK_PFP,
+                    percent: r.percent,
+                    link: r.link,
+                    mobile: r.mobile || false
+                };
+            });
+
+            this.approvedDbRecords = [...jsonRecs, ...dbRecords];
         },
         updateQueryParams() {
             const query = { ...this.$route.query };

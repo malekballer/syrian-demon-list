@@ -56,6 +56,47 @@
 
         <!-- Strict Active Navigation Highlight & Custom CTA Styling -->
         <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                overflow: hidden;
+            }
+
+            header {
+                height: 4.5rem !important;
+                min-height: 4.5rem !important;
+                max-height: 4.5rem !important;
+                flex-shrink: 0 !important;
+                width: calc(100% - 3rem) !important;
+                margin: 0.75rem auto 0 1.5rem !important;
+                border-radius: 12px;
+                box-sizing: border-box !important;
+            }
+
+            /* Responsive fix for mobile: let the header adapt naturally without forced shrinking */
+            @media (max-width: 900px) {
+                html, body {
+                    height: auto !important;
+                    overflow: auto !important;
+                }
+                header {
+                    height: auto !important;
+                    min-height: auto !important;
+                    max-height: none !important;
+                    width: 100% !important;
+                    margin: 0 !important;
+                    border-radius: 0 !important;
+                    flex-direction: column !important;
+                    padding: 1rem !important;
+                    gap: 0.75rem;
+                }
+                div[style*="overflow-y: auto"] {
+                    height: auto !important;
+                    overflow: visible !important;
+                }
+            }
+
             .nav__tab.router-link-active,
             .nav__tab.router-link-exact-active {
                 color: inherit;
@@ -92,49 +133,29 @@
             }
         </style>
     </head>
-    <body id="app" class="dark">
+    <body id="app" class="dark" style="display: flex; flex-direction: column;">
         <header class="dark">
-            <div class="logo">
+            <router-link to="/" class="logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
                 <img src="./list_icon.png" alt="List Logo" class="nav__logo" />
-                <h2>Syrian Demon List</h2>
+                <h2 style="color: inherit;">Syrian Demon List</h2>
                 <p>v2.0</p>
-            </div>
+            </router-link>
             <nav class="nav">
-                <router-link 
-                    class="nav__tab" 
-                    to="/" 
-                    :class="{ active: store.currentPath === '/' || (!store.currentPath.startsWith('/leaderboard') && !store.currentPath.startsWith('/roulette') && !store.currentPath.startsWith('/rules') && !store.currentPath.startsWith('/review')) }"
-                >
+                <router-link class="nav__tab" to="/list"
+                    :class="{ active: (store.currentPath === '/list' || /^\/\d+$/.test(store.currentPath)) && store.currentPath !== '/' }">
                     <span class="type-label-lg">List</span>
                 </router-link>
-                <router-link 
-                    class="nav__tab" 
-                    to="/leaderboard" 
-                    :class="{ active: store.currentPath.startsWith('/leaderboard') }"
-                >
+                <router-link class="nav__tab" to="/leaderboard" :class="{ active: store.currentPath.startsWith('/leaderboard') }">
                     <span class="type-label-lg">Leaderboard</span>
                 </router-link>
-                <router-link 
-                    class="nav__tab" 
-                    to="/roulette" 
-                    :class="{ active: store.currentPath.startsWith('/roulette') }"
-                >
+                <router-link class="nav__tab" to="/roulette" :class="{ active: store.currentPath.startsWith('/roulette') }">
                     <span class="type-label-lg">Roulette</span>
                 </router-link>
-                <router-link 
-                    class="nav__tab" 
-                    to="/rules" 
-                    :class="{ active: store.currentPath.startsWith('/rules') }"
-                >
+                <router-link class="nav__tab" to="/rules" :class="{ active: store.currentPath.startsWith('/rules') }">
                     <span class="type-label-lg">Submission Rules</span>
                 </router-link>
-                <!-- Strict Editor-Only Navigation Link -->
-                <router-link 
-                    v-if="store.profile && store.profile.is_editor === true"
-                    class="nav__tab" 
-                    to="/review" 
-                    :class="{ active: store.currentPath.startsWith('/review') }"
-                >
+                <router-link v-if="store.profile && store.profile.is_editor === true" class="nav__tab" to="/review"
+                    :class="{ active: store.currentPath.startsWith('/review') }">
                     <span class="type-label-lg" style="color: #b9a779;">Review Queue</span>
                 </router-link>
             </nav>
@@ -190,7 +211,10 @@
             </div>
         </header>
 
-        <router-view class="dark"></router-view>
+        <!-- Scrollable container for page views so the scrollbar starts below the header -->
+        <div style="flex-grow: 1; overflow-y: auto; overflow-x: hidden; width: 100%; box-sizing: border-box;">
+            <router-view class="dark"></router-view>
+        </div>
 
         <!-- Global Modals -->
         <submission-modal></submission-modal>
