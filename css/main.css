@@ -1,28 +1,48 @@
+/* ============================================================
+   CUSTOM FONT INJECTION (Logo Only)
+   ============================================================ */
+@font-face {
+    font-family: 'Hayyakum Allah';
+    src: url('https://syrian.zone/syid-assets/fonts/HayyakumAllah/WOFF/HayyakumAllah-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ============================================================
+   DESIGN TOKENS & PALETTE (Primary #002623 & Accent #b9a779)
+   ============================================================ */
 :root {
-    --color-background: white;
-    --color-on-background: black;
-    --color-background-hover: #eee;
-    --color-on-background-hover: black;
-    --color-primary: #007A3D;
-    --color-on-primary: white;
+    --color-background: #002623;
+    --color-on-background: #edebe0;
+    --color-background-hover: #05332f;
+    --color-on-background-hover: #ffffff;
+    --color-primary: #b9a779 !important;
+    --color-accent-gold: #b9a779;
+    --color-accent-gold-hover: #c0a25c;
+    --color-on-primary: #002623;
     --color-error: #de0000;
-    --color-on-error: white;
+    --color-on-error: #ffffff;
+    --color-border-subtle: rgba(185, 167, 121, 0.25);
 }
 
 main.dark,
-header.dark {
+header.dark,
+.dark {
     color-scheme: dark;
-    --color-background: #1c1b1f;
-    --color-on-background: white;
-    --color-background-hover: #27262c;
-    --color-on-background-hover: white;
-    --color-primary: #007A3D;
-    --color-primary-disabled: #1f213c;
-    --color-on-primary: white;
+    --color-background: #002623;
+    --color-on-background: #edebe0;
+    --color-background-hover: #05332f;
+    --color-on-background-hover: #ffffff;
+    --color-primary: #b9a779 !important;
+    --color-primary-disabled: #081816;
+    --color-on-primary: #002623;
     --color-error: #de0000;
-    --color-on-error: white;
+    --color-on-error: #ffffff;
 }
 
+/* ============================================================
+   GLOBAL BODY & SEAMLESS MOSAIC TILE BACKGROUND
+   ============================================================ */
 html,
 body {
     height: 100%;
@@ -32,68 +52,645 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
+    background-color: #002623 !important;
+    color: #edebe0;
+    background-image: url("../assets/mosaic.png") !important;
+    background-repeat: repeat !important;
+    background-size: 180px 180px !important;
+    background-attachment: fixed !important;
 }
 
 header,
 main {
-    background-color: var(--color-background);
+    background-color: transparent;
     color: var(--color-on-background);
-    display: grid;
-    grid-template-columns: minmax(16rem, 1fr) minmax(16rem, 2fr) minmax(
-            16em,
-            1fr
-        );
-    column-gap: 2rem;
 }
 
+/* ============================================================
+   EXTRA-WIDE FLOATING PILL NAVBAR
+   ============================================================ */
 header {
-    display: flex;
-    padding-inline: calc(25vw - 10rem);
-    height: 4rem;
-    background-color: var(--color-primary);
-    color: var(--color-on-primary);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 2.5rem !important;
+    height: 4.5rem !important;
+    background-color: rgba(0, 38, 35, 0.9) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(185, 167, 121, 0.35) !important;
+    border-radius: 9999px !important;
+    width: 98.5% !important;
+    max-width: 1980px !important;
+    margin: 0.75rem auto 0 auto !important;
+    position: sticky !important;
+    top: 0.75rem !important;
+    z-index: 1000 !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    box-sizing: border-box !important;
 }
-@media screen and (min-width: 1366px) {
-    header {
-        display: grid;
-        padding-inline: 0;
-    }
-}
+
 header .logo {
-    justify-self: end;
-    align-self: center;
-    display: flex;
-    align-items: flex-end;
-    gap: 1rem;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    justify-self: start !important;
+    flex: 0 0 auto !important;
 }
+
+header .logo img.nav__logo {
+    width: 42px !important;
+    height: 42px !important;
+    object-fit: contain !important;
+}
+
+header .logo h2 {
+    font-family: 'Hayyakum Allah', sans-serif !important;
+    font-size: 2rem !important;
+    font-weight: normal !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    transform: translateY(3px);
+}
+
+header .logo p {
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 0.7rem !important;
+    color: #002623 !important;
+    background: #b9a779 !important;
+    padding: 2px 6px !important;
+    border-radius: 6px !important;
+    margin: 0 !important;
+    font-weight: 700;
+}
+
 header .nav {
-    flex: 1;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2.5rem !important;
+    flex: 1 !important;
+    margin: 0 1rem !important;
 }
 
-main {
-    height: 0;
+header .nav__actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    flex: 0 0 auto !important;
+}
+
+/* ============================================================
+   FORCE FLAT SOLID WHEAT COLOR ON ALL CTA BUTTONS
+   ============================================================ */
+button.syrian-cta,
+a.syrian-cta,
+.nav__actions .syrian-cta {
+    background: #b9a779 !important;
+    background-image: none !important;
+    color: #002623 !important;
+    font-weight: 800 !important;
+    border: none !important;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(185, 167, 121, 0.35);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+button.syrian-cta:hover,
+a.syrian-cta:hover {
+    background: #c5b487 !important;
+    background-image: none !important;
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+}
+
+/* ============================================================
+   MAIN THREE-COLUMN LAYOUT (Wider Left & Right Columns)
+   ============================================================ */
+main, main.page-list {
     flex: 1;
+    display: grid !important;
+    grid-template-columns: 460px minmax(0, 1fr) 500px !important; /* Widened side columns */
+    gap: 1.5rem !important;
+    padding: 1rem 1.5rem !important;
+    width: 100% !important;
+    max-width: 1980px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+    height: calc(100vh - 90px) !important;
+    overflow: hidden !important;
+}
+
+main > div,
+.list-container,
+.meta-container {
+    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 4px;
+}
+
+.level-container {
+    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 4px;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.level-container > .level {
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+
+/* ============================================================
+   HERO LEVEL CARD COMPONENT (Centering & Gap Fix)
+   ============================================================ */
+.hero-level-card {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    background: #001f1c;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px !important;
+    box-sizing: border-box;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.4) contrast(1.1);
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(0,38,35,0.3) 0%, rgba(0,26,24,0.95) 100%);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 12px !important;
+}
+
+/* 1. Header Bar Alignment Fix (Centers Title with Rank Badge) */
+.hero-content > div:first-child {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important; /* Forces title and #1 badge onto the exact same horizontal center line */
+    gap: 1rem !important;
+    margin-bottom: 0 !important;
+    min-height: 52px !important;
+}
+
+/* 2. Vertically Centered Title */
+.hero-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 2.2rem !important;
+    line-height: 1.2 !important; /* Smooth line-height to prevent vertical text clipping */
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+}
+
+.hero-content span.type-label-lg[style*="font-size: 1.5rem"] {
+    font-size: 1.6rem !important;
+    font-weight: 900 !important;
+    color: #b9a779 !important;
+    background: rgba(0, 38, 35, 0.95) !important;
+    padding: 0.4rem 1.4rem !important;
+    height: 52px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(185, 167, 121, 0.4) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6) !important;
+    box-sizing: border-box !important;
+}
+
+.hero-stats-row {
     display: grid;
-    grid-template-rows: minmax(0, 1fr);
-    column-gap: 2rem;
-}
-main > div {
-    overflow-y: auto;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 2px !important;
 }
 
-.spinner {
+.stat-pill {
     display: flex;
     align-items: center;
-    justify-content: center;
-    grid-column: span 3;
+    gap: 12px;
+    background: rgba(0, 20, 18, 0.85);
+    backdrop-filter: blur(16px);
+    padding: 10px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(185, 167, 121, 0.2);
 }
 
-input[type="checkbox"] {
-    height: 1.25rem;
-    width: 1.25rem;
-    cursor: pointer;
-    margin: 0;
+/* ============================================================
+   AREDL BANNER CARDS
+   ============================================================ */
+table.list,
+.leaderboard-container table.completed-list {
+    border-collapse: separate !important;
+    border-spacing: 0 8px !important;
+    width: 100% !important;
 }
+
+table.list td.level,
+.leaderboard-container table.completed-list td.level {
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+table.list td.level button,
+.leaderboard-container table.completed-list td.level button {
+    position: relative !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    text-align: left !important;
+    padding: 0 1.25rem !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    border-radius: 10px !important;
+    -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
+    border: 1px solid rgba(185, 167, 121, 0.25) !important;
+    transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease !important;
+}
+
+table.list td.level button::before,
+.leaderboard-container table.completed-list td.level button::before {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(90deg, rgba(0, 24, 22, 0.75) 0%, rgba(0, 38, 35, 0.45) 55%, rgba(0, 38, 35, 0.15) 100%) !important;
+    z-index: 1 !important;
+    border-radius: inherit !important;
+    transition: background 0.2s ease !important;
+}
+
+table.list td.level button span,
+table.list td.level button p,
+table.list td.level button h2,
+table.list td.level button div,
+.leaderboard-container table.completed-list td.level button * {
+    position: relative !important;
+    z-index: 2 !important;
+    margin: 0 !important;
+}
+
+table.list td.level button h2,
+table.list td.level button span.level-name,
+.leaderboard-container table.completed-list td.level button span.level-name {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    color: #edebe0 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9) !important;
+}
+
+table.list td.level:not(.active) button:hover,
+.leaderboard-container table.completed-list td.level button:hover {
+    border-color: rgba(185, 167, 121, 0.6) !important;
+    transform: translateX(3px) !important;
+}
+
+table.list td.level:not(.active) button:hover::before,
+.leaderboard-container table.completed-list td.level button:hover::before {
+    background: linear-gradient(90deg, rgba(0, 24, 22, 0.65) 0%, rgba(0, 38, 35, 0.35) 55%, rgba(0, 38, 35, 0.1) 100%) !important;
+}
+
+table.list td.level.active button {
+    border: 1.5px solid #b9a779 !important;
+    box-shadow: 0 0 16px rgba(185, 167, 121, 0.3) !important;
+}
+
+table.list td.level.active button::before {
+    background: linear-gradient(90deg, rgba(185, 167, 121, 0.85) 0%, rgba(185, 167, 121, 0.5) 60%, rgba(0, 38, 35, 0.3) 100%) !important;
+}
+
+table.list td.level.active button h2,
+table.list td.level.active button span {
+    color: #002623 !important;
+    font-weight: 800 !important;
+    text-shadow: none !important;
+}
+
+table.list td.rank,
+.leaderboard-container table.completed-list td.rank,
+.leaderboard-container table.players-list td.rank {
+    padding: 0 8px 0 0 !important;
+    vertical-align: middle !important;
+    width: 56px !important;
+}
+
+table.list td.rank p,
+table.list td.rank div,
+.leaderboard-container table.completed-list td.rank p,
+.leaderboard-container table.players-list td.rank p {
+    background: rgba(0, 20, 18, 0.85) !important;
+    border: 1px solid rgba(185, 167, 121, 0.25) !important;
+    border-radius: 10px !important;
+    color: #b9a779 !important;
+    font-weight: 800 !important;
+    font-size: 0.95rem !important;
+    width: 56px !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+
+/* ============================================================
+   LEADERBOARD PLAYER LIST CARDS (Pusab Text Clipping Fix)
+   ============================================================ */
+.leaderboard-container table.players-list {
+    border-collapse: separate !important;
+    border-spacing: 0 8px !important;
+    width: 100% !important;
+}
+
+.leaderboard-container table.players-list td.rank {
+    padding: 0 8px 0 0 !important;
+    vertical-align: middle !important;
+    width: 56px !important;
+}
+
+.leaderboard-container table.players-list td.rank p {
+    background: rgba(0, 20, 18, 0.85) !important;
+    border: 1px solid rgba(185, 167, 121, 0.25) !important;
+    border-radius: 10px !important;
+    color: #b9a779 !important;
+    font-weight: 800 !important;
+    font-size: 0.95rem !important;
+    width: 56px !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.leaderboard-container table.players-list td.player {
+    width: 100% !important;
+    padding: 0 !important;
+    vertical-align: middle !important;
+}
+
+.leaderboard-container table.players-list td.player button {
+    position: relative !important;
+    width: 100% !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 0.85rem !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    background: rgba(0, 20, 18, 0.65) !important;
+    border: 1px solid rgba(185, 167, 121, 0.2) !important;
+    border-radius: 10px !important;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease !important;
+    overflow: visible !important;
+}
+
+.leaderboard-container table.players-list td.player button:hover {
+    background: rgba(185, 167, 121, 0.15) !important;
+    border-color: rgba(185, 167, 121, 0.4) !important;
+    transform: translateX(3px) !important;
+}
+
+.leaderboard-container table.players-list td.player.active button {
+    background: #b9a779 !important;
+    border-color: #b9a779 !important;
+    box-shadow: 0 0 12px rgba(185, 167, 121, 0.35) !important;
+}
+
+.leaderboard-container table.players-list td.player.active button * {
+    color: #002623 !important;
+    font-weight: 800 !important;
+}
+
+.leaderboard-container table.players-list .player-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+    height: 100% !important;
+}
+
+.leaderboard-container table.players-list img.player-pfp {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 1.5px solid #b9a779 !important;
+    flex-shrink: 0 !important;
+}
+
+.leaderboard-container table.players-list span.player-name {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: #edebe0;
+    line-height: 0.95 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+}
+
+.leaderboard-container table.players-list span.player-score {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 800 !important;
+    color: #b9a779;
+    line-height: 0.95 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+}
+
+.leaderboard-container table.players-list span.player-subtext {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 0.72rem !important;
+    opacity: 0.75 !important;
+    line-height: 0.95 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+}
+
+
+/* ============================================================
+   SUBMISSION RULES SPECIFIC FIX
+   ============================================================ */
+.rules-list .rule-card,
+.page-rules .rule-item {
+    background: rgba(0, 38, 35, 0.6) !important;
+    border: 1px solid rgba(185, 167, 121, 0.25) !important;
+    border-radius: 12px !important;
+}
+
+.page-rules span,
+.page-rules [class*="rule"] span,
+.rules-list span,
+.rule-number, 
+.rules-list .number, 
+.rule-step-number,
+.rule-badge,
+.rule-num {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-style: normal !important;
+    font-weight: 800 !important;
+    font-size: 0.9rem !important;
+    line-height: 1 !important;
+    background-color: #b9a779 !important;
+    color: #002623 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    min-width: 28px !important;
+    height: 28px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.page-rules p,
+.rules-list p {
+    color: #edebe0 !important;
+    margin: 0 !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+}
+
+/* ============================================================
+   SINGLE COLUMN PAGE LAYOUT OVERRIDE
+   ============================================================ */
+main:has(.page-rules),
+main.page-rules-container,
+main.page-rules {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    grid-template-columns: none !important;
+    width: 100% !important;
+    max-width: 1000px !important;
+    margin: 0 auto !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.page-rules {
+    width: 100% !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+}
+
+/* ============================================================
+   WHEAT OVERRIDES & BADGES
+   ============================================================ */
+.editor-card img:not(.avatar),
+.role-icon,
+.editor-badge img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.editor-card img[src*="svg"]:onerror {
+    display: none !important;
+}
+
+.list .type-label-lg.active,
+.list-item.selected,
+span.tag, 
+div.tag, 
+.badge, 
+.level-tags span,
+.version,
+.version-tag,
+span.version {
+    background-color: #b9a779 !important;
+    background-image: none !important;
+    border-color: #b9a779 !important;
+    color: #002623 !important;
+    font-weight: 800 !important;
+}
+
+.level-container button[style*="border: 1px solid #007A3D"],
+.level-container button[style*="background:"] {
+    background-color: rgba(185, 167, 121, 0.15) !important;
+    border: 1px solid #b9a779 !important;
+    color: #b9a779 !important;
+}
+
+.level-container button[style*="background: rgb(0, 122, 61)"],
+.level-container button[style*="background: #007A3D"] {
+    background-color: #b9a779 !important;
+    color: #002623 !important;
+}
+
+.profile-card img, 
+.user-profile img, 
+.leaderboard-container img,
+img.avatar,
+.profile-icon-wrap,
+.player-avatar,
+.profile-card,
+.user-profile {
+    border-color: #b9a779 !important;
+}
+
+.editor-card *, .activity-card * {
+    color: #edebe0 !important;
+}
+
+input:focus, 
+select:focus, 
+textarea:focus,
+.search-input:focus {
+    border-color: #b9a779 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(185, 167, 121, 0.35) !important;
+}
+
 /* Lock horizontal scrolling globally */
 html, body, #app {
     width: 100% !important;
@@ -107,17 +704,6 @@ html, body, #app {
    GLOBAL MOBILE RESPONSIVE MASTER FIX (< 900px)
    ============================================================ */
 @media screen and (max-width: 900px) {
-
-    /* 1. Prevent Horizonal Page Overflow */
-    html, body, #app {
-        width: 100% !important;
-        max-width: 100vw !important;
-        overflow-x: hidden !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* 2. HEADER & NAVIGATION FIX */
     header {
         flex-direction: column !important;
         align-items: center !important;
@@ -125,181 +711,66 @@ html, body, #app {
         padding: 0.75rem 0.5rem !important;
         gap: 0.5rem !important;
         height: auto !important;
+        border-radius: 24px !important;
+        width: 95% !important;
     }
 
     header .logo {
-        display: flex !important;
-        align-items: center !important;
         justify-content: center !important;
-        gap: 0.5rem !important;
-    }
-
-    header .logo h2 {
-        display: block !important; /* Forces logo text visibility */
-        font-size: 1.1rem !important;
     }
 
     header .nav {
-        display: flex !important;
         flex-wrap: wrap !important;
-        justify-content: center !important;
+        margin: 0 !important;
         gap: 0.5rem !important;
     }
 
-    header .nav__actions {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 0.5rem !important;
-    }
-
-    /* 3. SPINNER CENTER FIX */
-    main > div.spinner,
-    .spinner {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        margin: 4rem auto !important;
-        width: 100% !important;
-    }
-
-    /* 4. LIST PAGE STACK FIX */
+    main,
     main.page-list,
-    .page-list {
-        display: flex !important;
-        flex-direction: column !important;
-        grid-template-columns: none !important;
-        padding: 0.5rem !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    /* 5. LEADERBOARD PAGE STACK FIX */
+    .page-list,
     .page-leaderboard-container,
     .page-leaderboard,
-    main.page-leaderboard {
-        display: flex !important;
-        flex-direction: column !important;
-        grid-template-columns: none !important;
-        padding: 0.5rem !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    .board-container,
-    .player-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-    }
-
-    /* 6. ROULETTE PAGE STACK FIX */
+    main.page-leaderboard,
     .page-roulette,
     main.page-roulette {
         display: flex !important;
         flex-direction: column !important;
-        grid-template-columns: none !important;
         padding: 0.5rem !important;
         width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
         box-sizing: border-box !important;
     }
 
-    .page-roulette .sidebar,
-    .page-roulette .levels-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-    }
-
-    /* 7. ALL CONTAINERS FULL-WIDTH OVERRIDE */
+    main > div,
     .list-container,
     .level-container,
-    .meta-container,
-    .level {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-        box-sizing: border-box !important;
-    }
-
-    /* Make selection sidebars scrollable vertically on phones */
-    .list-container,
-    .board-container {
-        max-height: 250px !important;
-        overflow-y: auto !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding-bottom: 0.5rem;
-    }
-
-    /* Responsive Video Frames */
-    .level .video, 
-    #videoframe,
-    .levels .video {
-        width: 100% !important;
-        max-width: 100% !important;
+    .meta-container {
         height: auto !important;
-        aspect-ratio: 16 / 9 !important;
+        overflow: visible !important;
+    }
+
+    .hero-stats-row {
+        grid-template-columns: 1fr;
     }
 }
 
 /* ==========================================
-   CENTER LOADING SPINNER (DESKTOP & MOBILE)
+   CENTER LOADING SPINNER & MODALS
    ========================================== */
 main.loading-container {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     width: 100% !important;
-    max-width: 100vw !important;
     min-height: 50vh !important;
-    grid-template-columns: none !important;
-    margin: 0 auto !important;
-    padding: 2rem 0 !important;
-    box-sizing: border-box !important;
 }
 
-main.loading-container .spinner,
-.spinner {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-    margin: 0 auto !important;
-    width: 100% !important;
-}
-/* ==========================================
-   Modal Typography & Submissions Styling
-   ========================================== */
-.modal-card,
-.modal-card input,
-.modal-card select,
-.modal-card textarea,
-.modal-card button {
-    font-family: 'Lexend Deca', sans-serif !important;
-}
-
-/* Force dark mode background on native HTML select dropdown options */
-.modal-card.dark select option,
-.modal-card.dark .dark-option {
-    background-color: #1c1c1c !important;
-    color: #ffffff !important;
-}
-
-.modal-input option {
-    background-color: #ffffff;
-    color: #121212;
-}
-
-/* Modal Overlays & Cards */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -308,36 +779,214 @@ main.loading-container .spinner,
 }
 
 .modal-card {
-    background: #ffffff;
-    color: #121212;
+    background: #002623;
+    color: #edebe0;
     border-radius: 14px;
     padding: 1.5rem;
     width: 100%;
     max-width: 460px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--color-border-subtle);
     max-height: 90vh;
     overflow-y: auto;
 }
 
-.modal-card.dark {
-    background: #181818;
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+/* ============================================================
+   LEADERBOARD PAGE SPECIFIC OVERRIDES
+   ============================================================ */
+main:has(.page-leaderboard-container),
+main.page-leaderboard-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 1600px !important;
+    height: calc(100vh - 80px) !important;
+    margin: 0 auto !important;
+    padding: 1rem 1.5rem !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
 }
 
+.page-leaderboard-container .leaderboard-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: 100% !important;
+    gap: 1rem !important;
+    overflow: hidden !important;
+}
+
+.top-map-section {
+    width: 100% !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+}
+
+.syria-map-wrapper.interactive-aaredl-map {
+    position: relative;
+    width: 100% !important;
+    height: 240px !important;
+    background: rgba(0, 15, 13, 0.85) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(185, 167, 121, 0.25) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+    overflow: hidden !important;
+    cursor: grab;
+    user-select: none;
+}
+
+.syria-map-wrapper.interactive-aaredl-map:active {
+    cursor: grabbing;
+}
+
+.aaredl-svg-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+}
+
+.board-and-profile-grid {
+    display: grid !important;
+    grid-template-columns: 460px minmax(0, 1fr) !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+.board-container {
+    width: 100% !important;
+    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 4px;
+}
+
+.player-container {
+    width: 100% !important;
+    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 4px;
+}
+
+.map-overlay-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+}
+
+.hovered-gov-name {
+    background: rgba(0, 0, 0, 0.85);
+    color: #b9a779;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    border: 1px solid rgba(185, 167, 121, 0.3);
+}
+
+.clear-gov-btn, .reset-view-btn {
+    background: #b9a779 !important;
+    color: #002623 !important;
+    font-weight: 800 !important;
+    font-size: 0.7rem !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    border: none !important;
+    cursor: pointer !important;
+}
+
+.reset-view-btn {
+    background: rgba(0, 38, 35, 0.9) !important;
+    color: #edebe0 !important;
+    border: 1px solid rgba(185, 167, 121, 0.3) !important;
+}
+
+@media screen and (max-width: 900px) {
+    main:has(.page-leaderboard-container),
+    main.page-leaderboard-container {
+        height: auto !important;
+        overflow: visible !important;
+    }
+    .board-and-profile-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+    .board-container, .player-container {
+        height: auto !important;
+        overflow: visible !important;
+    }
+}
+
+/* ============================================================
+   MODAL INPUT STYLING FIX
+   ============================================================ */
 .modal-input {
-    width: 100%;
-    padding: 0.65rem 0.8rem;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    background: rgba(0, 0, 0, 0.03);
-    color: inherit;
-    font-size: 0.95rem;
-    box-sizing: border-box;
+    width: 100% !important;
+    background: rgba(0, 20, 18, 0.85) !important;
+    border: 1px solid rgba(185, 167, 121, 0.3) !important;
+    border-radius: 8px !important;
+    color: #edebe0 !important;
+    padding: 0.6rem 0.8rem !important;
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 0.9rem !important;
+    box-sizing: border-box !important;
 }
 
-.modal-card.dark .modal-input {
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.05);
+.modal-input:focus {
+    border-color: #b9a779 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(185, 167, 121, 0.35) !important;
+}
+
+select.modal-input option {
+    background: #002623 !important;
+    color: #edebe0 !important;
+}
+
+/* ============================================================
+   FORCE HIDE MOSAIC PATTERN WHEN TOGGLED
+   ============================================================ */
+body.no-bg-pattern {
+    background-image: none !important;
+}
+
+/* ============================================================
+   HOME PAGE FULL-HEIGHT OVERRIDE
+   ============================================================ */
+body:has(.home-page-wrapper) {
+    overflow-y: auto !important;
+}
+
+.home-page-wrapper {
+    width: 100% !important;
+    max-width: 1980px !important;
+    margin: 0 auto !important;
+    overflow-y: visible !important;
+}
+
+/* Lock vertical scrollbar globally so header doesn't shrink/shift between pages */
+html {
+    overflow-y: scroll;
+}
+
+/* Ensure home page wrapper matches the max-width of the rest of the site */
+.home-page-wrapper {
+    width: 98.5% !important;
+    max-width: 1980px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+}
+
+html {
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
 }

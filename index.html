@@ -13,7 +13,7 @@
         <meta property="og:description" content="The official Syrian Demon List, ranking the hardest Geometry Dash levels completed by Syrian players." />
         <meta property="og:url" content="https://malekballer.github.io/syrian-demon-list/" />
         <meta property="og:image" content="https://malekballer.github.io/syrian-demon-list/list_icon.png" />
-        <meta name="theme-color" content="#007A3D" />
+        <meta name="theme-color" content="#b9a779" />
 
         <!-- Twitter Card Meta Tags -->
         <meta name="twitter:card" content="summary" />
@@ -56,29 +56,70 @@
 
         <!-- Strict Active Navigation Highlight & Custom CTA Styling -->
         <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                overflow: hidden;
+            }
+
+            header {
+                height: 4.5rem !important;
+                min-height: 4.5rem !important;
+                max-height: 4.5rem !important;
+                flex-shrink: 0 !important;
+                width: calc(100% - 3rem) !important;
+                margin: 0.75rem auto 0 1.875rem !important;
+                border-radius: 12px;
+                box-sizing: border-box !important;
+            }
+
+            /* Responsive fix for mobile: let the header adapt naturally without forced shrinking */
+            @media (max-width: 900px) {
+                html, body {
+                    height: auto !important;
+                    overflow: auto !important;
+                }
+                header {
+                    height: auto !important;
+                    min-height: auto !important;
+                    max-height: none !important;
+                    width: 100% !important;
+                    margin: 0 !important;
+                    border-radius: 0 !important;
+                    flex-direction: column !important;
+                    padding: 1rem !important;
+                    gap: 0.75rem;
+                }
+                div[style*="overflow-y: auto"] {
+                    height: auto !important;
+                    overflow: visible !important;
+                }
+            }
+
             .nav__tab.router-link-active,
             .nav__tab.router-link-exact-active {
                 color: inherit;
                 border-bottom: none;
-                opacity: 0.7;
+                opacity: 0.75;
                 font-weight: normal;
             }
 
             .nav__tab.active {
-                color: #00FF80 !important;
-                border-bottom: 2px solid #007A3D !important;
+                color: #b9a779 !important;
+                border-bottom: 2px solid #b9a779 !important;
                 opacity: 1 !important;
                 font-weight: bold;
             }
 
             .syrian-cta {
                 background: linear-gradient(135deg, #c0a25c 0%, #b9a779 100%) !important;
-                color: #121212 !important;
+                color: #002623 !important;
                 font-weight: 800 !important;
                 border: none !important;
                 cursor: pointer;
                 box-shadow: 0 4px 12px rgba(185, 167, 121, 0.35);
-                transition: transform 0.2s ease, boxShadow 0.2s ease, filter 0.2s ease;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
             }
 
             .syrian-cta:hover {
@@ -92,63 +133,33 @@
             }
         </style>
     </head>
-    <body id="app">
-        <header :class="{ dark: store.dark }">
-            <div class="logo">
+    <body id="app" class="dark" style="display: flex; flex-direction: column;">
+        <header class="dark">
+            <router-link to="/" class="logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
                 <img src="./list_icon.png" alt="List Logo" class="nav__logo" />
-                <h2>Syrian Demon List</h2>
-                <p>v1.5.0</p>
-            </div>
+                <h2 style="color: inherit;">Syrian Demon List</h2>
+                <p>v2.0</p>
+            </router-link>
             <nav class="nav">
-                <router-link 
-                    class="nav__tab" 
-                    to="/" 
-                    :class="{ active: store.currentPath === '/' || (!store.currentPath.startsWith('/leaderboard') && !store.currentPath.startsWith('/roulette') && !store.currentPath.startsWith('/rules') && !store.currentPath.startsWith('/review')) }"
-                >
+                <router-link class="nav__tab" to="/list"
+                    :class="{ active: (store.currentPath === '/list' || /^\/\d+$/.test(store.currentPath)) && store.currentPath !== '/' }">
                     <span class="type-label-lg">List</span>
                 </router-link>
-                <router-link 
-                    class="nav__tab" 
-                    to="/leaderboard" 
-                    :class="{ active: store.currentPath.startsWith('/leaderboard') }"
-                >
+                <router-link class="nav__tab" to="/leaderboard" :class="{ active: store.currentPath.startsWith('/leaderboard') }">
                     <span class="type-label-lg">Leaderboard</span>
                 </router-link>
-                <router-link 
-                    class="nav__tab" 
-                    to="/roulette" 
-                    :class="{ active: store.currentPath.startsWith('/roulette') }"
-                >
+                <router-link class="nav__tab" to="/roulette" :class="{ active: store.currentPath.startsWith('/roulette') }">
                     <span class="type-label-lg">Roulette</span>
                 </router-link>
-                <router-link 
-                    class="nav__tab" 
-                    to="/rules" 
-                    :class="{ active: store.currentPath.startsWith('/rules') }"
-                >
+                <router-link class="nav__tab" to="/rules" :class="{ active: store.currentPath.startsWith('/rules') }">
                     <span class="type-label-lg">Submission Rules</span>
                 </router-link>
-                <!-- Strict Editor-Only Navigation Link -->
-                <router-link 
-                    v-if="store.profile && store.profile.is_editor === true"
-                    class="nav__tab" 
-                    to="/review" 
-                    :class="{ active: store.currentPath.startsWith('/review') }"
-                >
-                    <span class="type-label-lg" style="color: #c0a25c;">Review Queue</span>
+                <router-link v-if="store.profile && store.profile.is_editor === true" class="nav__tab" to="/review"
+                    :class="{ active: store.currentPath.startsWith('/review') }">
+                    <span class="type-label-lg" style="color: #b9a779;">Review Queue</span>
                 </router-link>
             </nav>
             <div class="nav__actions">
-                <button
-                    class="nav__icon"
-                    @click.prevent="store.toggleDark()"
-                >
-                    <img
-                        :src="store.dark ? './assets/light.svg' : './assets/dark.svg'"
-                        alt=""
-                    />
-                </button>
-
                 <!-- Discord Invite Link -->
                 <a class="nav__icon" href="https://discord.gg/pPT7QK2cyv" target="_blank">
                     <img src="./assets/discord.svg" alt="Discord Logo" />
@@ -200,7 +211,10 @@
             </div>
         </header>
 
-        <router-view :class="{ dark: store.dark }"></router-view>
+        <!-- Scrollable container for page views so the scrollbar starts below the header -->
+        <div style="flex-grow: 1; overflow-y: auto; overflow-x: hidden; width: 100%; box-sizing: border-box;">
+            <router-view class="dark"></router-view>
+        </div>
 
         <!-- Global Modals -->
         <submission-modal></submission-modal>

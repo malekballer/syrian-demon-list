@@ -18,12 +18,47 @@ export const store = Vue.reactive({
 
     async checkAuth() {
         const authData = await getAuthenticatedUser();
-        if (authData) {
+        if (authData && authData.user) {
             this.user = authData.user;
-            this.profile = authData.profile;
+            
+            // If user is logged in via Supabase but doesn't have a profile row yet, auto-create it instantly!
+            if (!authData.profile) {
+                const meta = authData.user.user_metadata || {};
+                const defaultUsername = meta.preferred_username || meta.user_name || meta.full_name || `Player_${authData.user.id.slice(0, 5)}`;
+                const defaultAvatar = meta.avatar_url || meta.picture || 'https://assets.aredl.net/avatars/default.png';
+                const defaultTag = meta.preferred_username || meta.user_name || null;
+
+                const { data: newProfile, error: insertError } = await supabase
+                    .from('profiles')
+                    .upsert({
+                        id: authData.user.id,
+                        username: defaultUsername,
+                        pfp_url: defaultAvatar,
+                        discord_tag: defaultTag,
+                        governorate: 'Damascus'
+                    })
+                    .select()
+                    .single();
+
+                if (!insertError && newProfile) {
+                    this.profile = newProfile;
+                } else {
+                    this.profile = null;
+                }
+            } else {
+                this.profile = authData.profile;
+            }
+
+            // Apply background pattern state from profile preference
+            if (this.profile && this.profile.disable_bg_pattern) {
+                document.body.classList.add('no-bg-pattern');
+            } else {
+                document.body.classList.remove('no-bg-pattern');
+            }
         } else {
             this.user = null;
             this.profile = null;
+            document.body.classList.remove('no-bg-pattern');
         }
     },
 
