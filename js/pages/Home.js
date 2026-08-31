@@ -156,9 +156,9 @@ export default {
                 <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; font-family: 'Lexend Deca', sans-serif; font-size: 0.9rem;">
                     <router-link to="/rules" style="color: #edebe0; opacity: 0.8; text-decoration: none; transition: opacity 0.2s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.8">Submission Guidelines</router-link>
                     <span style="opacity: 0.3;">|</span>
-                    <router-link to="/rules" style="color: #edebe0; opacity: 0.8; text-decoration: none; transition: opacity 0.2s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.8">Terms of Service</router-link>
+                    <router-link to="/" style="color: #edebe0; opacity: 0.8; text-decoration: none; transition: opacity 0.2s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.8">Terms of Service</router-link>
                     <span style="opacity: 0.3;">|</span>
-                    <router-link to="/rules" style="color: #edebe0; opacity: 0.8; text-decoration: none; transition: opacity 0.2s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.8">Privacy Policy</router-link>
+                    <router-link to="/" style="color: #edebe0; opacity: 0.8; text-decoration: none; transition: opacity 0.2s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.8">Privacy Policy</router-link>
                 </div>
                 
                 <div style="display: flex; gap: 1rem; align-items: center; margin: 0.5rem 0;">
