@@ -152,7 +152,7 @@ export default {
             </div>
 
             <!-- OFFICIAL FOOTER -->
-            <footer style="background: rgba(0,15,13,0.95); border-top: 1px solid rgba(185,167,121,0.2); padding: 2.5rem 1.5rem; text-align: center; margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; align-items: center; box-sizing: border-box;">
+            <footer style="background: rgba(0,15,13,0.95); border-top: 1px solid rgba(185,167,121,0.2); padding: 2.5rem 2rem; text-align: center; margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; align-items: center; width: 100vw; position: relative; margin-left: calc(-50vw + 50%); box-sizing: border-box;">
                 <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; font-family: 'Lexend Deca', sans-serif; font-size: 0.9rem;">
                     <router-link to="/rules" style="color: #edebe0; opacity: 0.8; text-decoration: none; transition: opacity 0.2s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.8">Submission Guidelines</router-link>
                     <span style="opacity: 0.3;">|</span>
