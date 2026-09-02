@@ -1,0 +1,17 @@
+{
+    "id": 127323087,
+    "name": "Society",
+    "author": "ewop",
+    "creators": ["ewop", "Deadlox", "Endlevel", "Goob", "hattoru", "silver", "GrenadeofTacos"],
+    "verifier": "knoeppel",
+    "verification": "https://youtu.be/k0dVumLpjSE",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "orqng3",
+            "link": "https://youtu.be/k0dVumLpjSE",
+            "percent": 100
+        }
+    ]
+}
