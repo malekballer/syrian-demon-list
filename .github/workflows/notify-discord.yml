@@ -1,0 +1,39 @@
+name: Notify Discord of list changes
+
+on:
+  workflow_dispatch:
+    inputs:
+      list_file:
+        description: "Path to the ordered list JSON file"
+        required: true
+        default: "data/_list.json"
+      compare_ref:
+        description: "Git ref to diff against (e.g. HEAD~1, or a commit SHA)"
+        required: true
+        default: "HEAD~1"
+      data_dir:
+        description: "Folder with one JSON file per level (used for display names, optional)"
+        required: false
+        default: "data"
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need full history so `compare_ref` can resolve
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run notifier
+        env:
+          LIST_FILE: ${{ inputs.list_file }}
+          COMPARE_REF: ${{ inputs.compare_ref }}
+          DATA_DIR: ${{ inputs.data_dir }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: node scripts/notify-discord.mjs
