@@ -11,8 +11,12 @@ import { execFileSync } from "node:child_process";
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
-const LIST_FILE = process.env.LIST_FILE || "data/_list.json";
-const COMPARE_REF = process.env.COMPARE_REF || "HEAD~1";
+const ZERO_SHA = "0000000000000000000000000000000000000000";
+const LIST_FILE = process.env.LIST_FILE || "data/list.json";
+const COMPARE_REF =
+  !process.env.COMPARE_REF || process.env.COMPARE_REF === ZERO_SHA
+    ? "HEAD~1"
+    : process.env.COMPARE_REF;
 const DATA_DIR = process.env.DATA_DIR || "data";
 const WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
@@ -124,7 +128,7 @@ function formatMessage(entry) {
   if (entry.above) parts.push(`above **${nameOf(entry.above)}**`);
   if (entry.below) parts.push(`below **${nameOf(entry.below)}**`);
   const suffix = parts.length ? `, ${parts.join(" and ")}` : "";
-  return `**${name}** has been placed at #${entry.position}${suffix}`;
+  return `- **${name}** has been placed at #${entry.position}${suffix}`;
 }
 
 // ---- Discord ----
