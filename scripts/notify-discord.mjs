@@ -122,7 +122,7 @@ function nameOf(slug) {
 function formatMessage(entry) {
   const name = nameOf(entry.slug);
   if (entry.type === "removed") {
-    return `**${name}** has been removed from the list`;
+    return `- **${name}** has been removed from the list`;
   }
   const parts = [];
   if (entry.above) parts.push(`above **${nameOf(entry.above)}**`);
