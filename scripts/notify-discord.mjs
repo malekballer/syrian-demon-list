@@ -125,8 +125,8 @@ function formatMessage(entry) {
     return `- **${name}** has been removed from the list`;
   }
   const parts = [];
-  if (entry.above) parts.push(`above **${nameOf(entry.above)}**`);
-  if (entry.below) parts.push(`below **${nameOf(entry.below)}**`);
+  if (entry.above) parts.push(`below **${nameOf(entry.above)}**`);
+  if (entry.below) parts.push(`above **${nameOf(entry.below)}**`);
   const suffix = parts.length ? `, ${parts.join(" and ")}` : "";
   return `- **${name}** has been placed at #${entry.position}${suffix}`;
 }
