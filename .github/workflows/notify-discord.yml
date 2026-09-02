@@ -1,16 +1,18 @@
 name: Notify Discord of list changes
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "data/list.json"
   workflow_dispatch:
     inputs:
       list_file:
-        description: "Path to the ordered list JSON file"
-        required: true
-        default: "data/_list.json"
+        description: "Path to the ordered list JSON file (leave blank to use data/list.json)"
+        required: false
       compare_ref:
-        description: "Git ref to diff against (e.g. HEAD~1, or a commit SHA)"
-        required: true
-        default: "HEAD~1"
+        description: "Git ref to diff against, e.g. a commit SHA (leave blank to auto-detect the previous commit)"
+        required: false
       data_dir:
         description: "Folder with one JSON file per level (used for display names, optional)"
         required: false
@@ -32,8 +34,11 @@ jobs:
 
       - name: Run notifier
         env:
-          LIST_FILE: ${{ inputs.list_file }}
-          COMPARE_REF: ${{ inputs.compare_ref }}
-          DATA_DIR: ${{ inputs.data_dir }}
+          # On a push event, LIST_FILE/COMPARE_REF default to "the file that
+          # changed" / "what it looked like right before this push". A manual
+          # run can override either (e.g. to re-diff against an older commit).
+          LIST_FILE: ${{ inputs.list_file || 'data/list.json' }}
+          COMPARE_REF: ${{ inputs.compare_ref || github.event.before || 'HEAD~1' }}
+          DATA_DIR: ${{ inputs.data_dir || 'data' }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: node scripts/notify-discord.mjs
