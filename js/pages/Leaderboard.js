@@ -11,8 +11,8 @@ const FALLBACK_PFP = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000
 
 const SYRIAN_GOVERNORATES = [
     "Aleppo", "Damascus", "Daraa", "Deir ez-Zor", "Hama", 
-    "Al-Hasakah", "Homs", "Idlib", "Lattakia", "Quneitra", 
-    "Raqqa", "Rif Dimashq", "Aswada", "Tartous"
+    "Al-Hasakah", "Homs", "Idlib", "Latakia", "Quneitra", 
+    "Raqqa", "Rif Dimashq", "As-Suwayda", "Tartus"
 ];
 
 export default {
