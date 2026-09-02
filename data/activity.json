@@ -1,5 +1,11 @@
 [
   {
+    "id": "79290eb_list",
+    "author": "MrYellowEgg",
+    "message": "list details were updated",
+    "date": "2026-09-02 13:24:18 +0200"
+  },
+  {
     "id": "46440ec_Down_Bass",
     "author": "MrYellowEgg",
     "message": "Down Bass details were updated",
@@ -18,12 +24,6 @@
     "date": "2026-09-02 13:28:32 +0200"
   },
   {
-    "id": "79290eb_list",
-    "author": "MrYellowEgg",
-    "message": "list details were updated",
-    "date": "2026-09-02 13:24:18 +0200"
-  },
-  {
     "id": "8425275_Forbidden_Isle",
     "author": "MrYellowEgg",
     "message": "Forbidden Isle was placed on the list (First Victor: orqng3)",
@@ -40,11 +40,5 @@
     "author": "malekballer",
     "message": "Azurite (royen) was placed on the list (First Victor: orqng3)",
     "date": "2026-08-28 21:58:58 +0300"
-  },
-  {
-    "id": "df1e844_FIREPOWER",
-    "author": "malekballer",
-    "message": "FIREPOWER was placed on the list (First Victor: orqng3)",
-    "date": "2026-08-28 21:57:50 +0300"
   }
 ]
