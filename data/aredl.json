@@ -724,6 +724,7 @@
     "tags": [
       "2.2",
       "Long",
+      "NONG",
       "Clicksync",
       "Timings",
       "Overall"
@@ -1689,8 +1690,9 @@
     "tags": [
       "2.2",
       "XL",
-      "Learny",
-      "Memory"
+      "NONG",
+      "Memory",
+      "Nerve Control"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/127023313.webp"
   },
@@ -3202,6 +3204,7 @@
     "tags": [
       "2.1",
       "Long",
+      "NONG",
       "Timings",
       "Cube",
       "Ship"
@@ -3263,6 +3266,7 @@
     "tags": [
       "2.1",
       "XXL",
+      "NONG",
       "Timings",
       "Nerve Control",
       "Cube",
@@ -3337,6 +3341,7 @@
     "tags": [
       "2.1",
       "Long",
+      "NONG",
       "Timings",
       "Gimmicky",
       "Ship"
@@ -3554,6 +3559,7 @@
     "tags": [
       "2.1",
       "XXL",
+      "NONG",
       "Memory",
       "Gimmicky",
       "Nerve Control",
@@ -4740,6 +4746,7 @@
       "NONG",
       "Clicksync",
       "Fast-Paced",
+      "Chokepoints",
       "Learny",
       "High CPS",
       "Flow"
@@ -6043,11 +6050,12 @@
     "tags": [
       "2.1",
       "Long",
+      "NONG",
       "Fast-Paced",
       "Learny",
+      "Memory",
       "Gimmicky",
-      "Wave",
-      "Memory"
+      "Wave"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/86595871.webp"
   },
@@ -9135,10 +9143,11 @@
     "tags": [
       "2.2",
       "Long",
-      "Overall",
+      "NONG",
       "Timings",
       "Chokepoints",
-      "Learny"
+      "Learny",
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/100931101.webp"
   },
@@ -10954,6 +10963,7 @@
     "tags": [
       "2.1",
       "Long",
+      "NONG",
       "Fast-Paced",
       "Timings",
       "Ship",
@@ -13834,6 +13844,7 @@
     "tags": [
       "2.2",
       "Long",
+      "NONG",
       "Timings",
       "Learny",
       "Gimmicky",
@@ -14447,8 +14458,9 @@
     "tags": [
       "2.2",
       "Long",
-      "Overall",
-      "Timings"
+      "NONG",
+      "Timings",
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/111230291.webp"
   },
@@ -14609,6 +14621,7 @@
     "tags": [
       "2.1",
       "Long",
+      "NONG",
       "Clicksync",
       "Fast-Paced",
       "Timings",
@@ -14746,6 +14759,7 @@
     "tags": [
       "2.2",
       "Long",
+      "NONG",
       "Memory",
       "Ship",
       "Wave"
@@ -14910,6 +14924,7 @@
     "tags": [
       "2.2",
       "Long",
+      "NONG",
       "Clicksync",
       "Fast-Paced",
       "Flow",
@@ -17534,6 +17549,7 @@
     "tags": [
       "2.1",
       "XL",
+      "NONG",
       "Fast-Paced",
       "Memory",
       "Nerve Control",
@@ -18629,18 +18645,8 @@
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/80575901.webp"
   },
-  "90661998": {
-    "rank": 1580,
-    "tags": [
-      "2.1",
-      "Long",
-      "Timings",
-      "Ship"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/90661998.webp"
-  },
   "103011600": {
-    "rank": 1582,
+    "rank": 1581,
     "tags": [
       "2.2",
       "Long",
@@ -18650,7 +18656,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/103011600.webp"
   },
   "101301462": {
-    "rank": 1583,
+    "rank": 1582,
     "tags": [
       "2.2",
       "Medium",
@@ -18662,7 +18668,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/101301462.webp"
   },
   "112209834": {
-    "rank": 1584,
+    "rank": 1583,
     "tags": [
       "2.2",
       "Long",
@@ -18673,7 +18679,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/112209834.webp"
   },
   "73289291": {
-    "rank": 1585,
+    "rank": 1584,
     "tags": [
       "2.1",
       "Long",
@@ -18684,7 +18690,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/73289291.webp"
   },
   "91782999": {
-    "rank": 1586,
+    "rank": 1585,
     "tags": [
       "2.1",
       "Long",
@@ -18696,7 +18702,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/91782999.webp"
   },
   "104338596": {
-    "rank": 1588,
+    "rank": 1587,
     "tags": [
       "2.2",
       "Long",
@@ -18707,7 +18713,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/104338596.webp"
   },
   "109978039": {
-    "rank": 1589,
+    "rank": 1588,
     "tags": [
       "2.2",
       "Long",
@@ -18721,7 +18727,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/109978039.webp"
   },
   "80966929": {
-    "rank": 1590,
+    "rank": 1589,
     "tags": [
       "2.1",
       "Long",
@@ -18731,7 +18737,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/80966929.webp"
   },
   "78873287": {
-    "rank": 1591,
+    "rank": 1590,
     "tags": [
       "2.1",
       "Long",
@@ -18742,7 +18748,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/78873287.webp"
   },
   "81636212": {
-    "rank": 1592,
+    "rank": 1591,
     "tags": [
       "2.1",
       "Long",
@@ -18753,7 +18759,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/81636212.webp"
   },
   "81487788": {
-    "rank": 1593,
+    "rank": 1592,
     "tags": [
       "2.1",
       "Long",
@@ -18766,7 +18772,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/81487788.webp"
   },
   "92744725": {
-    "rank": 1594,
+    "rank": 1593,
     "tags": [
       "2.1",
       "XL",
@@ -18777,7 +18783,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/92744725.webp"
   },
   "58069223": {
-    "rank": 1595,
+    "rank": 1594,
     "tags": [
       "2.1",
       "Long",
@@ -18788,7 +18794,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/58069223.webp"
   },
   "88224089": {
-    "rank": 1596,
+    "rank": 1595,
     "tags": [
       "2.1",
       "Long",
@@ -18801,7 +18807,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/88224089.webp"
   },
   "90953648": {
-    "rank": 1597,
+    "rank": 1596,
     "tags": [
       "2.1",
       "Long",
@@ -18813,7 +18819,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/90953648.webp"
   },
   "71565140": {
-    "rank": 1598,
+    "rank": 1597,
     "tags": [
       "2.1",
       "Long",
@@ -18825,7 +18831,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/71565140.webp"
   },
   "814678": {
-    "rank": 1599,
+    "rank": 1598,
     "tags": [
       "1.6",
       "Long",
@@ -18837,7 +18843,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/814678.webp"
   },
   "44734648": {
-    "rank": 1600,
+    "rank": 1599,
     "tags": [
       "2.1",
       "Long",
@@ -18847,7 +18853,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/44734648.webp"
   },
   "23328970": {
-    "rank": 1601,
+    "rank": 1600,
     "tags": [
       "1.7",
       "Long",
@@ -18860,7 +18866,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/23328970.webp"
   },
   "38306937": {
-    "rank": 1602,
+    "rank": 1601,
     "tags": [
       "2.1",
       "Long",
@@ -18870,7 +18876,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/38306937.webp"
   },
   "90772080": {
-    "rank": 1603,
+    "rank": 1602,
     "tags": [
       "2.1",
       "Medium",
@@ -18882,7 +18888,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/90772080.webp"
   },
   "90451473": {
-    "rank": 1604,
+    "rank": 1603,
     "tags": [
       "2.1",
       "Long",
@@ -18894,7 +18900,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/90451473.webp"
   },
   "82599323": {
-    "rank": 1605,
+    "rank": 1604,
     "tags": [
       "2.1",
       "Long",
@@ -18906,7 +18912,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/82599323.webp"
   },
   "62809982": {
-    "rank": 1606,
+    "rank": 1605,
     "tags": [
       "2.1",
       "Long",
@@ -18918,7 +18924,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/62809982.webp"
   },
   "82671886": {
-    "rank": 1607,
+    "rank": 1606,
     "tags": [
       "2.1",
       "Long",
