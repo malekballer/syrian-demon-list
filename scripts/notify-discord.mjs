@@ -112,7 +112,7 @@ function formatMessage(entry, oldArr = []) {
   if (entry.type === "removed") {
     return {
       type: "removed",
-      rawText: `- **[REMOVED]** **${name}** has been removed from the list`,
+      rawText: `- **${name}** has been removed from the list`,
       cleanText: `${name} has been removed from the list`
     };
   }
@@ -125,7 +125,7 @@ function formatMessage(entry, oldArr = []) {
   if (entry.type === "added") {
     return {
       type: "placed",
-      rawText: `- **[PLACED]** **${name}** has been placed at #${entry.position}${suffix}`,
+      rawText: `- **${name}** has been placed at #${entry.position}${suffix}`,
       cleanText: `${name} was placed at #${entry.position}${suffix.replace(/\*\*/g, '')}`
     };
   }
@@ -137,27 +137,27 @@ function formatMessage(entry, oldArr = []) {
       if (entry.position < oldPos) {
         return {
           type: "raised",
-          rawText: `- **[RAISED]** **${name}** has been raised from #${oldPos} to #${entry.position}${suffix}`,
+          rawText: `- **${name}** has been raised from #${oldPos} to #${entry.position}${suffix}`,
           cleanText: `${name} was raised from #${oldPos} to #${entry.position}${suffix.replace(/\*\*/g, '')}`
         };
       } else if (entry.position > oldPos) {
         return {
           type: "lowered",
-          rawText: `- **[LOWERED]** **${name}** has been lowered from #${oldPos} to #${entry.position}${suffix}`,
+          rawText: `- **${name}** has been lowered from #${oldPos} to #${entry.position}${suffix}`,
           cleanText: `${name} was lowered from #${oldPos} to #${entry.position}${suffix.replace(/\*\*/g, '')}`
         };
       }
     }
     return {
       type: "moved",
-      rawText: `- **[MOVED]** **${name}** has been moved to #${entry.position}${suffix}`,
+      rawText: `- ***${name}** has been moved to #${entry.position}${suffix}`,
       cleanText: `${name} was moved to #${entry.position}${suffix.replace(/\*\*/g, '')}`
     };
   }
 
   return {
     type: "placed",
-    rawText: `- **[PLACED]** **${name}** has been placed at #${entry.position}${suffix}`,
+    rawText: `- **${name}** has been placed at #${entry.position}${suffix}`,
     cleanText: `${name} was placed at #${entry.position}${suffix.replace(/\*\*/g, '')}`
   };
 }
