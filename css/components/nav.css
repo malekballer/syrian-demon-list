@@ -1,101 +1,384 @@
-/* Header Container */
+/* ============================================================
+   HEADER & NAVBAR (css/components/nav.css)
+   ============================================================ */
+
+/* Universal Header Bar (Pixel-Identical on ALL Pages) */
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 4.5rem;
-    padding: 0 1.5rem;
-    box-sizing: border-box;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 2.25rem !important;
+    height: 4.5rem !important;
+    min-height: 4.5rem !important;
+    max-height: 4.5rem !important;
+    background-color: rgba(0, 38, 35, 0.9) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(185, 167, 121, 0.35) !important;
+    border-radius: 9999px !important;
+    width: 98.5% !important;
+    max-width: 1980px !important;
+    margin: 0.75rem auto 0 auto !important;
+    position: sticky !important;
+    top: 0.75rem !important;
+    z-index: 1000 !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    box-sizing: border-box !important;
 }
 
 /* Logo Section */
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-shrink: 0;
+header .logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    flex-shrink: 0 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
 }
 
-.nav__logo {
-    height: 2.2rem;
-    width: auto;
-    object-fit: contain;
+header .logo img.nav__logo {
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: contain !important;
 }
 
-/* Navigation Tabs */
-.nav {
-    display: flex;
-    column-gap: 2rem;
-    align-items: center;
+header .logo h2 {
+    font-family: 'Hayyakum Allah', 'Lexend Deca', sans-serif !important;
+    font-size: 1.95rem !important;
+    font-weight: normal !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    transform: translateY(2px);
+    line-height: 1 !important;
 }
 
+/* Desktop Navigation Container */
+header .nav {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2.5rem !important;
+    flex: 1 !important;
+    margin: 0 1rem !important;
+}
+
+/* Kill all pseudo-elements and extra borders on nav links */
+header .nav *::before,
+header .nav *::after,
+header .nav a::before,
+header .nav a::after,
+.nav__tab::before,
+.nav__tab::after {
+    display: none !important;
+    content: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    border: none !important;
+    transition: none !important;
+}
+
+/* Single clean tab border */
+header .nav a,
 .nav .nav__tab {
-    padding-top: 4px;
-    border-bottom: 4px solid transparent;
-    display: flex;
-    align-items: center;
-    padding-inline: 0.5rem;
-    transition: border-color 100ms ease;
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 0.5rem 0.4rem 0.65rem 0.4rem !important;
+    color: #edebe0 !important;
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    text-decoration: none !important;
+    border: none !important;
+    border-bottom: 2.5px solid transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: border-color 0.15s ease, color 0.15s ease !important;
 }
 
-.nav .nav__tab.router-link-active {
-    border-color: var(--color-on-primary);
+/* Active & Hover share the single border */
+header .nav a:hover,
+.nav .nav__tab:hover,
+header .nav a.router-link-active,
+header .nav a.router-link-exact-active,
+.nav .nav__tab.router-link-active,
+.nav .nav__tab.active {
+    border-bottom-color: #b9a779 !important;
+    color: #b9a779 !important;
+    text-decoration: none !important;
 }
 
-.nav .nav__tab:hover {
-    border-color: var(--color-on-primary);
+/* Desktop Actions Section */
+header .nav__actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    flex-shrink: 0 !important;
 }
 
-/* Actions Wrapper (Dark toggle, Discord, Submit CTA) */
-.nav__actions {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
+header .nav__actions .nav__icon {
+    height: 2.6rem !important;
+    width: 2.6rem !important;
+    border: none !important;
+    background-color: transparent !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    transition: background-color 0.2s ease, transform 0.2s ease !important;
 }
 
-.nav__actions .nav__icon {
-    height: 3rem;
-    width: 3rem;
-    border: none;
-    background-color: transparent;
-    border-radius: 50%;
+header .nav__actions .nav__icon:hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    transform: scale(1.08) !important;
+}
+
+header .nav__actions .nav__icon img {
+    height: 1.45rem !important;
+    width: 1.45rem !important;
+    object-fit: contain !important;
+}
+
+header .nav__actions .nav__cta {
+    background: #b9a779 !important;
+    color: #002623 !important;
+    font-weight: 800 !important;
+    border: none !important;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 100ms ease;
+    padding: 0.75rem 1.25rem !important;
+    border-radius: 0.5rem !important;
+    box-shadow: 0 4px 12px rgba(185, 167, 121, 0.35) !important;
+    transition: transform 0.2s ease, filter 0.2s ease !important;
+    white-space: nowrap !important;
 }
 
-.nav__actions .nav__icon:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+header .nav__actions .nav__cta:hover {
+    background: #c5b487 !important;
+    transform: translateY(-1px) !important;
+    filter: brightness(1.05) !important;
 }
 
-.nav__actions .nav__icon img {
-    height: 1.5rem;
-    width: 1.5rem;
-    object-fit: contain;
+/* ============================================================
+   AREDL MOBILE DRAWER (<= 1200px)
+   ============================================================ */
+.mobile-hamburger-btn,
+.mobile-drawer,
+.mobile-drawer-overlay {
+    display: none !important;
 }
 
-.nav__actions .nav__cta {
-    margin-left: 0.5rem;
-    padding: 0.75rem 1.25rem;
-    background-color: var(--color-on-primary);
-    color: var(--color-primary);
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 0.5rem 0 rgba(0, 0, 102, 0.5);
-    transition: transform 100ms ease;
-    white-space: nowrap;
-}
+@media screen and (max-width: 1200px) {
+    /* Universal buffer for ALL pages so content starts cleanly below the fixed header */
+    #app > div[style*="flex-grow: 1"] {
+        padding-top: 4.5rem !important;
+        box-sizing: border-box !important;
+    }
+    /* Fixed on ALL mobile pages, snug width & margin matching pic 3 */
+    header {
+        position: fixed !important;
+        top: 0.4rem !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 9999 !important;
+        height: 3.5rem !important;
+        min-height: 3.5rem !important;
+        max-height: 3.5rem !important;
+        padding: 0 1.25rem !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 96% !important;
+        margin: 0 !important;
+        border-radius: 9999px !important;
+        overflow: hidden !important;
+        background-color: rgba(0, 38, 35, 0.96) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+    }
 
-.nav__actions .nav__cta:hover:not(:active) {
-    transform: translateY(-2px);
-}
-/* Automatically invert List Editor icons to white in Dark Mode */
-.dark .editors img,
-body.dark .editors img,
-header.dark ~ .page-list .editors img {
-    filter: brightness(0) invert(1);
+    header .logo h2 {
+        font-size: 1.2rem !important;
+    }
+
+    header .logo img.nav__logo {
+        width: 28px !important;
+        height: 28px !important;
+    }
+
+    /* Hide desktop nav links & desktop action buttons from the top bar */
+    header .nav,
+    .desktop-nav,
+    header .nav__actions,
+    .desktop-actions {
+        display: none !important;
+    }
+
+    /* Show hamburger button */
+    .mobile-hamburger-btn {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: transparent !important;
+        border: none !important;
+        cursor: pointer !important;
+        padding: 0.4rem !important;
+        border-radius: 8px !important;
+    }
+
+    body:has(.mobile-drawer.open) {
+        overflow: hidden !important;
+        touch-action: none !important;
+    }
+
+    /* Dimmed overlay: blocks all touch events from passing through */
+    .mobile-drawer-overlay {
+        display: block !important;
+        position: fixed !important;
+        inset: 0 !important;
+        background: rgba(0, 0, 0, 0.75) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        z-index: 999998 !important;
+        touch-action: none !important;
+        pointer-events: auto !important;
+    }
+
+    /* AREDL Slide-Out Drawer Menu (Kills the vignette shadow bug when closed) */
+    .mobile-drawer {
+        display: flex !important;
+        flex-direction: column !important;
+        position: fixed !important;
+        top: 0 !important;
+        right: 0 !important;
+        width: 290px !important;
+        height: 100vh !important;
+        background: #001917 !important;
+        border-left: 1px solid rgba(185, 167, 121, 0.3) !important;
+        padding: 1.5rem !important;
+        padding-bottom: 2.5rem !important;
+        box-sizing: border-box !important;
+        z-index: 999999 !important;
+        box-shadow: -10px 0 35px rgba(0, 0, 0, 0.8) !important;
+        visibility: hidden !important; /* <--- KILLS VIGNETTE SHADOW WHEN CLOSED */
+        transform: translateX(100%);
+        transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1), visibility 0.28s !important;
+    }
+
+    .mobile-drawer.open {
+        visibility: visible !important;
+        transform: translateX(0) !important;
+    }
+
+    .drawer-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid rgba(185, 167, 121, 0.2);
+    }
+
+    .drawer-header span {
+        font-family: 'Hayyakum Allah', 'Lexend Deca', sans-serif !important;
+        font-size: 1.25rem !important;
+        color: #ffffff !important;
+    }
+
+    .drawer-close-btn {
+        background: none;
+        border: none;
+        color: #b9a779;
+        font-size: 1.25rem;
+        cursor: pointer;
+        padding: 0.25rem;
+        font-weight: 800;
+    }
+
+    .drawer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+
+    .drawer-link {
+        font-family: 'Lexend Deca', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #edebe0;
+        text-decoration: none;
+        padding: 0.6rem 0.5rem;
+        border-radius: 8px;
+        letter-spacing: 0.5px;
+        transition: all 0.2s ease;
+    }
+
+    .drawer-link:hover,
+    .drawer-link.active {
+        color: #b9a779 !important;
+        background: rgba(185, 167, 121, 0.12);
+        padding-left: 0.85rem;
+    }
+
+    .drawer-divider {
+        width: 100%;
+        height: 1px;
+        background: rgba(185, 167, 121, 0.2);
+        margin: 1.5rem 0;
+    }
+
+    .drawer-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: auto;
+    }
+
+    .drawer-btn {
+        width: 100% !important;
+        padding: 0.75rem !important;
+        border-radius: 10px !important;
+        font-family: 'Lexend Deca', sans-serif !important;
+        font-size: 0.88rem !important;
+        font-weight: 800 !important;
+        cursor: pointer !important;
+        text-align: center;
+    }
+
+    .drawer-outline-btn {
+        width: 100% !important;
+        padding: 0.7rem !important;
+        border-radius: 10px !important;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(185, 167, 121, 0.3);
+        color: #edebe0;
+        font-family: 'Lexend Deca', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .drawer-discord-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: #edebe0;
+        opacity: 0.7;
+        text-decoration: none;
+        font-family: 'Lexend Deca', sans-serif;
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+        transition: opacity 0.2s;
+    }
+
+    .drawer-discord-link:hover {
+        opacity: 1;
+        color: #b9a779;
+    }
 }

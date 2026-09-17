@@ -1,15 +1,24 @@
 import routes from './routes.js';
 import { supabase, getAuthenticatedUser, loginWithDiscord, logoutUser } from './supabase.js';
+import { DISCORD_SERVER_ID, DISCORD_INVITE_URL, DISCORD_GOV_ROLES } from './config.js';
 import SubmissionModal from './components/SubmissionModal.js';
 import ProfileModal from './components/ProfileModal.js';
 
 export const store = Vue.reactive({
-    dark: JSON.parse(localStorage.getItem('dark')) || false,
+    dark: JSON.parse(localStorage.getItem('dark')) ?? true,
     currentPath: window.location.hash.slice(1) || '/',
     user: null,
     profile: null,
     showSubmissionModal: false,
     showProfileModal: false,
+    showMobileNav: false,
+
+    toggleMobileNav() {
+        this.showMobileNav = !this.showMobileNav;
+    },
+    closeMobileNav() {
+        this.showMobileNav = false;
+    },
 
     toggleDark() {
         this.dark = !this.dark;
@@ -19,37 +28,93 @@ export const store = Vue.reactive({
     async checkAuth() {
         const authData = await getAuthenticatedUser();
         if (authData && authData.user) {
-            this.user = authData.user;
+            const user = authData.user;
+            const meta = user.user_metadata || {};
             
-            // If user is logged in via Supabase but doesn't have a profile row yet, auto-create it instantly!
-            if (!authData.profile) {
-                const meta = authData.user.user_metadata || {};
-                const defaultUsername = meta.preferred_username || meta.user_name || meta.full_name || `Player_${authData.user.id.slice(0, 5)}`;
-                const defaultAvatar = meta.avatar_url || meta.picture || 'https://assets.aredl.net/avatars/default.png';
-                const defaultTag = meta.preferred_username || meta.user_name || null;
+            // Latest Discord avatar & username
+            const latestAvatar = meta.avatar_url || meta.picture || 'https://assets.aredl.net/avatars/default.png';
+            const latestUsername = meta.full_name || meta.preferred_username || meta.user_name || `Player_${user.id.slice(0, 5)}`;
+            const latestTag = meta.preferred_username || meta.user_name || null;
 
-                const { data: newProfile, error: insertError } = await supabase
-                    .from('profiles')
-                    .upsert({
-                        id: authData.user.id,
-                        username: defaultUsername,
-                        pfp_url: defaultAvatar,
-                        discord_tag: defaultTag,
-                        governorate: 'Damascus'
-                    })
-                    .select()
-                    .single();
+            // Get Discord OAuth Provider Token to check guild membership & roles
+            const { data: { session } } = await supabase.auth.getSession();
+            const providerToken = session?.provider_token;
 
-                if (!insertError && newProfile) {
-                    this.profile = newProfile;
-                } else {
-                    this.profile = null;
+            let assignedGov = null;
+
+            if (providerToken) {
+                try {
+                    const memberRes = await fetch(`https://discord.com/api/v10/users/@me/guilds/${DISCORD_SERVER_ID}/member`, {
+                        headers: {
+                            Authorization: `Bearer ${providerToken}`
+                        }
+                    });
+
+                    // 1. GATE CHECK: If user is NOT in the server (404 or 403)
+                    if (memberRes.status === 404 || memberRes.status === 403) {
+                        await logoutUser();
+                        this.user = null;
+                        this.profile = null;
+                        alert("Access Denied: You must be a member of the Syrian Demon List Discord server to log in! Please join the server first.");
+                        window.location.href = DISCORD_INVITE_URL;
+                        return;
+                    }
+
+                    // 2. GOVERNORATE AUTO-ASSIGNMENT FROM ROLES
+                    if (memberRes.ok) {
+                        const member = await memberRes.json();
+                        const userRoles = member.roles || [];
+
+                        // Collect all governorates that match their Discord roles
+                        const matchedGovs = [];
+                        for (const roleId of userRoles) {
+                            if (DISCORD_GOV_ROLES[roleId]) {
+                                matchedGovs.push(DISCORD_GOV_ROLES[roleId]);
+                            }
+                        }
+
+                        // Resolve 2 governorates: If they already selected one in their profile and still have that role, keep it!
+                        if (matchedGovs.length > 0) {
+                            if (authData.profile && matchedGovs.includes(authData.profile.governorate)) {
+                                assignedGov = authData.profile.governorate;
+                            } else {
+                                assignedGov = matchedGovs[0];
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.warn("Discord member verification skipped/cached:", err);
                 }
+            }
+
+            // 3. AUTO-UPDATE PROFILE & PFP
+            const profilePayload = {
+                id: user.id,
+                username: authData.profile?.username || latestUsername,
+                pfp_url: latestAvatar, // Automatically updates Discord avatar!
+                discord_tag: latestTag
+            };
+
+            if (assignedGov) {
+                profilePayload.governorate = assignedGov;
+            } else if (!authData.profile?.governorate) {
+                profilePayload.governorate = 'Damascus';
+            }
+
+            const { data: syncedProfile, error: syncError } = await supabase
+                .from('profiles')
+                .upsert(profilePayload)
+                .select()
+                .single();
+
+            if (!syncError && syncedProfile) {
+                this.user = user;
+                this.profile = syncedProfile;
             } else {
+                this.user = user;
                 this.profile = authData.profile;
             }
 
-            // Apply background pattern state from profile preference
             if (this.profile && this.profile.disable_bg_pattern) {
                 document.body.classList.add('no-bg-pattern');
             } else {
@@ -90,7 +155,6 @@ const app = Vue.createApp({
     data: () => ({ store }),
 });
 
-// Register global modal components
 app.component('submission-modal', SubmissionModal);
 app.component('profile-modal', ProfileModal);
 
@@ -99,7 +163,6 @@ const router = VueRouter.createRouter({
     routes,
 });
 
-// Route Guard: Block non-editors from manually accessing /review
 router.beforeEach((to, from, next) => {
     if (to.path === '/review') {
         if (store.profile && store.profile.is_editor === true) {
@@ -114,6 +177,7 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to) => {
     store.currentPath = to.path;
+    store.showMobileNav = false;
 });
 
 app.use(router);

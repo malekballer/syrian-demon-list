@@ -52,6 +52,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
+    font-family: 'Lexend Deca', sans-serif !important;
     background-color: #002623 !important;
     color: #edebe0;
     background-image: url("../assets/mosaic.png") !important;
@@ -167,18 +168,44 @@ a.syrian-cta:hover {
 /* ============================================================
    MAIN THREE-COLUMN LAYOUT (Wider Left & Right Columns)
    ============================================================ */
+/* Restores full 460px list width & uses minmax(0, 1fr) so middle column can never push Editors off-screen */
+/* 1. Full Desktop (1920px): Restores wide 440px list cards and guarantees all 3 columns fit on screen */
 main, main.page-list {
     flex: 1;
     display: grid !important;
-    grid-template-columns: 460px minmax(0, 1fr) 500px !important; /* Widened side columns */
+    grid-template-columns: 440px minmax(0, 1fr) 420px !important;
     gap: 1.5rem !important;
-    padding: 1rem 1.5rem !important;
+    padding: 0.75rem 1.5rem !important;
     width: 100% !important;
     max-width: 1980px !important;
     margin: 0 auto !important;
     box-sizing: border-box !important;
     height: calc(100vh - 90px) !important;
     overflow: hidden !important;
+}
+
+/* 2. Smaller Laptops (1200px - 1440px): Proportionally scales columns so the right column NEVER disappears */
+@media screen and (max-width: 1440px) {
+    main, main.page-list {
+        grid-template-columns: 360px minmax(0, 1fr) 350px !important;
+        gap: 1rem !important;
+        padding: 0.75rem 1rem !important;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 1025px) {
+    main, main.page-list {
+        grid-template-columns: 310px minmax(0, 1fr) 300px !important;
+        gap: 0.75rem !important;
+        padding: 0.75rem 0.75rem !important;
+    }
+}
+
+/* Prevents any child from blowing out column widths */
+.list-container,
+.level-container,
+.meta-container {
+    min-width: 0 !important;
 }
 
 main > div,
@@ -286,21 +313,31 @@ main > div,
 }
 
 .hero-stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)) !important;
+    gap: 8px !important;
     margin-top: 2px !important;
+    width: 100% !important;
 }
 
 .stat-pill {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(0, 20, 18, 0.85);
-    backdrop-filter: blur(16px);
-    padding: 10px 16px;
-    border-radius: 14px;
-    border: 1px solid rgba(185, 167, 121, 0.2);
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: rgba(0, 20, 18, 0.85) !important;
+    backdrop-filter: blur(16px) !important;
+    padding: 7px 10px !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(185, 167, 121, 0.2) !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.stat-pill > div[style*="border-radius: 50%"],
+.stat-pill img {
+    width: 28px !important;
+    height: 28px !important;
+    flex-shrink: 0 !important;
 }
 
 /* ============================================================
@@ -500,7 +537,7 @@ table.list td.rank div,
     box-shadow: 0 0 12px rgba(185, 167, 121, 0.35) !important;
 }
 
-.leaderboard-container table.players-list td.player.active button * {
+.leaderboard-container table.players-list td.player.active button *:not(.staff-badge-container):not(.staff-badge-container *) {
     color: #002623 !important;
     font-weight: 800 !important;
 }
@@ -618,7 +655,7 @@ main.page-rules {
 
 .page-rules {
     width: 100% !important;
-    max-width: 900px !important;
+    max-width: 1024px !important;
     margin: 0 auto !important;
 }
 
@@ -691,19 +728,19 @@ textarea:focus,
     box-shadow: 0 0 0 2px rgba(185, 167, 121, 0.35) !important;
 }
 
-/* Lock horizontal scrolling globally */
+/* Lock horizontal scrolling globally without breaking sticky navbar/search */
 html, body, #app {
     width: 100% !important;
     max-width: 100vw !important;
-    overflow-x: hidden !important;
+    overflow-x: clip !important;
     margin: 0 !important;
     padding: 0 !important;
 }
 
 /* ============================================================
-   GLOBAL MOBILE RESPONSIVE MASTER FIX (< 900px)
+   GLOBAL MOBILE RESPONSIVE MASTER FIX (< 1024px)
    ============================================================ */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1024px) {
     header {
         flex-direction: column !important;
         align-items: center !important;
@@ -848,6 +885,9 @@ main.page-leaderboard-container {
 .board-and-profile-grid {
     display: grid !important;
     grid-template-columns: 460px minmax(0, 1fr) !important;
+    grid-template-rows: 1fr !important;
+    align-content: start !important;
+    align-items: stretch !important;
     gap: 1.5rem !important;
     width: 100% !important;
     flex: 1 !important;
@@ -856,6 +896,7 @@ main.page-leaderboard-container {
 }
 
 .board-container {
+    grid-row: 1 !important;
     width: 100% !important;
     height: 100% !important;
     overflow-y: auto !important;
@@ -864,6 +905,7 @@ main.page-leaderboard-container {
 }
 
 .player-container {
+    grid-row: 1 !important;
     width: 100% !important;
     height: 100% !important;
     overflow-y: auto !important;
@@ -900,6 +942,12 @@ main.page-leaderboard-container {
     border-radius: 6px !important;
     border: none !important;
     cursor: pointer !important;
+    transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.clear-gov-btn:hover {
+    filter: brightness(1.15) !important;
+    transform: translateY(-1px);
 }
 
 .reset-view-btn {
@@ -908,7 +956,14 @@ main.page-leaderboard-container {
     border: 1px solid rgba(185, 167, 121, 0.3) !important;
 }
 
-@media screen and (max-width: 900px) {
+.reset-view-btn:hover {
+    background: rgba(185, 167, 121, 0.25) !important;
+    border-color: #b9a779 !important;
+    color: #ffffff !important;
+    transform: translateY(-1px);
+}
+
+@media screen and (max-width: 1024px) {
     main:has(.page-leaderboard-container),
     main.page-leaderboard-container {
         height: auto !important;
@@ -989,4 +1044,763 @@ html {
 html {
     overflow-y: scroll;
     scrollbar-gutter: stable;
+}
+
+/* ============================================================
+   STAFF BADGE HOVER TOOLTIP
+   ============================================================ */
+.staff-badge-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.staff-badge-container .staff-tooltip {
+    visibility: hidden;
+    position: absolute;
+    bottom: 135%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #181818 !important;
+    color: #ffffff !important;
+    font-family: 'Lexend Deca', sans-serif !important;
+    border: 1px solid rgba(185, 167, 121, 0.4) !important;
+    padding: 0.3rem 0.65rem !important;
+    border-radius: 6px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
+    white-space: nowrap !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+    opacity: 0;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.staff-badge-container:hover .staff-tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-2px);
+}
+
+/* ============================================================
+   REWORKED EDITORS & AREDL-STYLE CHANGELOG
+   ============================================================ */
+
+/* Hero Title Font Restoration */
+.hero-title {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 2.2rem !important;
+    line-height: 1.1 !important;
+    color: #ffffff !important;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Section Titles */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+}
+
+.section-title {
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    color: #edebe0 !important;
+    letter-spacing: 0.5px;
+    margin: 0 !important;
+    text-transform: uppercase;
+}
+
+/* 1. EDITORS HIERARCHY */
+.editors-section {
+    margin-bottom: 1.75rem;
+}
+
+.editor-group {
+    margin-bottom: 0.9rem;
+}
+
+.editor-group-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #b9a779;
+    opacity: 0.85;
+    margin-bottom: 0.45rem;
+    padding-left: 0.2rem;
+}
+
+.editors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 0.6rem;
+}
+
+.editor-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.8rem;
+    background: rgba(0, 20, 18, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(185, 167, 121, 0.2);
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    /* NO movement on hover: clean border and glow only */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.editor-card:hover {
+    border-color: #b9a779;
+    background: rgba(0, 32, 29, 0.9);
+    box-shadow: 0 0 16px rgba(185, 167, 121, 0.35);
+}
+
+/* PFP FULL-SIZE FIX */
+.editor-avatar-wrap {
+    position: relative !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.editor-card img.editor-avatar,
+.editor-avatar-wrap img,
+img.editor-avatar {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* Avatar Border Accents */
+.editor-avatar-wrap.role-owner {
+    box-shadow: 0 0 0 2px #b9a779, 0 0 10px rgba(185, 167, 121, 0.4);
+}
+.editor-avatar-wrap.role-dev {
+    box-shadow: 0 0 0 2px #38bdf8, 0 0 10px rgba(56, 189, 248, 0.35);
+}
+.editor-avatar-wrap.role-admin {
+    box-shadow: 0 0 0 2px #f59e0b, 0 0 10px rgba(245, 158, 11, 0.35);
+}
+.editor-avatar-wrap.role-helper {
+    box-shadow: 0 0 0 2px #10b981, 0 0 8px rgba(16, 185, 129, 0.3);
+}
+
+.editor-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+}
+
+.editor-name-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.editor-name {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.editor-card:hover .editor-name {
+    color: #b9a779;
+}
+
+.editor-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.role-badge-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    filter: invert(1);
+    opacity: 0.9;
+}
+
+.editor-tag {
+    font-size: 0.7rem;
+    color: rgba(237, 235, 224, 0.65);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 2. MODERN CHANGELOG TIMELINE */
+.changelog-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.changelog-timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-height: 520px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
+}
+
+.changelog-timeline-container::-webkit-scrollbar {
+    width: 5px;
+}
+.changelog-timeline-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+.changelog-timeline-container::-webkit-scrollbar-thumb {
+    background: rgba(185, 167, 121, 0.3);
+    border-radius: 4px;
+}
+.changelog-timeline-container::-webkit-scrollbar-thumb:hover {
+    background: #b9a779;
+}
+
+.changelog-day-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.changelog-date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: fit-content;
+    background: rgba(0, 38, 35, 0.9);
+    border: 1px solid rgba(185, 167, 121, 0.3);
+    color: #b9a779;
+    padding: 0.25rem 0.65rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.changelog-items {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding-left: 1.25rem;
+    border-left: 2px solid rgba(185, 167, 121, 0.2);
+    margin-left: 0.65rem;
+}
+
+.changelog-item {
+    position: relative;
+    background: rgba(0, 20, 18, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    padding: 0.75rem 0.9rem;
+    /* NO movement on hover */
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.changelog-item:hover {
+    background: rgba(0, 26, 24, 0.9);
+    border-color: rgba(185, 167, 121, 0.5);
+    box-shadow: 0 0 14px rgba(185, 167, 121, 0.25);
+}
+
+.cl-dot {
+    position: absolute;
+    left: calc(-1.25rem - 6px);
+    top: 14px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #002623;
+    border: 2px solid #b9a779;
+    box-shadow: 0 0 8px rgba(185, 167, 121, 0.6);
+}
+
+.changelog-item.type-placed .cl-dot {
+    border-color: #b9a779;
+    box-shadow: 0 0 8px #b9a779;
+}
+.changelog-item.type-raised .cl-dot {
+    border-color: #10b981;
+    box-shadow: 0 0 8px #10b981;
+}
+.changelog-item.type-lowered .cl-dot {
+    border-color: #f59e0b;
+    box-shadow: 0 0 8px #f59e0b;
+}
+.changelog-item.type-removed .cl-dot {
+    border-color: #ef4444;
+    box-shadow: 0 0 8px #ef4444;
+}
+
+.cl-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.cl-header-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cl-badge {
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 0.1rem 0.45rem;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.badge-placed {
+    background: rgba(185, 167, 121, 0.2);
+    border: 1px solid rgba(185, 167, 121, 0.4);
+    color: #b9a779;
+}
+
+.badge-raised {
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #34d399;
+}
+
+.badge-lowered {
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: #f59e0b;
+}
+
+.badge-removed {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+}
+
+.cl-time {
+    font-size: 0.68rem;
+    opacity: 0.5;
+    font-weight: 500;
+}
+
+.cl-message {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: #edebe0;
+}
+
+/* CLICKABLE LEVEL LINKS */
+.cl-level-link {
+    color: #b9a779 !important;
+    font-weight: 800 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+    cursor: pointer !important;
+    transition: color 0.15s ease;
+}
+
+.cl-level-link:hover {
+    color: #ffffff !important;
+    text-shadow: 0 0 10px rgba(185, 167, 121, 0.8);
+}
+
+.cl-level-sublink {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+    cursor: pointer !important;
+    transition: color 0.15s ease;
+}
+
+.cl-level-sublink:hover {
+    color: #b9a779 !important;
+}
+
+.cl-rank {
+    font-weight: 800;
+    color: #b9a779;
+}
+
+.changelog-empty {
+    padding: 1.5rem;
+    text-align: center;
+    opacity: 0.5;
+    font-size: 0.9rem;
+}
+
+/* ============================================================
+   FIX RIGHT COLUMN GAP & TIGHTEN CHANGELOG
+   ============================================================ */
+.meta {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important; /* Eliminates the huge empty gap */
+    gap: 1.25rem !important;
+    height: auto !important;
+    min-height: 100% !important;
+}
+
+.editors-section {
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+.changelog-section {
+    margin-top: 0 !important;
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.changelog-timeline-container {
+    flex: 1 !important;
+    max-height: calc(100vh - 360px) !important;
+}
+
+/* AREDL Rank Clickable Pill Hover */
+.aredl-pill-link {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+}
+
+.aredl-pill-link:hover {
+    border-color: #b9a779 !important;
+    background: rgba(0, 32, 29, 0.95) !important;
+    box-shadow: 0 0 16px rgba(185, 167, 121, 0.35) !important;
+}
+
+.copy-id-pill {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+}
+
+.copy-id-pill:hover {
+    border-color: #b9a779 !important;
+    background: rgba(0, 32, 29, 0.95) !important;
+    box-shadow: 0 0 16px rgba(185, 167, 121, 0.35) !important;
+}
+
+
+/* ============================================================
+   STAFF BADGE ICON-ONLY & HOVER TOOLTIP FIX
+   ============================================================ */
+.staff-badge-wrap,
+.staff-badge-container {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+}
+
+.staff-icon-only {
+    width: 18px !important;
+    height: 18px !important;
+    object-fit: contain !important;
+    filter: brightness(0) invert(1) !important; /* Pure crisp white */
+    opacity: 0.9 !important;
+    transition: transform 0.2s ease, opacity 0.2s ease !important;
+}
+
+.staff-icon-only-sm {
+    width: 14px !important;
+    height: 14px !important;
+    object-fit: contain !important;
+    filter: brightness(0) invert(1) !important; /* Pure crisp white */
+    opacity: 0.85 !important;
+    transition: transform 0.2s ease, opacity 0.2s ease !important;
+}
+
+.staff-badge-wrap:hover .staff-icon-only,
+.staff-badge-wrap:hover .staff-icon-only-sm {
+    opacity: 1 !important;
+    transform: scale(1.15) !important;
+}
+
+/* Tooltip container */
+.staff-badge-wrap .staff-tooltip,
+.staff-badge-container .staff-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: #001f1c !important;
+    color: #ffffff !important; /* Always crisp white */
+    border: 1px solid rgba(185, 167, 121, 0.5) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7) !important;
+    padding: 0.35rem 0.65rem !important;
+    border-radius: 8px !important;
+    font-family: 'Lexend Deca', sans-serif !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
+    white-space: nowrap !important;
+    pointer-events: none;
+    z-index: 99999 !important;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+}
+
+.staff-badge-wrap .staff-tooltip::after,
+.staff-badge-container .staff-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #001f1c transparent transparent transparent;
+}
+
+.staff-badge-wrap:hover .staff-tooltip,
+.staff-badge-container:hover .staff-tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* FIX BUG 1: Prevents active button state from turning tooltip text dark */
+.leaderboard-container table.players-list td.player.active button .staff-tooltip,
+.leaderboard-container table.players-list td.player.active button .staff-tooltip * {
+    color: #ffffff !important;
+    background-color: #001f1c !important;
+}
+
+/* Replaces old tight line-heights */
+.leaderboard-container table.players-list span.player-name,
+.leaderboard-container table.players-list span.player-score,
+.leaderboard-container table.players-list span.player-subtext {
+    line-height: 1.3 !important;
+}
+
+/* Turns staff icons dark when the player is selected */
+.leaderboard-container table.players-list td.player.active button .staff-icon-only-sm,
+.leaderboard-container table.players-list td.player.active button .staff-icon-only {
+    filter: brightness(0) !important;
+    opacity: 0.85 !important;
+}
+
+
+/* ============================================================
+   STEALTH SCROLLBARS (Hidden until hovered on all pages)
+   ============================================================ */
+::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: transparent !important;
+    border-radius: 9999px !important;
+    transition: background 0.25s ease !important;
+}
+
+/* Appears only when the mouse hovers over the scrollable container */
+*:hover::-webkit-scrollbar-thumb {
+    background: rgba(185, 167, 121, 0.35) !important;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #b9a779 !important;
+}
+
+/* Firefox Support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+*:hover {
+    scrollbar-color: rgba(185, 167, 121, 0.35) transparent;
+}
+
+/* REMOVE MAIN PAGE SLIDER ON THE HOME PAGE */
+html:has(.home-page-wrapper),
+body:has(.home-page-wrapper) {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    overflow-y: auto !important;
+}
+
+html:has(.home-page-wrapper)::-webkit-scrollbar,
+body:has(.home-page-wrapper)::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+
+
+
+/* ============================================================
+   2. ELIMINATE HOME PAGE SCROLLBAR COMPLETELY
+   ============================================================ */
+html.home-no-scrollbar,
+html.home-no-scrollbar body,
+div:has(> .home-page-wrapper),
+div:has(.home-page-wrapper),
+.hide-home-scroll {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    overflow-y: auto !important;
+}
+
+html.home-no-scrollbar::-webkit-scrollbar,
+html.home-no-scrollbar body::-webkit-scrollbar,
+div:has(> .home-page-wrapper)::-webkit-scrollbar,
+div:has(.home-page-wrapper)::-webkit-scrollbar,
+.hide-home-scroll::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
+/* ============================================================
+   3. FULL-WIDTH ZERO-GAP FOOTER FIX
+   ============================================================ */
+.home-page-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* ============================================================
+   ZERO-SHIFT NAVBAR LOCK (Fixes navbar twitching between pages)
+   ============================================================ */
+
+/* 1. Remove the outer window scrollbar globally so width is 100% identical on all pages */
+html,
+body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    overflow-y: auto !important;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* 2. Lock header dimensions permanently */
+header {
+    width: 98.5% !important;
+    max-width: 1980px !important;
+    margin: 0.75rem auto 0 auto !important;
+    padding: 0 2.5rem !important;
+    box-sizing: border-box !important;
+}
+
+
+/* ============================================================
+   HOME PAGE MOBILE POLISH (<= 1024px)
+   ============================================================ */
+@media screen and (max-width: 1024px) {
+    /* 1. Prevent Hero Demon Logo Clipping */
+    .home-page-wrapper > div:first-child > div:first-child {
+        flex-direction: column-reverse !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 1.75rem 1.25rem !important;
+        gap: 1.25rem !important;
+    }
+
+    .home-page-wrapper > div:first-child > div:first-child > div:last-child img {
+        width: 110px !important;
+        height: 110px !important;
+    }
+
+    .home-page-wrapper > div:first-child > div:first-child h1 {
+        font-size: 2.2rem !important;
+    }
+
+    .home-page-wrapper > div:first-child > div:first-child div[style*="flex-direction: column; align-items: flex-start;"] {
+        align-items: center !important;
+    }
+
+    .home-page-wrapper > div:first-child > div:first-child div[style*="display: flex; gap: 0.85rem;"] {
+        justify-content: center !important;
+        width: 100% !important;
+    }
+
+    /* 2. Platform Statistics & Spotlights Mobile Spacing */
+    .home-page-wrapper div[style*="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Fix Mobile Home Page Scrolling & Proportions */
+    .home-page-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+        min-height: 100% !important;
+        overflow-y: visible !important;
+        padding-top: 0 !important; /* Removes double buffer so top spacing is normal */
+    }
+
+    .home-page-wrapper > div:first-child {
+        padding: 0.75rem !important;
+        gap: 1.25rem !important;
+    }
+
+    .home-page-wrapper div[style*="padding: 2.2rem;"] {
+        padding: 1.6rem 1.25rem !important;
+    }
+
+    .home-page-wrapper div[style*="min-height: 270px;"] {
+        min-height: 260px !important;
+    }
+
+    /* 3. Footer: Remove 100vw blowout on touch screens */
+    .home-page-wrapper footer {
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 2rem 1.25rem calc(2rem + env(safe-area-inset-bottom, 0px)) 1.25rem !important;
+    }
 }

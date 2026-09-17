@@ -2,13 +2,13 @@
 // message for every level that was added, moved, or removed.
 //
 // Env vars used:
-//   LIST_FILE            path to the ordered list JSON, e.g. "data/_list.json"
-//   COMPARE_REF           git ref to diff against, e.g. "HEAD~1"
-//   DATA_DIR              folder holding one JSON file per level (optional), default "data"
-//   DISCORD_WEBHOOK_URL   Discord webhook URL (from secrets)
+//   LIST_FILE            path to the ordered list JSON, e.g. "data/list.json"
+//   COMPARE_REF          git ref to diff against, e.g. "HEAD~1"
+//   DATA_DIR             folder holding level files, default "data"
+//   DISCORD_WEBHOOK_URL  Discord webhook URL (from secrets)
 
 import { execFileSync } from "node:child_process";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
 const ZERO_SHA = "0000000000000000000000000000000000000000";
@@ -19,11 +19,6 @@ const COMPARE_REF =
     : process.env.COMPARE_REF;
 const DATA_DIR = process.env.DATA_DIR || "data";
 const WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
-
-if (!WEBHOOK_URL) {
-  console.error("DISCORD_WEBHOOK_URL is not set.");
-  process.exit(1);
-}
 
 function readJsonAtRef(ref, file) {
   try {
@@ -41,8 +36,7 @@ function readJsonNow(file) {
   return JSON.parse(readFileSync(file, "utf8"));
 }
 
-// ---- diff (LCS-based: only flags entries whose relative order actually changed) ----
-
+// LCS-based diff to detect true relative positional shifts
 function lcsKeepIndices(oldArr, newArr) {
   const n = oldArr.length, m = newArr.length;
   const dp = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
@@ -80,8 +74,10 @@ function diffList(oldArr, newArr) {
       changed.push({
         slug,
         position: idx + 1,
-        above: idx > 0 ? newArr[idx - 1] : null,
-        below: idx < newArr.length - 1 ? newArr[idx + 1] : null,
+        // In GD: idx - 1 is harder (level sits below it)
+        // idx + 1 is easier (level sits above it)
+        harder: idx > 0 ? newArr[idx - 1] : null,
+        easier: idx < newArr.length - 1 ? newArr[idx + 1] : null,
         type: oldSet.has(slug) ? "moved" : "added",
       });
     }
@@ -90,12 +86,6 @@ function diffList(oldArr, newArr) {
   return { changed, removed };
 }
 
-// ---- display names ----
-
-// Falls back to splitting CamelCase slugs into words, e.g. "HatefulReflection"
-// -> "Hateful Reflection". Prefers a `name` field from DATA_DIR/<slug>.json
-// if that file exists, so this stays correct even if slugs and display
-// names diverge.
 const nameCache = new Map();
 function nameOf(slug) {
   if (nameCache.has(slug)) return nameCache.get(slug);
@@ -105,9 +95,7 @@ function nameOf(slug) {
     try {
       const data = JSON.parse(readFileSync(jsonPath, "utf8"));
       name = data.name || data.levelName || data.title;
-    } catch {
-      // ignore parse errors, fall back below
-    }
+    } catch {}
   }
   if (!name) {
     name = slug
@@ -119,27 +107,72 @@ function nameOf(slug) {
   return name;
 }
 
-function formatMessage(entry) {
+function formatMessage(entry, oldArr = []) {
   const name = nameOf(entry.slug);
   if (entry.type === "removed") {
-    return `- **${name}** has been removed from the list`;
+    return {
+      type: "removed",
+      rawText: `- **[REMOVED]** **${name}** has been removed from the list`,
+      cleanText: `${name} has been removed from the list`
+    };
   }
+
   const parts = [];
-  if (entry.above) parts.push(`below **${nameOf(entry.above)}**`);
-  if (entry.below) parts.push(`above **${nameOf(entry.below)}**`);
+  if (entry.easier) parts.push(`above **${nameOf(entry.easier)}**`);
+  if (entry.harder) parts.push(`below **${nameOf(entry.harder)}**`);
   const suffix = parts.length ? `, ${parts.join(" and ")}` : "";
-  return `- **${name}** has been placed at #${entry.position}${suffix}`;
+
+  if (entry.type === "added") {
+    return {
+      type: "placed",
+      rawText: `- **[PLACED]** **${name}** has been placed at #${entry.position}${suffix}`,
+      cleanText: `${name} was placed at #${entry.position}${suffix.replace(/\*\*/g, '')}`
+    };
+  }
+
+  if (entry.type === "moved") {
+    const oldIdx = oldArr.indexOf(entry.slug);
+    const oldPos = oldIdx !== -1 ? oldIdx + 1 : null;
+    if (oldPos !== null) {
+      if (entry.position < oldPos) {
+        return {
+          type: "raised",
+          rawText: `- **[RAISED]** **${name}** has been raised from #${oldPos} to #${entry.position}${suffix}`,
+          cleanText: `${name} was raised from #${oldPos} to #${entry.position}${suffix.replace(/\*\*/g, '')}`
+        };
+      } else if (entry.position > oldPos) {
+        return {
+          type: "lowered",
+          rawText: `- **[LOWERED]** **${name}** has been lowered from #${oldPos} to #${entry.position}${suffix}`,
+          cleanText: `${name} was lowered from #${oldPos} to #${entry.position}${suffix.replace(/\*\*/g, '')}`
+        };
+      }
+    }
+    return {
+      type: "moved",
+      rawText: `- **[MOVED]** **${name}** has been moved to #${entry.position}${suffix}`,
+      cleanText: `${name} was moved to #${entry.position}${suffix.replace(/\*\*/g, '')}`
+    };
+  }
+
+  return {
+    type: "placed",
+    rawText: `- **[PLACED]** **${name}** has been placed at #${entry.position}${suffix}`,
+    cleanText: `${name} was placed at #${entry.position}${suffix.replace(/\*\*/g, '')}`
+  };
 }
 
-// ---- Discord ----
-
-async function postToDiscord(lines) {
-  if (lines.length === 0) {
+async function postToDiscord(messages) {
+  if (!WEBHOOK_URL) {
+    console.warn("DISCORD_WEBHOOK_URL not set — skipping Discord message.");
+    return;
+  }
+  if (messages.length === 0) {
     console.log("No changes detected — nothing to post.");
     return;
   }
 
-  // Batch lines into chunks under Discord's 2000-char message limit.
+  const lines = messages.map(m => m.rawText);
   const chunks = [];
   let current = "";
   for (const line of lines) {
@@ -166,21 +199,43 @@ async function postToDiscord(lines) {
   }
 }
 
+function updateActivityJson(formattedEntries) {
+  const actPath = path.join(DATA_DIR, "activity.json");
+  if (!existsSync(actPath)) return;
+  try {
+    const current = JSON.parse(readFileSync(actPath, "utf8"));
+    const newItems = formattedEntries.map(e => ({
+      id: `act_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+      message: e.cleanText,
+      date: new Date().toISOString()
+    }));
+    const merged = [...newItems, ...current].slice(0, 50);
+    writeFileSync(actPath, JSON.stringify(merged, null, 2), "utf8");
+    console.log(`Updated activity.json with ${newItems.length} new entries.`);
+  } catch (err) {
+    console.warn("Could not sync activity.json:", err.message);
+  }
+}
+
 async function main() {
   const oldArr = readJsonAtRef(COMPARE_REF, LIST_FILE);
   const newArr = readJsonNow(LIST_FILE);
 
   const { changed, removed } = diffList(oldArr, newArr);
 
-  const lines = [
+  const formatted = [
     ...changed
       .sort((a, b) => a.position - b.position)
-      .map(formatMessage),
-    ...removed.map((slug) => formatMessage({ slug, type: "removed" })),
+      .map((entry) => formatMessage(entry, oldArr)),
+    ...removed.map((slug) => formatMessage({ slug, type: "removed" }, oldArr)),
   ];
 
-  lines.forEach((l) => console.log(l));
-  await postToDiscord(lines);
+  formatted.forEach((l) => console.log(l.rawText));
+
+  if (formatted.length > 0) {
+    updateActivityJson(formatted);
+    await postToDiscord(formatted);
+  }
 }
 
 main().catch((err) => {
