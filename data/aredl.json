@@ -876,6 +876,7 @@
       "XXL",
       "Timings",
       "Chokepoints",
+      "Unbalanced",
       "Memory",
       "Gimmicky",
       "Nerve Control",
@@ -2567,7 +2568,6 @@
       "XL",
       "Fast-Paced",
       "Timings",
-      "Flow",
       "Wave",
       "Overall"
     ],
@@ -4924,6 +4924,7 @@
       "Clicksync",
       "Timings",
       "Chokepoints",
+      "Unbalanced",
       "Learny",
       "Nerve Control",
       "Cube",
@@ -8901,7 +8902,6 @@
       "Timings",
       "Chokepoints",
       "Slow-Paced",
-      "Ship",
       "Wave",
       "Overall"
     ],
@@ -10712,6 +10712,7 @@
       "2.0",
       "Long",
       "Timings",
+      "Chokepoints",
       "Cube",
       "Ship",
       "Wave"
@@ -11735,9 +11736,11 @@
     "tags": [
       "2.2",
       "Long",
+      "Learny",
       "Gimmicky",
-      "Ship",
-      "Robot"
+      "Robot",
+      "Duals",
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/128235819.webp"
   },
@@ -12749,7 +12752,8 @@
       "Long",
       "Timings",
       "Chokepoints",
-      "UFO"
+      "UFO",
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/81010355.webp"
   },
