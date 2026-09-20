@@ -1,5 +1,18 @@
 [
   {
+    "id": "1f040b6_Breakout(Surv)",
+    "type": "placed",
+    "levelName": "Breakout(Surv)",
+    "levelId": "Breakout(Surv)",
+    "position": 83,
+    "oldPosition": null,
+    "easier": "Party Rock Anthem",
+    "easierId": "83658556",
+    "harder": "ZOOOOOOOOOOOOOOOOOOM",
+    "harderId": "95228237",
+    "date": "2026-09-20 20:08:54 +0400"
+  },
+  {
     "id": "3bddb26_Astrophobia",
     "type": "placed",
     "levelName": "Astrophobia",
@@ -627,44 +640,5 @@
     "harder": "Society",
     "harderId": "127323087",
     "date": "2026-09-02 14:02:19 +0200"
-  },
-  {
-    "id": "6529f47_HatefulReflection",
-    "type": "placed",
-    "levelName": "Hateful Reflection",
-    "levelId": "61132346",
-    "position": 46,
-    "oldPosition": null,
-    "easier": "Tenth Circle",
-    "easierId": "62592746",
-    "harder": "Sakupen Hell",
-    "harderId": "23262780",
-    "date": "2026-09-02 13:26:40 +0200"
-  },
-  {
-    "id": "6529f47_DownBass",
-    "type": "placed",
-    "levelName": "Down Bass",
-    "levelId": "8147005",
-    "position": 52,
-    "oldPosition": null,
-    "easier": "Prismatic Haze",
-    "easierId": "59899374",
-    "harder": "Bloodbath",
-    "harderId": "10565740",
-    "date": "2026-09-02 13:26:40 +0200"
-  },
-  {
-    "id": "79290eb_ForbiddenIsle",
-    "type": "placed",
-    "levelName": "Forbidden Isle",
-    "levelId": "63775846",
-    "position": 92,
-    "oldPosition": null,
-    "easier": "OVERDRIVE",
-    "easierId": "133401995",
-    "harder": "Cerebral Torment",
-    "harderId": "79807331",
-    "date": "2026-09-02 13:24:18 +0200"
   }
 ]
