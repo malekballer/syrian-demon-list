@@ -1,0 +1,17 @@
+{
+    "id": 59533451,
+    "name": "Breakout (Surv)",
+    "author": "Surv",
+    "creators": ["Surv, nwolc"],
+    "verifier": "Technical",
+    "verification": " https://youtu.be/KvV9ADWmL_Y",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "orqng3",
+            "link": "https://youtu.be/KvV9ADWmL_Y",
+            "percent": 100
+        }
+    ]
+}
