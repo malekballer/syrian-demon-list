@@ -13560,18 +13560,8 @@
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/96383314.webp"
   },
-  "88940074": {
-    "rank": 1134,
-    "tags": [
-      "2.1",
-      "Long",
-      "Timings",
-      "Overall"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/88940074.webp"
-  },
   "92473158": {
-    "rank": 1135,
+    "rank": 1134,
     "tags": [
       "2.1",
       "Long",
@@ -13582,7 +13572,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/92473158.webp"
   },
   "113769437": {
-    "rank": 1136,
+    "rank": 1135,
     "tags": [
       "2.2",
       "Long",
@@ -13592,7 +13582,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/113769437.webp"
   },
   "133299407": {
-    "rank": 1137,
+    "rank": 1136,
     "tags": [
       "2.2",
       "Long",
@@ -13603,7 +13593,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/133299407.webp"
   },
   "95617660": {
-    "rank": 1138,
+    "rank": 1137,
     "tags": [
       "2.1",
       "Long",
@@ -13614,6 +13604,16 @@
       "Fast-Paced"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/95617660.webp"
+  },
+  "88940074": {
+    "rank": 1138,
+    "tags": [
+      "2.1",
+      "Long",
+      "Timings",
+      "Overall"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/88940074.webp"
   },
   "67699606": {
     "rank": 1139,
@@ -16777,7 +16777,6 @@
       "XL",
       "Circles",
       "Nerve Control",
-      "Ship",
       "Wave"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/66851981.webp"
@@ -17938,8 +17937,20 @@
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/110027124.webp"
   },
-  "114784521": {
+  "129573719": {
     "rank": 1505,
+    "tags": [
+      "1.9PS",
+      "XXL",
+      "NONG",
+      "Chokepoints",
+      "Nerve Control",
+      "Overall"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/129573719.webp"
+  },
+  "114784521": {
+    "rank": 1506,
     "tags": [
       "2.2",
       "Long",
@@ -17949,7 +17960,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/114784521.webp"
   },
   "74924716": {
-    "rank": 1506,
+    "rank": 1507,
     "tags": [
       "2.1",
       "Medium",
@@ -17963,7 +17974,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/74924716.webp"
   },
   "44942295": {
-    "rank": 1507,
+    "rank": 1508,
     "tags": [
       "2.1",
       "XXL",
@@ -17975,7 +17986,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/44942295.webp"
   },
   "94767525": {
-    "rank": 1508,
+    "rank": 1509,
     "tags": [
       "2.1",
       "Long",
@@ -17986,7 +17997,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/94767525.webp"
   },
   "118613010": {
-    "rank": 1509,
+    "rank": 1510,
     "tags": [
       "1.9PS",
       "Long",
@@ -17995,18 +18006,6 @@
       "Flow"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/118613010.webp"
-  },
-  "129573719": {
-    "rank": 1510,
-    "tags": [
-      "1.9PS",
-      "XXL",
-      "NONG",
-      "Chokepoints",
-      "Nerve Control",
-      "Overall"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/129573719.webp"
   },
   "82382742": {
     "rank": 1511,
