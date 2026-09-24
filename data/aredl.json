@@ -2727,6 +2727,7 @@
       "Long",
       "Fast-Paced",
       "Timings",
+      "Chokepoints",
       "Learny",
       "Wave"
     ],
@@ -3431,9 +3432,12 @@
       "Long",
       "Clicksync",
       "Fast-Paced",
+      "Timings",
+      "High CPS",
       "Flow",
-      "Overall",
-      "High CPS"
+      "Cube",
+      "Ball",
+      "UFO"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/77681476.webp"
   },
@@ -4810,10 +4814,13 @@
       "NONG",
       "Clicksync",
       "Fast-Paced",
+      "Timings",
       "Chokepoints",
       "Learny",
       "High CPS",
-      "Flow"
+      "Flow",
+      "Wave",
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/71216292.webp"
   },
@@ -7772,9 +7779,12 @@
     "tags": [
       "2.1",
       "Long",
+      "Fast-Paced",
       "Timings",
       "Learny",
-      "Duals"
+      "Gimmicky",
+      "Duals",
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/78248443.webp"
   },
