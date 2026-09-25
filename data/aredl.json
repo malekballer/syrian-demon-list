@@ -409,8 +409,16 @@
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/93917076.webp"
   },
-  "27690100": {
+  "48991380": {
     "rank": 35,
+    "tags": [
+      "2.1",
+      "Long"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/48991380.webp"
+  },
+  "27690100": {
+    "rank": 36,
     "tags": [
       "2.1",
       "Long",
@@ -422,7 +430,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/27690100.webp"
   },
   "113599729": {
-    "rank": 36,
+    "rank": 37,
     "tags": [
       "2.2",
       "Long",
@@ -434,7 +442,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/113599729.webp"
   },
   "87665224": {
-    "rank": 37,
+    "rank": 38,
     "tags": [
       "2.1",
       "Long",
@@ -444,14 +452,6 @@
       "Wave"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/87665224.webp"
-  },
-  "48991380": {
-    "rank": 38,
-    "tags": [
-      "2.1",
-      "Long"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/48991380.webp"
   },
   "130327668": {
     "rank": 39,
@@ -946,6 +946,8 @@
       "Timings",
       "High CPS",
       "Nerve Control",
+      "Wave",
+      "New Swing",
       "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/113256247.webp"
@@ -994,133 +996,8 @@
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/99703915.webp"
   },
-  "81011195": {
-    "rank": 84,
-    "tags": [
-      "2.1",
-      "XL",
-      "Overall",
-      "Timings",
-      "Chokepoints",
-      "Nerve Control",
-      "Cube"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/81011195.webp"
-  },
-  "119689515": {
-    "rank": 85,
-    "tags": [
-      "2.2",
-      "XXL",
-      "Learny",
-      "Nerve Control",
-      "Overall"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/119689515.webp"
-  },
-  "125317359": {
-    "rank": 86,
-    "tags": [
-      "2.2",
-      "Long",
-      "Timings",
-      "Chokepoints",
-      "Cube",
-      "Ship"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/125317359.webp"
-  },
-  "114999625": {
-    "rank": 87,
-    "tags": [
-      "1.9PS",
-      "XXL+",
-      "Memory",
-      "Nerve Control"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/114999625.webp"
-  },
-  "93339534": {
-    "rank": 88,
-    "tags": [
-      "2.1",
-      "XXL+",
-      "Fast-Paced",
-      "Chokepoints",
-      "Nerve Control",
-      "Overall"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/93339534.webp"
-  },
-  "95719795": {
-    "rank": 89,
-    "tags": [
-      "2.2",
-      "XL",
-      "NONG",
-      "Learny",
-      "Gimmicky",
-      "Slow-Paced",
-      "Duals"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/95719795.webp"
-  },
-  "95998005": {
-    "rank": 90,
-    "tags": [
-      "2.1",
-      "Long",
-      "Timings",
-      "Ship"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/95998005.webp"
-  },
-  "110500920": {
-    "rank": 91,
-    "tags": [
-      "2.2",
-      "XL",
-      "Nerve Control",
-      "Overall"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/110500920.webp"
-  },
-  "95049815": {
-    "rank": 92,
-    "tags": [
-      "2.1",
-      "Long",
-      "Clicksync",
-      "Fast-Paced",
-      "High CPS",
-      "Flow",
-      "Overall"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/95049815.webp"
-  },
-  "105593215": {
-    "rank": 93,
-    "tags": [
-      "2.2",
-      "Long",
-      "Timings",
-      "Chokepoints",
-      "Cube"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/105593215.webp"
-  },
-  "125788781": {
-    "rank": 94,
-    "tags": [
-      "2.2",
-      "Long",
-      "Timings",
-      "Chokepoints"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/125788781.webp"
-  },
   "128093374": {
-    "rank": 95,
+    "rank": 84,
     "tags": [
       "2.2",
       "Long",
@@ -1133,6 +1010,133 @@
       "Spider"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/128093374.webp"
+  },
+  "81011195": {
+    "rank": 85,
+    "tags": [
+      "2.1",
+      "XL",
+      "Overall",
+      "Timings",
+      "Chokepoints",
+      "Nerve Control",
+      "Cube"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/81011195.webp"
+  },
+  "119689515": {
+    "rank": 86,
+    "tags": [
+      "2.2",
+      "XXL",
+      "Learny",
+      "Nerve Control",
+      "Overall"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/119689515.webp"
+  },
+  "125317359": {
+    "rank": 87,
+    "tags": [
+      "2.2",
+      "Long",
+      "Timings",
+      "Chokepoints",
+      "Cube",
+      "Ship"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/125317359.webp"
+  },
+  "114999625": {
+    "rank": 88,
+    "tags": [
+      "1.9PS",
+      "XXL+",
+      "Memory",
+      "Nerve Control"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/114999625.webp"
+  },
+  "93339534": {
+    "rank": 89,
+    "tags": [
+      "2.1",
+      "XXL+",
+      "Fast-Paced",
+      "Chokepoints",
+      "Nerve Control",
+      "Overall"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/93339534.webp"
+  },
+  "95719795": {
+    "rank": 90,
+    "tags": [
+      "2.2",
+      "XL",
+      "NONG",
+      "Learny",
+      "Gimmicky",
+      "Slow-Paced",
+      "Ship",
+      "UFO",
+      "Duals"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/95719795.webp"
+  },
+  "95998005": {
+    "rank": 91,
+    "tags": [
+      "2.1",
+      "Long",
+      "Timings",
+      "Ship"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/95998005.webp"
+  },
+  "110500920": {
+    "rank": 92,
+    "tags": [
+      "2.2",
+      "XL",
+      "Nerve Control",
+      "Overall"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/110500920.webp"
+  },
+  "95049815": {
+    "rank": 93,
+    "tags": [
+      "2.1",
+      "Long",
+      "Clicksync",
+      "Fast-Paced",
+      "High CPS",
+      "Flow",
+      "Overall"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/95049815.webp"
+  },
+  "105593215": {
+    "rank": 94,
+    "tags": [
+      "2.2",
+      "Long",
+      "Timings",
+      "Chokepoints",
+      "Cube"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/105593215.webp"
+  },
+  "125788781": {
+    "rank": 95,
+    "tags": [
+      "2.2",
+      "Long",
+      "Timings",
+      "Chokepoints"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/125788781.webp"
   },
   "82249742": {
     "rank": 96,
@@ -1286,7 +1290,8 @@
       "Long",
       "Timings",
       "Chokepoints",
-      "Ship"
+      "Ship",
+      "Old Swing"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/59075347.webp"
   },
@@ -1523,6 +1528,7 @@
       "NONG",
       "Fast-Paced",
       "Chokepoints",
+      "Unbalanced",
       "High CPS",
       "Wave"
     ],
@@ -1750,6 +1756,7 @@
       "Chokepoints",
       "Learny",
       "High CPS",
+      "Wave",
       "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/71434979.webp"
@@ -1784,11 +1791,12 @@
       "2.1",
       "Long",
       "NONG",
-      "Learny",
-      "Nerve Control",
       "Fast-Paced",
       "Timings",
-      "High CPS"
+      "Unbalanced",
+      "Learny",
+      "High CPS",
+      "Nerve Control"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/65588448.webp"
   },
@@ -2792,9 +2800,13 @@
       "2.1",
       "Long",
       "2P",
+      "Fast-Paced",
+      "Chokepoints",
+      "Unbalanced",
       "Memory",
       "Gimmicky",
-      "Bossfight"
+      "Bossfight",
+      "Nerve Control"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/93281587.webp"
   },
@@ -3240,6 +3252,7 @@
       "Long",
       "NONG",
       "Timings",
+      "Unbalanced",
       "Cube",
       "Ship"
     ],
@@ -3413,8 +3426,9 @@
       "Fast-Paced",
       "Learny",
       "High CPS",
-      "Wave",
-      "Ship"
+      "Flow",
+      "Ship",
+      "Wave"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/86412942.webp"
   },
@@ -4367,6 +4381,7 @@
       "Circles",
       "Timings",
       "Chokepoints",
+      "Unbalanced",
       "High CPS",
       "Nerve Control",
       "Wave"
@@ -5605,6 +5620,7 @@
       "2.1",
       "Long",
       "Timings",
+      "Chokepoints",
       "Slow-Paced",
       "Cube",
       "Ship",
@@ -5946,6 +5962,7 @@
       "XL",
       "Fast-Paced",
       "Chokepoints",
+      "Unbalanced",
       "Nerve Control",
       "Wave",
       "Overall"
@@ -5971,9 +5988,7 @@
       "Long",
       "Timings",
       "Wave",
-      "Chokepoints",
-      "Learny",
-      "High CPS"
+      "Chokepoints"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/36329434.webp"
   },
@@ -6530,6 +6545,7 @@
       "2.1",
       "XL",
       "Chokepoints",
+      "Unbalanced",
       "Gimmicky",
       "Ship"
     ],
@@ -7816,7 +7832,8 @@
       "Long",
       "Timings",
       "Learny",
-      "Slow-Paced"
+      "Slow-Paced",
+      "Robot"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/123902767.webp"
   },
@@ -8781,6 +8798,7 @@
       "Long",
       "Timings",
       "Chokepoints",
+      "Unbalanced",
       "Nerve Control",
       "Ship",
       "UFO",
@@ -9584,7 +9602,9 @@
       "2.2",
       "Long",
       "Memory",
-      "Mirror"
+      "Mirror",
+      "Cube",
+      "New Swing"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/114763530.webp"
   },
@@ -12047,7 +12067,7 @@
       "2.0",
       "Long",
       "Fast-Paced",
-      "Chokepoints",
+      "Unbalanced",
       "Ship",
       "Wave"
     ],
@@ -13616,6 +13636,7 @@
       "2.2",
       "Long",
       "Clicksync",
+      "Unbalanced",
       "Learny",
       "Gimmicky",
       "Wave"
@@ -15368,12 +15389,13 @@
   "20077821": {
     "rank": 1286,
     "tags": [
+      "2.0",
       "Long",
       "Chokepoints",
+      "Unbalanced",
       "Slow-Paced",
       "Ship",
-      "Old Swing",
-      "2.0"
+      "Old Swing"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/20077821.webp"
   },
@@ -17374,8 +17396,9 @@
     "tags": [
       "2.1",
       "Long",
-      "Overall",
-      "Old Swing"
+      "Unbalanced",
+      "Old Swing",
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/52289646.webp"
   },
@@ -18911,6 +18934,7 @@
       "1.8",
       "Long",
       "Chokepoints",
+      "Unbalanced",
       "Slow-Paced",
       "Ship",
       "Old Swing"
@@ -18923,6 +18947,7 @@
       "2.2",
       "Medium",
       "Chokepoints",
+      "Unbalanced",
       "High CPS",
       "Ship",
       "Wave"
