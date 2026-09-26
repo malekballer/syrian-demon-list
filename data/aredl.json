@@ -9880,8 +9880,8 @@
       "XL",
       "Fast-Paced",
       "Chokepoints",
+      "Unbalanced",
       "Learny",
-      "Memory",
       "Gimmicky",
       "Bossfight",
       "Duals"
@@ -17665,10 +17665,10 @@
     "tags": [
       "2.1",
       "Long",
-      "Cube",
       "Timings",
+      "Unbalanced",
       "Slow-Paced",
-      "Chokepoints"
+      "Cube"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/88017017.webp"
   },
@@ -18464,7 +18464,7 @@
       "2.1",
       "XL",
       "Timings",
-      "Chokepoints",
+      "Unbalanced",
       "Nerve Control",
       "Duals"
     ],
