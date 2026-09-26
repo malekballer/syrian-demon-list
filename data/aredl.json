@@ -5939,6 +5939,7 @@
       "Long",
       "Fast-Paced",
       "Chokepoints",
+      "Unbalanced",
       "High CPS",
       "Wave"
     ],
@@ -18128,9 +18129,10 @@
     "tags": [
       "2.1",
       "Long",
-      "Wave",
       "Timings",
-      "Nerve Control"
+      "Unbalanced",
+      "Nerve Control",
+      "Wave"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/88943354.webp"
   },
