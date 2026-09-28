@@ -801,8 +801,21 @@
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/96314787.webp"
   },
-  "120255728": {
+  "114990369": {
     "rank": 68,
+    "tags": [
+      "2.2",
+      "Long",
+      "NONG",
+      "Clicksync",
+      "Timings",
+      "Learny",
+      "High CPS"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/114990369.webp"
+  },
+  "120255728": {
+    "rank": 69,
     "tags": [
       "2.2",
       "Long",
@@ -814,7 +827,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/120255728.webp"
   },
   "83244159": {
-    "rank": 69,
+    "rank": 70,
     "tags": [
       "2.1",
       "Long",
@@ -826,7 +839,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/83244159.webp"
   },
   "89187968": {
-    "rank": 70,
+    "rank": 71,
     "tags": [
       "2.1",
       "XL",
@@ -839,7 +852,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/89187968.webp"
   },
   "139508889": {
-    "rank": 71,
+    "rank": 72,
     "tags": [
       "2.2",
       "Long",
@@ -852,7 +865,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/139508889.webp"
   },
   "90390075": {
-    "rank": 72,
+    "rank": 73,
     "tags": [
       "2.1",
       "Long",
@@ -863,7 +876,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/90390075.webp"
   },
   "104232191": {
-    "rank": 73,
+    "rank": 74,
     "tags": [
       "1.9PS",
       "Long",
@@ -873,7 +886,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/104232191.webp"
   },
   "86084399": {
-    "rank": 74,
+    "rank": 75,
     "tags": [
       "2.1",
       "XXL",
@@ -886,19 +899,6 @@
       "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/86084399.webp"
-  },
-  "114990369": {
-    "rank": 75,
-    "tags": [
-      "2.2",
-      "Long",
-      "NONG",
-      "Clicksync",
-      "Timings",
-      "Learny",
-      "High CPS"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/114990369.webp"
   },
   "115860808": {
     "rank": 76,
@@ -2487,6 +2487,7 @@
       "2.1",
       "Medium",
       "Timings",
+      "Unbalanced",
       "Nerve Control",
       "Wave"
     ],
