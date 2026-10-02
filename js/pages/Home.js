@@ -333,18 +333,18 @@ export default {
                         </a>
 
                         <!-- 3. The Arab AREDL Partner Card -->
-                        <a href="https://arab.sparked.network/#/" target="_blank" style="text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(185,167,121,0.2); border-radius: 14px; padding: 1.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; transition: transform 0.2s, border-color 0.2s;" onmouseenter="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(185,167,121,0.5)'" onmouseleave="this.style.transform='translateY(0)'; this.style.borderColor='rgba(185,167,121,0.2)'">
+                        <a href="https://the-arab-aredl.onrender.com/#/" target="_blank" style="text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(185,167,121,0.2); border-radius: 14px; padding: 1.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; transition: transform 0.2s, border-color 0.2s;" onmouseenter="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(185,167,121,0.5)'" onmouseleave="this.style.transform='translateY(0)'; this.style.borderColor='rgba(185,167,121,0.2)'">
                             <div style="height: 56px; display: flex; align-items: center; justify-content: center;">
                                 <img 
-                                    src="https://arab.sparked.network/assets/demon.png" 
-                                    @error="$event.target.src='https://arab.sparked.network/assets/demon.png'" 
+                                    src="https://the-arab-aredl.onrender.com/assets/demon.png" 
+                                    @error="$event.target.src='https://the-arab-aredl.onrender.com/assets/demon.png'" 
                                     alt="The Arab AREDL Logo" 
                                     style="max-height: 48px; width: auto; object-fit: contain; filter: brightness(0) invert(1);" 
                                 />
                             </div>
                             <div>
                                 <span style="display: block; font-family: 'Lexend Deca', sans-serif; font-weight: 800; font-size: 1rem; color: #edebe0;">The Arab AREDL</span>
-                                <span style="font-family: 'Lexend Deca', sans-serif; font-size: 0.75rem; opacity: 0.6; color: #edebe0;">Ideas & Features</span>
+                                <span style="font-family: 'Lexend Deca', sans-serif; font-size: 0.75rem; opacity: 0.6; color: #edebe0;">Ideas & Features (owned by SDL)</span>
                             </div>
                         </a>
                     </div>
