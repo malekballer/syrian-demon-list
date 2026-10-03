@@ -1,0 +1,17 @@
+{
+    "id": 131768174,
+    "name": "I Cry",
+    "author": "GrenadeofTacos",
+    "creators": ["GrenadeofTacos"],
+    "verifier": "GrenadeofTacos",
+    "verification": "https://youtu.be/hPgA3exJrjM",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "orqng3",
+            "link": "https://youtu.be/hPgA3exJrjM",
+            "percent": 100
+        }
+    ]
+}
