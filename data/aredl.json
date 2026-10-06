@@ -2200,11 +2200,12 @@
       "1.9PS",
       "XL",
       "NONG",
-      "Overall",
+      "Timings",
       "Nerve Control",
       "Cube",
       "Ship",
-      "Ball"
+      "Ball",
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/95767653.webp"
   },
@@ -3409,6 +3410,7 @@
       "2.1",
       "XXL",
       "NONG",
+      "Clicksync",
       "Timings",
       "Nerve Control",
       "Cube",
@@ -5998,14 +6000,15 @@
   "118515795": {
     "rank": 485,
     "tags": [
-      "NONG",
       "2.2",
       "XL",
+      "NONG",
+      "Clicksync",
+      "Fast-Paced",
       "Timings",
       "Chokepoints",
+      "Unbalanced",
       "High CPS",
-      "Fast-Paced",
-      "Clicksync",
       "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/118515795.webp"
