@@ -9,7 +9,7 @@
     "easierId": "136135870",
     "harder": null,
     "harderId": null,
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_Trickshot",
@@ -21,7 +21,7 @@
     "easierId": "65588448",
     "harder": "LIMBO",
     "harderId": "86084399",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_Fragile",
@@ -33,7 +33,7 @@
     "easierId": "88611404",
     "harder": "Trickshot",
     "harderId": "136135870",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_NEUTRA",
@@ -45,7 +45,7 @@
     "easierId": "110913375",
     "harder": "Fragile",
     "harderId": "65588448",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_JudgementKnights",
@@ -53,371 +53,384 @@
     "levelName": "Judgement Knights",
     "levelId": "110913375",
     "position": 5,
-    "easier": "Thinking Space",
-    "easierId": "54953085",
+    "easier": "Gooberragestage",
+    "easierId": "Gooberragestage",
     "harder": "NEUTRA",
     "harderId": "88611404",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
+  },
+  {
+    "id": "seed_Gooberragestage",
+    "type": "placed",
+    "levelName": "Gooberragestage",
+    "levelId": "Gooberragestage",
+    "position": 6,
+    "easier": "Thinking Space",
+    "easierId": "54953085",
+    "harder": "Judgement Knights",
+    "harderId": "110913375",
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_ThinkingSpace",
     "type": "placed",
     "levelName": "Thinking Space",
     "levelId": "54953085",
-    "position": 6,
+    "position": 7,
     "easier": "Cognition",
     "easierId": "57600307",
-    "harder": "Judgement Knights",
-    "harderId": "110913375",
-    "date": "2026-10-08T17:18:24.559Z"
+    "harder": "Gooberragestage",
+    "harderId": "Gooberragestage",
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_Cognition",
     "type": "placed",
     "levelName": "Cognition",
     "levelId": "57600307",
-    "position": 7,
+    "position": 8,
     "easier": "RUST",
     "easierId": "71912451",
     "harder": "Thinking Space",
     "harderId": "54953085",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_RUST",
     "type": "placed",
     "levelName": "RUST",
     "levelId": "71912451",
-    "position": 8,
+    "position": 9,
     "easier": "Bloodlust",
     "easierId": "42584142",
     "harder": "Cognition",
     "harderId": "57600307",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_Bloodlust",
     "type": "placed",
     "levelName": "Bloodlust",
     "levelId": "42584142",
-    "position": 9,
+    "position": 10,
     "easier": "Jesse Pinkman",
     "easierId": "79918576",
     "harder": "RUST",
     "harderId": "71912451",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_JessePinkman",
     "type": "placed",
     "levelName": "Jesse Pinkman",
     "levelId": "79918576",
-    "position": 10,
+    "position": 11,
     "easier": "CITRA",
     "easierId": "80966089",
     "harder": "Bloodlust",
     "harderId": "42584142",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_CITRA",
     "type": "placed",
     "levelName": "CITRA",
     "levelId": "80966089",
-    "position": 11,
+    "position": 12,
     "easier": "Nhelv",
     "easierId": "68353244",
     "harder": "Jesse Pinkman",
     "harderId": "79918576",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_Nhelv",
     "type": "placed",
     "levelName": "Nhelv",
     "levelId": "68353244",
-    "position": 12,
+    "position": 13,
     "easier": "kowareta",
     "easierId": "46763581",
     "harder": "CITRA",
     "harderId": "80966089",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_kowareta",
     "type": "placed",
     "levelName": "kowareta",
     "levelId": "46763581",
-    "position": 13,
+    "position": 14,
     "easier": "The Yandere",
     "easierId": "54615662",
     "harder": "Nhelv",
     "harderId": "68353244",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_TheYandere",
     "type": "placed",
     "levelName": "The Yandere",
     "levelId": "54615662",
-    "position": 14,
+    "position": 15,
     "easier": "Spectrum Cyclone",
     "easierId": "59209010",
     "harder": "kowareta",
     "harderId": "46763581",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_SpectrumCyclone",
     "type": "placed",
     "levelName": "Spectrum Cyclone",
     "levelId": "59209010",
-    "position": 15,
+    "position": 16,
     "easier": "Wasureta",
     "easierId": "64658786",
     "harder": "The Yandere",
     "harderId": "54615662",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_Wasureta",
     "type": "placed",
     "levelName": "Wasureta",
     "levelId": "64658786",
-    "position": 16,
+    "position": 17,
     "easier": "Sink",
     "easierId": "77255632",
     "harder": "Spectrum Cyclone",
     "harderId": "59209010",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_Sink",
     "type": "placed",
     "levelName": "Sink",
     "levelId": "77255632",
-    "position": 17,
+    "position": 18,
     "easier": "Sonic Wave",
     "easierId": "26681070",
     "harder": "Wasureta",
     "harderId": "64658786",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_SonicWave",
     "type": "placed",
     "levelName": "Sonic Wave",
     "levelId": "26681070",
-    "position": 18,
+    "position": 19,
     "easier": "Kuzureta",
     "easierId": "71216292",
     "harder": "Sink",
     "harderId": "77255632",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_Kuzureta",
     "type": "placed",
     "levelName": "Kuzureta",
     "levelId": "71216292",
-    "position": 19,
+    "position": 20,
     "easier": "Golden Flare",
     "easierId": "91071815",
     "harder": "Sonic Wave",
     "harderId": "26681070",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_GoldenFlare",
     "type": "placed",
     "levelName": "Golden Flare",
     "levelId": "91071815",
-    "position": 20,
+    "position": 21,
     "easier": "Molten Core",
     "easierId": "68414488",
     "harder": "Kuzureta",
     "harderId": "71216292",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_MoltenCore",
     "type": "placed",
     "levelName": "Molten Core",
     "levelId": "68414488",
-    "position": 21,
+    "position": 22,
     "easier": "Friday Vortex",
     "easierId": "69871779",
     "harder": "Golden Flare",
     "harderId": "91071815",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_FridayVortex",
     "type": "placed",
     "levelName": "Friday Vortex",
     "levelId": "69871779",
-    "position": 22,
+    "position": 23,
     "easier": "GONER",
     "easierId": "77310650",
     "harder": "Molten Core",
     "harderId": "68414488",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_GONER",
     "type": "placed",
     "levelName": "GONER",
     "levelId": "77310650",
-    "position": 23,
+    "position": 24,
     "easier": "Thunderzone",
     "easierId": "63858842",
     "harder": "Friday Vortex",
     "harderId": "69871779",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_Thunderzone",
     "type": "placed",
     "levelName": "Thunderzone",
     "levelId": "63858842",
-    "position": 24,
+    "position": 25,
     "easier": "Titan Complex",
     "easierId": "44022701",
     "harder": "GONER",
     "harderId": "77310650",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_TitanComplex",
     "type": "placed",
     "levelName": "Titan Complex",
     "levelId": "44022701",
-    "position": 25,
+    "position": 26,
     "easier": "Lucid Chaos",
     "easierId": "62817170",
     "harder": "Thunderzone",
     "harderId": "63858842",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_LucidChaos",
     "type": "placed",
     "levelName": "Lucid Chaos",
     "levelId": "62817170",
-    "position": 26,
+    "position": 27,
     "easier": "FIREPOWER",
     "easierId": "89876243",
     "harder": "Titan Complex",
     "harderId": "44022701",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_FIREPOWER",
     "type": "placed",
     "levelName": "FIREPOWER",
     "levelId": "89876243",
-    "position": 27,
+    "position": 28,
     "easier": "GREFG",
     "easierId": "134430850",
     "harder": "Lucid Chaos",
     "harderId": "62817170",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_GREFG",
     "type": "placed",
     "levelName": "GREFG",
     "levelId": "134430850",
-    "position": 28,
+    "position": 29,
     "easier": "Killbot",
     "easierId": "38754426",
     "harder": "FIREPOWER",
     "harderId": "89876243",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_Killbot",
     "type": "placed",
     "levelName": "Killbot",
     "levelId": "38754426",
-    "position": 29,
+    "position": 30,
     "easier": "Delta Interface",
     "easierId": "45094581",
     "harder": "GREFG",
     "harderId": "134430850",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_DeltaInterface",
     "type": "placed",
     "levelName": "Delta Interface",
     "levelId": "45094581",
-    "position": 30,
+    "position": 31,
     "easier": "Artificial Ascent",
     "easierId": "27122654",
     "harder": "Killbot",
     "harderId": "38754426",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_ArtificialAscent",
     "type": "placed",
     "levelName": "Artificial Ascent",
     "levelId": "27122654",
-    "position": 31,
+    "position": 32,
     "easier": "I Cry",
     "easierId": "131768174",
     "harder": "Delta Interface",
     "harderId": "45094581",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_icry",
     "type": "placed",
     "levelName": "I Cry",
     "levelId": "131768174",
-    "position": 32,
+    "position": 33,
     "easier": "Bete Noire",
     "easierId": "95255152",
     "harder": "Artificial Ascent",
     "harderId": "27122654",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_BeteNoire",
     "type": "placed",
     "levelName": "Bete Noire",
     "levelId": "95255152",
-    "position": 33,
+    "position": 34,
     "easier": "Black Flag",
     "easierId": "79006927",
     "harder": "I Cry",
     "harderId": "131768174",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
     "id": "seed_BlackFlag",
     "type": "placed",
     "levelName": "Black Flag",
     "levelId": "79006927",
-    "position": 34,
+    "position": 35,
     "easier": "Black Blizzard",
     "easierId": "34057654",
     "harder": "Bete Noire",
     "harderId": "95255152",
-    "date": "2026-10-08T17:18:24.559Z"
+    "date": "2026-10-09T22:21:51.577Z"
   },
   {
-    "id": "seed_BlackBlizzard",
+    "id": "7ea35de_Gooberragestage",
     "type": "placed",
-    "levelName": "Black Blizzard",
-    "levelId": "34057654",
-    "position": 35,
-    "easier": "Bausha Vortex",
-    "easierId": "30380566",
-    "harder": "Black Flag",
-    "harderId": "79006927",
-    "date": "2026-10-08T17:18:24.559Z"
+    "levelName": "Gooberragestage",
+    "levelId": "Gooberragestage",
+    "position": 6,
+    "oldPosition": null,
+    "easier": "Thinking Space",
+    "easierId": "54953085",
+    "harder": "Judgement Knights",
+    "harderId": "110913375",
+    "date": "2026-10-10 02:21:41 +0400"
   },
   {
     "id": "959e0ba_ExtremeMemoryMix",
@@ -551,26 +564,5 @@
     "levelId": "LIMBO66",
     "position": null,
     "date": "2026-09-09 21:54:42 +0200"
-  },
-  {
-    "id": "a9a202d_LIMBO66",
-    "type": "placed",
-    "levelName": "LIMBO66",
-    "levelId": "LIMBO66",
-    "position": 8,
-    "oldPosition": null,
-    "easier": "Bloodlust",
-    "easierId": "42584142",
-    "harder": "RUST",
-    "harderId": "71912451",
-    "date": "2026-09-05 15:03:54 +0300"
-  },
-  {
-    "id": "a9a202d_rem_LIMBO 66%",
-    "type": "removed",
-    "levelName": "LIMBO 66%",
-    "levelId": "LIMBO 66%",
-    "position": null,
-    "date": "2026-09-05 15:03:54 +0300"
   }
 ]
