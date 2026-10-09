@@ -1,0 +1,17 @@
+{
+    "id": 130183035,
+    "name": "Goober Rage Stage",
+    "author": "bonscarrot",
+    "creators": ["bonscarrot"],
+    "verifier": "trenbabypaleo",
+    "verification": "https://youtu.be/exLVIyXriYA?si=rLRQVHxmCS_x2b-y",
+    "percentToQualify": 100,
+    "password": "46290",
+    "records": [
+        {
+            "user": "Detix",
+            "link": "https://youtu.be/exLVIyXriYA?si=rLRQVHxmCS_x2b-y",
+            "percent": 100
+        }
+    ]
+}
