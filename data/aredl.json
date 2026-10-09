@@ -1161,18 +1161,8 @@
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/105593215.webp"
   },
-  "125788781": {
-    "rank": 96,
-    "tags": [
-      "2.2",
-      "Long",
-      "Timings",
-      "Chokepoints"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/125788781.webp"
-  },
   "82249742": {
-    "rank": 97,
+    "rank": 96,
     "tags": [
       "2.1",
       "XXL+",
@@ -1183,7 +1173,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/82249742.webp"
   },
   "122941596": {
-    "rank": 98,
+    "rank": 97,
     "tags": [
       "2.2",
       "Long",
@@ -1195,7 +1185,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/122941596.webp"
   },
   "136135870": {
-    "rank": 99,
+    "rank": 98,
     "tags": [
       "2.2",
       "Long",
@@ -1206,7 +1196,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/136135870.webp"
   },
   "96083028": {
-    "rank": 100,
+    "rank": 99,
     "tags": [
       "2.1",
       "Long",
@@ -1233,7 +1223,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/133489881.webp"
   },
   "93340783": {
-    "rank": 102,
+    "rank": 101,
     "tags": [
       "2.1",
       "Long",
@@ -1244,7 +1234,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/93340783.webp"
   },
   "103925676": {
-    "rank": 103,
+    "rank": 102,
     "tags": [
       "2.2",
       "XL",
@@ -1258,6 +1248,16 @@
       "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/103925676.webp"
+  },
+  "125788781": {
+    "rank": 103,
+    "tags": [
+      "2.2",
+      "Long",
+      "Timings",
+      "Chokepoints"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/125788781.webp"
   },
   "72315402": {
     "rank": 104,
