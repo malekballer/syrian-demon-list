@@ -9,11 +9,9 @@
     "password": "Free Copy",
     "records": [
         {
-            {
-                "user": "glitchinggd",
-                "link": "https://www.youtube.com/watch?v=Zr2mojmP2RU",
-                "percent": 100
-            }
+            "user": "glitchinggd",
+            "link": "https://www.youtube.com/watch?v=Zr2mojmP2RU",
+            "percent": 100
         }
     ]
 }
