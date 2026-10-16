@@ -805,10 +805,18 @@ export default {
                 }
             });
 
-            const { data: dbProfiles } = await supabase
+// 1. Fetch profiles, but filter ONLY for Syrian players:
+            const { data: allProfiles } = await supabase
                 .from('profiles')
                 .select('*');
 
+            const dbProfiles = (allProfiles || []).filter(p => {
+                const country = (p.country || '').trim().toLowerCase();
+                // Keeps players whose country is "syria" OR who have a Syrian governorate (Aleppo, Damascus, etc.)
+                return country === 'syria' || !!p.governorate;
+            });
+
+            // 2. Keep this part as it was:
             const profileDetails = new Map();
             if (dbProfiles) {
                 dbProfiles.forEach(p => {
