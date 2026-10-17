@@ -335,11 +335,12 @@
     "tags": [
       "2.1",
       "XL",
-      "Slow-Paced",
-      "Overall",
       "Timings",
+      "Chokepoints",
+      "Unbalanced",
+      "Slow-Paced",
       "Wave",
-      "Chokepoints"
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/49896559.webp"
   },
@@ -376,8 +377,9 @@
     "tags": [
       "2.1",
       "Long",
-      "Fast-Paced",
       "Clicksync",
+      "Fast-Paced",
+      "Learny",
       "Flow",
       "Overall"
     ],
@@ -432,9 +434,16 @@
     "tags": [
       "2.1",
       "Long",
+      "NONG",
+      "Fast-Paced",
+      "Timings",
+      "Chokepoints",
       "Unbalanced",
       "Learny",
-      "Gimmicky"
+      "Gimmicky",
+      "Wave",
+      "Old Swing",
+      "Duals"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/48991380.webp"
   },
@@ -751,7 +760,11 @@
     "tags": [
       "2.2",
       "XXL",
+      "Timings",
+      "Chokepoints",
+      "Unbalanced",
       "Nerve Control",
+      "Ship",
       "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/113443235.webp"
@@ -3094,7 +3107,8 @@
     "tags": [
       "2.2",
       "Long",
-      "2P"
+      "2P",
+      "Timings"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/113750365.webp"
   },
@@ -4155,6 +4169,7 @@
       "2P",
       "Clicksync",
       "Timings",
+      "High CPS",
       "Gimmicky"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/112998648.webp"
@@ -4561,7 +4576,11 @@
       "Long",
       "NONG",
       "Clicksync",
+      "Fast-Paced",
+      "Chokepoints",
+      "Unbalanced",
       "High CPS",
+      "Gimmicky",
       "Wave"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/104027821.webp"
@@ -7575,10 +7594,12 @@
       "2.2",
       "Long",
       "Timings",
-      "Ball",
+      "Learny",
+      "High CPS",
       "Robot",
       "Spider",
-      "Duals"
+      "Duals",
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/131087025.webp"
   },
@@ -9490,9 +9511,13 @@
     "tags": [
       "2.2",
       "Long",
+      "NONG",
       "Timings",
+      "Chokepoints",
+      "Unbalanced",
       "Slow-Paced",
-      "Ship"
+      "Ship",
+      "Ball"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/132527895.webp"
   },
@@ -12877,6 +12902,7 @@
       "2.1",
       "Long",
       "Clicksync",
+      "Timings",
       "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/96846935.webp"
@@ -13130,6 +13156,7 @@
       "2.2",
       "Long",
       "Fast-Paced",
+      "Timings",
       "Flow",
       "Wave"
     ],
@@ -13196,6 +13223,7 @@
       "Chokepoints",
       "Unbalanced",
       "Wave",
+      "Old Swing",
       "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/62151546.webp"
@@ -13330,6 +13358,7 @@
     "tags": [
       "2.2",
       "Medium",
+      "NONG",
       "Timings",
       "Chokepoints",
       "Wave"
@@ -14050,7 +14079,6 @@
       "2.1",
       "Long",
       "NONG",
-      "Learny",
       "High CPS",
       "Ship"
     ],
@@ -14440,6 +14468,7 @@
     "tags": [
       "2.2",
       "Long",
+      "Clicksync",
       "Chokepoints",
       "Learny"
     ],
@@ -14642,6 +14671,7 @@
       "NONG",
       "Clicksync",
       "Fast-Paced",
+      "Chokepoints",
       "High CPS",
       "Flow"
     ],
@@ -14652,6 +14682,7 @@
     "tags": [
       "2.2",
       "Medium",
+      "NONG",
       "Timings",
       "Chokepoints",
       "Slow-Paced",
@@ -15287,6 +15318,7 @@
       "2.2",
       "Long",
       "Timings",
+      "Learny",
       "Cube",
       "Robot"
     ],
