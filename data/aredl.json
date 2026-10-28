@@ -257,6 +257,7 @@
       "2.2",
       "XXL",
       "Fast-Paced",
+      "Learny",
       "Nerve Control",
       "Overall"
     ],
@@ -1732,7 +1733,8 @@
       "Timings",
       "Chokepoints",
       "Learny",
-      "High CPS"
+      "High CPS",
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/75286957.webp"
   },
@@ -1800,7 +1802,7 @@
     "rank": 139,
     "tags": [
       "2.2",
-      "XL",
+      "Long",
       "Fast-Paced",
       "Learny",
       "Memory",
@@ -1816,7 +1818,14 @@
     "tags": [
       "2.1",
       "XL",
+      "Timings",
       "Chokepoints",
+      "Unbalanced",
+      "Learny",
+      "Slow-Paced",
+      "Nerve Control",
+      "Ship",
+      "Wave",
       "Duals",
       "Overall"
     ],
@@ -12864,8 +12873,9 @@
     "tags": [
       "2.1",
       "XL",
-      "Chokepoints",
       "Timings",
+      "Chokepoints",
+      "Unbalanced",
       "Nerve Control"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/33364327.webp"
