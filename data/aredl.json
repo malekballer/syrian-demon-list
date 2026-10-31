@@ -649,8 +649,20 @@
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/113322063.webp"
   },
-  "49072489": {
+  "75206202": {
     "rank": 52,
+    "tags": [
+      "2.1",
+      "XL",
+      "Fast-Paced",
+      "Timings",
+      "Nerve Control",
+      "Overall"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/75206202.webp"
+  },
+  "49072489": {
+    "rank": 53,
     "tags": [
       "2.1",
       "Long",
@@ -666,18 +678,6 @@
       "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/49072489.webp"
-  },
-  "75206202": {
-    "rank": 53,
-    "tags": [
-      "2.1",
-      "XL",
-      "Fast-Paced",
-      "Timings",
-      "Nerve Control",
-      "Overall"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/75206202.webp"
   },
   "109439644": {
     "rank": 54,
@@ -1057,18 +1057,6 @@
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/115860808.webp"
   },
-  "94969889": {
-    "rank": 81,
-    "tags": [
-      "2.1",
-      "Long",
-      "Fast-Paced",
-      "Timings",
-      "High CPS",
-      "Overall"
-    ],
-    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/94969889.webp"
-  },
   "62556400": {
     "rank": 1054,
     "tags": [
@@ -1082,7 +1070,7 @@
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/62556400.webp"
   },
   "113256247": {
-    "rank": 83,
+    "rank": 82,
     "tags": [
       "2.2",
       "XL",
@@ -1096,6 +1084,18 @@
       "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/113256247.webp"
+  },
+  "94969889": {
+    "rank": 83,
+    "tags": [
+      "2.1",
+      "Long",
+      "Fast-Paced",
+      "Timings",
+      "High CPS",
+      "Overall"
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/94969889.webp"
   },
   "82544060": {
     "rank": 84,
