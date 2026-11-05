@@ -1,1 +1,17 @@
-
+{
+    "id": 94410319,
+    "name": "Ouroboros Startpos 2",
+    "author": "Indonesia",
+    "creators": ["Indonesia"],
+    "verifier": "Indonesia",
+    "verification": "https://www.youtube.com/watch?feature=shared&v=7beWkdEPGhE",
+    "percentToQualify": 100,
+    "password": "Free Copy",
+    "records": [
+        {
+            "user": "HMDAS",
+            "link": "https://www.youtube.com/watch?feature=shared&v=7beWkdEPGhE",
+            "percent": 100
+        }
+    ]
+}
