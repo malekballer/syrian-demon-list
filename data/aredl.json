@@ -50,6 +50,7 @@
       "Long",
       "Timings",
       "Chokepoints",
+      "Unbalanced",
       "High CPS",
       "Nerve Control",
       "Ship",
@@ -131,9 +132,10 @@
     "tags": [
       "2.2",
       "Long",
-      "Robot",
       "Timings",
-      "Learny"
+      "Learny",
+      "Slow-Paced",
+      "Robot"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/109780665.webp"
   },
@@ -145,6 +147,7 @@
       "Timings",
       "Learny",
       "Gimmicky",
+      "Slow-Paced",
       "Wave"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/117692518.webp"
