@@ -4625,10 +4625,12 @@
     "tags": [
       "1.9PS",
       "XL",
-      "Wave",
-      "Duals",
       "Fast-Paced",
-      "Ship"
+      "Chokepoints",
+      "Unbalanced",
+      "Ship",
+      "Wave",
+      "Duals"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/64766514.webp"
   },
@@ -6195,6 +6197,7 @@
     "tags": [
       "2.2",
       "Long",
+      "Chokepoints",
       "Unbalanced",
       "Wave"
     ],
@@ -6912,6 +6915,7 @@
       "2.1",
       "Long",
       "Timings",
+      "Slow-Paced",
       "Wave"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/95314059.webp"
@@ -8373,6 +8377,7 @@
       "XXL",
       "Clicksync",
       "Learny",
+      "High CPS",
       "Gimmicky",
       "Bossfight",
       "Nerve Control"
@@ -8996,6 +9001,7 @@
       "2.1",
       "Long",
       "Timings",
+      "Chokepoints",
       "Ship",
       "Wave"
     ],
@@ -9133,7 +9139,11 @@
     "rank": 705,
     "tags": [
       "2.2",
-      "Long"
+      "Long",
+      "Timings",
+      "Chokepoints",
+      "Learny",
+      "Ship"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/116089123.webp"
   },
@@ -9232,13 +9242,10 @@
       "2.2",
       "Long",
       "Clicksync",
-      "Fast-Paced",
       "Timings",
+      "Chokepoints",
       "Learny",
       "Flow",
-      "Cube",
-      "UFO",
-      "Robot",
       "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/120416900.webp"
@@ -9553,6 +9560,7 @@
       "XL",
       "NONG",
       "Timings",
+      "High CPS",
       "Slow-Paced",
       "Nerve Control"
     ],
@@ -9641,9 +9649,10 @@
     "tags": [
       "2.1",
       "Long",
-      "Overall",
       "Fast-Paced",
-      "Bossfight"
+      "Chokepoints",
+      "Bossfight",
+      "Overall"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/38234257.webp"
   },
@@ -10915,7 +10924,6 @@
       "2.2",
       "Long",
       "Timings",
-      "Chokepoints",
       "Learny"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/125658310.webp"
@@ -13213,6 +13221,7 @@
       "Clicksync",
       "Timings",
       "Learny",
+      "High CPS",
       "New Swing"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/111351512.webp"
@@ -16012,7 +16021,8 @@
     "rank": 1278,
     "tags": [
       "2.2",
-      "XL"
+      "XL",
+      "Chokepoints"
     ],
     "thumbnail": "https://raw.githubusercontent.com/All-Rated-Extreme-Demon-List/Thumbnails/main/levels/full/134325158.webp"
   },
@@ -16097,6 +16107,7 @@
       "Long",
       "Clicksync",
       "Timings",
+      "Chokepoints",
       "Unbalanced",
       "Duals"
     ],
